@@ -13,7 +13,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-storage-compat.js"></script>
 
     <style>
-        /* সম্পূর্ণ স্টাইল আগের মতই থাকবে */
+        /* সম্পূর্ণ স্টাইল আগের মতই, শুধু আইকন স্টাইল এবং নোটিফিকেশন বাটনের জন্য কিছু পরিবর্তন */
         :root {
             --primary-color: #1a237e;
             --secondary-color: #3949ab;
@@ -229,22 +229,6 @@
             opacity: 0.8;
         }
 
-        .digital-clock {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(5px);
-            white-space: nowrap;
-        }
-        .digital-clock i {
-            margin-right: 8px;
-            color: #ffd700;
-        }
-
         .admin-controls {
             display: flex;
             align-items: center;
@@ -297,7 +281,7 @@
             opacity: 0.8;
         }
 
-        /* Notification Container */
+        /* Notification Container - Updated */
         .notification-container {
             position: relative;
             display: flex;
@@ -323,23 +307,13 @@
         }
 
         .notification-bell.sound-on {
-            color: var(--primary-color);
+            color: var(--primary-color); /* নীল যখন সাউন্ড অন */
             background-color: rgba(255, 255, 255, 0.9);
         }
 
         .notification-bell.sound-off {
-            color: var(--danger-color);
+            color: var(--danger-color); /* লাল যখন সাউন্ড অফ */
             background-color: rgba(255, 255, 255, 0.9);
-        }
-
-        .notification-bell.sound-looping {
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
         }
 
         .notification-bell:hover {
@@ -463,42 +437,24 @@
             font-weight: 500;
         }
 
-        .section-icon {
-            position: relative;
-            display: inline-block;
-        }
-
+        /* আইকনের নতুন স্টাইল */
         .section-icon i {
             font-size: 28px;
             display: block;
             margin-bottom: 5px;
         }
 
-        .section-icon-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: var(--danger-color);
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 11px;
-            font-weight: bold;
-            min-width: 18px;
-            text-align: center;
-            border: 2px solid white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
+        /* আইকন কালার */
         #dashboardItem .section-icon i { color: #f44336; }
         #usersItem .section-icon i { color: #2196F3; }
-        #noticeItem .section-icon i { color: #4CAF50; }
+        #popupNoticeItem .section-icon i { color: #FF9800; }
+        #marqueeNoticeItem .section-icon i { color: #4CAF50; }
         #createUserItem .section-icon i { color: #9C27B0; }
         #ordersItem .section-icon i { color: #FF5722; }
         #driveOffersItem .section-icon i { color: #00BCD4; }
         #sliderImagesItem .section-icon i { color: #E91E63; }
         #settingsItem .section-icon i { color: #607D8B; }
-        #commissionSettingsItem .section-icon i { color: #8BC34A; }
+        #commissionSettingsItem .section-icon i { color: #8BC34A; } /* নতুন কমিশন আইকনের রঙ */
         #adminManagementItem .section-icon i { color: #795548; }
         #dataManagementItem .section-icon i { color: #FF9800; }
         #otherLinksItem .section-icon i { color: #9C27B0; }
@@ -591,16 +547,6 @@
 
         .btn-warning:hover {
             background: #F57C00;
-            transform: translateY(-2px);
-        }
-
-        .btn-info {
-            background: #00acc1;
-            color: var(--white);
-        }
-
-        .btn-info:hover {
-            background: #00838f;
             transform: translateY(-2px);
         }
 
@@ -979,61 +925,6 @@
             color: white;
         }
 
-        /* Data Cleanup Status */
-        .cleanup-status {
-            background: #e8f5e9;
-            border-radius: 10px;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 4px solid var(--success-color);
-        }
-
-        .cleanup-status i {
-            color: var(--success-color);
-            font-size: 20px;
-        }
-
-        .cleanup-status span {
-            color: var(--text-dark);
-            font-size: 13px;
-        }
-
-        .cleanup-status .badge {
-            background: var(--primary-color);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            margin-left: 10px;
-        }
-
-        /* Copyable Number */
-        .copyable-number {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: #f0f0f0;
-            padding: 4px 12px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid var(--border-color);
-        }
-        .copyable-number:hover {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        .copyable-number i {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .header-content {
@@ -1108,287 +999,6 @@
         .p-20 { padding: 20px; }
         .w-100 { width: 100%; }
         .d-none { display: none; }
-
-        /* Other Links */
-        .other-link-card {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--primary-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .other-link-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .other-link-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-
-        .other-link-details {
-            flex: 1;
-        }
-
-        .other-link-name {
-            font-weight: bold;
-            color: var(--text-dark);
-            margin-bottom: 5px;
-        }
-
-        .other-link-url {
-            color: var(--primary-color);
-            font-size: 12px;
-            word-break: break-all;
-        }
-
-        .other-link-status {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        .other-link-active {
-            background: #e8f5e9;
-            color: var(--success-color);
-        }
-
-        .other-link-inactive {
-            background: #ffebee;
-            color: var(--danger-color);
-        }
-
-        .other-link-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        @media (max-width: 768px) {
-            .other-link-card {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .other-link-actions {
-                width: 100%;
-                justify-content: flex-end;
-            }
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .profile-image-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .profile-image-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s;
-            cursor: pointer;
-        }
-
-        .profile-image-container:hover .profile-image-overlay {
-            opacity: 1;
-        }
-
-        /* Drive Offers Grid Styles */
-        .offers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .offer-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: relative;
-            transition: all 0.3s;
-            border: 1px solid var(--border-color);
-        }
-
-        .offer-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-
-        .offer-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--danger-color);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .offer-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            padding-right: 60px;
-        }
-
-        .price-container {
-            margin-bottom: 15px;
-        }
-
-        .original-price {
-            font-size: 14px;
-            color: var(--text-light);
-            text-decoration: line-through;
-            margin-right: 10px;
-        }
-
-        .offer-price {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--success-color);
-        }
-
-        .offer-description {
-            color: var(--text-dark);
-            font-size: 13px;
-            margin-bottom: 15px;
-            padding: 10px 0;
-            border-top: 1px dashed var(--border-color);
-            border-bottom: 1px dashed var(--border-color);
-        }
-
-        .offer-details {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-light);
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-
-        .offer-details i {
-            margin-right: 5px;
-        }
-
-        .offer-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .offer-actions .btn {
-            flex: 1;
-            padding: 8px;
-            font-size: 12px;
-        }
-
-        .popup-notice {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .popup-content {
-            background: white;
-            max-width: 400px;
-            width: 90%;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: slideUp 0.3s ease;
-        }
-
-        .popup-header {
-            background: var(--primary-color);
-            color: white;
-            padding: 15px 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .popup-body {
-            padding: 25px 20px;
-            color: var(--text-dark);
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        .popup-footer {
-            padding: 15px 20px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-        
-        /* Balance History Styles */
-        .balance-history {
-            font-size: 12px;
-            color: var(--text-light);
-            margin-top: 5px;
-            padding: 5px;
-            background: #f8f9fa;
-            border-radius: 4px;
-            border-left: 3px solid var(--primary-color);
-        }
-        
-        .balance-history span {
-            display: block;
-            margin: 2px 0;
-        }
-        
-        .balance-history .previous {
-            color: var(--warning-color);
-        }
-        
-        .balance-history .current {
-            color: var(--success-color);
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -1435,18 +1045,20 @@
                 </div>
                 <div class="brand-text">
                     <h2>ASF Telecom</h2>
-                    <p class="digital-clock"><i class="far fa-calendar-alt"></i> <span id="liveDateTime">লোড হচ্ছে...</span></p>
+                    <p>এডমিন প্যানেল v2.0</p>
                 </div>
             </div>
 
             <div class="admin-controls">
                 <div class="notification-container">
+                    <!-- বেল আইকন - এখন সাউন্ড অন/অফ টগল করবে -->
                     <button id="notificationBell" class="notification-bell" onclick="toggleSoundMute()">
                         <i class="fas fa-bell" id="bellIcon"></i>
                         <i class="fas fa-volume-up" id="volumeIcon" style="font-size: 12px; position: absolute; bottom: 0; right: 0; background: white; border-radius: 50%; padding: 2px; display: none;"></i>
                         <i class="fas fa-volume-mute" id="muteIcon" style="font-size: 12px; position: absolute; bottom: 0; right: 0; background: white; border-radius: 50%; padding: 2px; display: none;"></i>
                         <span id="notificationBadge" class="notification-badge" style="display: none;">0</span>
                     </button>
+                    <!-- সেটিংস আইকন - মোডাল খুলবে -->
                     <button class="notification-settings-icon" onclick="toggleNotificationModal()">
                         <i class="fas fa-cog"></i>
                     </button>
@@ -1471,19 +1083,12 @@
 
     <!-- Main Container - Grid Layout -->
     <div class="main-container">
-        <!-- Data Cleanup Status -->
-        <div class="cleanup-status" id="cleanupStatus">
-            <i class="fas fa-history"></i>
-            <span>শুধুমাত্র গত ৩০ দিনের লেনদেন দেখানো হচ্ছে। পুরনো ডাটা অটো ডিলিট হবে।</span>
-            <span class="badge" id="oldDataCount">0</span>
-        </div>
-
         <div class="sections-list">
             <!-- Dashboard Section -->
             <div class="section-item" id="dashboardItem">
                 <div class="section-header" onclick="toggleSection('dashboard')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-tachometer-alt"></i></span>
+                        <span class="section-icon"><i class="fas fa-tachometer-alt" style="color: #f44336;"></i></span>
                         ড্যাশবোর্ড
                     </h3>
                     <span class="section-toggle">▼</span>
@@ -1505,13 +1110,13 @@
                             <div class="stat-card">
                                 <i class="fas fa-shopping-cart stat-icon"></i>
                                 <div class="stat-number" id="totalOrders">0</div>
-                                <div class="stat-label">সর্বমোট অর্ডার (৩০ দিন)</div>
+                                <div class="stat-label">সর্বমোট অর্ডার</div>
                             </div>
 
                             <div class="stat-card">
                                 <i class="fas fa-money-bill-wave stat-icon"></i>
                                 <div class="stat-number" id="totalRevenue">৳0</div>
-                                <div class="stat-label">সর্বমোট আয় (৩০ দিন)</div>
+                                <div class="stat-label">সর্বমোট আয়</div>
                             </div>
 
                             <div class="stat-card">
@@ -1552,7 +1157,7 @@
                         <!-- Recent Orders -->
                         <div class="card">
                             <div class="card-header">
-                                <h3><i class="fas fa-history"></i> সাম্প্রতিক অর্ডার (৩০ দিন)</h3>
+                                <h3><i class="fas fa-history"></i> সাম্প্রতিক অর্ডার</h3>
                                 <button class="btn btn-primary btn-sm" onclick="toggleSection('orders')">
                                     <i class="fas fa-eye"></i> সব দেখুন
                                 </button>
@@ -1563,7 +1168,7 @@
                                         <tr>
                                             <th>ইউজার</th>
                                             <th>সার্ভিস</th>
-                                            <th>নম্বর/বিবরণ</th>
+                                            <th>নম্বর</th>
                                             <th>টাকা</th>
                                             <th>স্ট্যাটাস</th>
                                         </tr>
@@ -1584,7 +1189,7 @@
             <div class="section-item" id="usersItem">
                 <div class="section-header" onclick="toggleSection('users')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-users"></i></span>
+                        <span class="section-icon"><i class="fas fa-users" style="color: #2196F3;"></i></span>
                         সকল ইউজার
                     </h3>
                     <span class="section-toggle">▼</span>
@@ -1638,71 +1243,98 @@
                 </div>
             </div>
 
-            <!-- সমন্বিত নোটিশ সেকশন (পপআপ + চলন্ত) -->
-            <div class="section-item" id="noticeItem">
-                <div class="section-header" onclick="toggleSection('notice')">
+            <!-- Popup Notice Section -->
+            <div class="section-item" id="popupNoticeItem">
+                <div class="section-header" onclick="toggleSection('popupNotice')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-bullhorn"></i></span>
-                        নোটিশ
+                        <span class="section-icon"><i class="fas fa-bell" style="color: #FF9800;"></i></span>
+                        পপআপ নোটিশ
                     </h3>
                     <span class="section-toggle">▼</span>
                 </div>
-                <div class="section-content" id="noticeContent">
+                <div class="section-content" id="popupNoticeContent">
                     <div class="section-inner">
                         <div class="section-title">
-                            <i class="fas fa-bullhorn"></i> নোটিশ সেটিংস
+                            <i class="fas fa-bell"></i> পপআপ নোটিশ
                         </div>
 
                         <div class="card">
-                            <div class="alert" id="noticeAlert"></div>
+                            <div class="alert" id="popupNoticeAlert"></div>
 
-                            <h3 class="mb-20"><i class="fas fa-scroll"></i> চলন্ত নোটিশ (মার্কি)</h3>
                             <div class="form-group">
-                                <label class="form-label">মেসেজ</label>
-                                <textarea id="marqueeMessage" class="form-control" rows="2" placeholder="চলন্ত নোটিশের মেসেজ লিখুন"></textarea>
+                                <label class="form-label">নোটিশ টাইটেল</label>
+                                <input type="text" id="popupTitle" class="form-control" placeholder="নোটিশের শিরোনাম">
                             </div>
+
+                            <div class="form-group">
+                                <label class="form-label">নোটিশ মেসেজ</label>
+                                <textarea id="popupMessage" class="form-control" rows="4" placeholder="নোটিশের বিস্তারিত"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">লিংক (ঐচ্ছিক)</label>
+                                <input type="text" id="popupLink" class="form-control" placeholder="https://example.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">স্ট্যাটাস</label>
+                                <select id="popupStatus" class="form-control">
+                                    <option value="active">একটিভ</option>
+                                    <option value="inactive">ইনএকটিভ</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-success w-100" onclick="savePopupNotice()">
+                                <i class="fas fa-save"></i> নোটিশ সংরক্ষণ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marquee Notice Section -->
+            <div class="section-item" id="marqueeNoticeItem">
+                <div class="section-header" onclick="toggleSection('marqueeNotice')">
+                    <h3>
+                        <span class="section-icon"><i class="fas fa-scroll" style="color: #4CAF50;"></i></span>
+                        চলন্ত নোটিশ
+                    </h3>
+                    <span class="section-toggle">▼</span>
+                </div>
+                <div class="section-content" id="marqueeNoticeContent">
+                    <div class="section-inner">
+                        <div class="section-title">
+                            <i class="fas fa-scroll"></i> চলন্ত নোটিশ
+                        </div>
+
+                        <div class="card">
+                            <div class="alert" id="marqueeNoticeAlert"></div>
+
+                            <div class="form-group">
+                                <label class="form-label">নোটিশ মেসেজ</label>
+                                <textarea id="marqueeMessage" class="form-control" rows="3" placeholder="চলন্ত নোটিশ লিখুন"></textarea>
+                            </div>
+
                             <div class="form-row">
                                 <div class="form-col">
                                     <label class="form-label">স্ট্যাটাস</label>
                                     <select id="marqueeStatus" class="form-control">
-                                        <option value="active">সক্রিয়</option>
-                                        <option value="inactive">নিষ্ক্রিয়</option>
+                                        <option value="active">একটিভ</option>
+                                        <option value="inactive">ইনএকটিভ</option>
                                     </select>
                                 </div>
                                 <div class="form-col">
-                                    <label class="form-label">টেক্সটের রঙ</label>
+                                    <label class="form-label">রঙ</label>
                                     <input type="color" id="marqueeColor" class="form-control" value="#1a237e">
                                 </div>
                             </div>
 
-                            <hr class="my-30" style="margin: 30px 0; border-color: var(--border-color);">
-
-                            <h3 class="mb-20"><i class="fas fa-window-maximize"></i> পপআপ নোটিশ (অ্যাপস ওপেনের সময়)</h3>
-                            <div class="form-group">
-                                <label class="form-label">
-                                    <input type="checkbox" id="popupEnabled"> পপআপ নোটিশ সক্রিয় করুন
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">শিরোনাম</label>
-                                <input type="text" id="popupTitle" class="form-control" placeholder="পপআপের শিরোনাম">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">বার্তা</label>
-                                <textarea id="popupMessage" class="form-control" rows="3" placeholder="পপআপের বিস্তারিত বার্তা"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">লিংক (ঐচ্ছিক)</label>
-                                <input type="url" id="popupLink" class="form-control" placeholder="https://example.com">
-                                <small>লিংক দিলে ব্যবহারকারী 'বিস্তারিত' বাটনে ক্লিক করে সেখানে যেতে পারবেন।</small>
-                            </div>
-
-                            <button class="btn btn-success w-100" onclick="saveCombinedNotice()">
-                                <i class="fas fa-save"></i> নোটিশ সংরক্ষণ
+                            <button class="btn btn-success w-100" onclick="saveMarqueeNotice()">
+                                <i class="fas fa-save"></i> সংরক্ষণ
                             </button>
 
                             <div class="mt-30 p-20" style="background: #f8f9fa; border-radius: 10px;">
-                                <h4 style="color: var(--warning-color);"><i class="fas fa-eye"></i> চলন্ত নোটিশ প্রিভিউ</h4>
+                                <h4 style="color: var(--warning-color);"><i class="fas fa-eye"></i> প্রিভিউ</h4>
                                 <div style="background: var(--white); padding: 15px; border-radius: 8px; overflow: hidden;">
                                     <div style="white-space: nowrap; overflow: hidden; animation: marquee 20s linear infinite;">
                                         <i class="fas fa-bullhorn" style="margin-right: 10px; color: #1a237e;"></i>
@@ -1719,7 +1351,7 @@
             <div class="section-item" id="createUserItem">
                 <div class="section-header" onclick="toggleSection('createUser')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-user-plus"></i></span>
+                        <span class="section-icon"><i class="fas fa-user-plus" style="color: #9C27B0;"></i></span>
                         নতুন ইউজার
                     </h3>
                     <span class="section-toggle">▼</span>
@@ -1801,31 +1433,18 @@
             <div class="section-item" id="ordersItem">
                 <div class="section-header" onclick="toggleSection('orders')">
                     <h3>
-                        <span class="section-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span id="ordersIconBadge" class="section-icon-badge" style="display: none;">0</span>
-                        </span>
-                        সকল অর্ডার ও রিকোয়েস্ট
+                        <span class="section-icon"><i class="fas fa-shopping-cart" style="color: #FF5722;"></i></span>
+                        সকল অর্ডার
                     </h3>
                     <span class="section-toggle">▼</span>
                 </div>
                 <div class="section-content" id="ordersContent">
                     <div class="section-inner">
                         <div class="section-title">
-                            <i class="fas fa-shopping-cart"></i> অর্ডার ও রিকোয়েস্ট (গত ৩০ দিন)
+                            <i class="fas fa-shopping-cart"></i> অর্ডার ও রিকোয়েস্ট
                         </div>
 
                         <div class="card">
-                            <div class="cleanup-status" style="margin-bottom: 15px; background: #fff3e0; border-left-color: var(--warning-color); justify-content: space-between;">
-                                <span>
-                                    <i class="fas fa-info-circle" style="color: var(--warning-color);"></i>
-                                    শুধুমাত্র গত ৩০ দিনের তথ্য দেখানো হচ্ছে।
-                                </span>
-                                <span class="total-pending-badge" style="background: var(--danger-color); padding: 5px 15px; border-radius: 30px;">
-                                    <i class="fas fa-bell"></i> পেন্ডিং: <span id="totalPendingCount">0</span>
-                                </span>
-                            </div>
-
                             <div class="section-actions">
                                 <select id="orderFilter" class="form-control" style="width: auto;" onchange="loadAllOrders()">
                                     <option value="all">সকল অর্ডার</option>
@@ -1833,7 +1452,6 @@
                                     <option value="Success">সফল</option>
                                     <option value="Cancelled">বাতিল</option>
                                     <option value="balance">ব্যালেন্স রিকোয়েস্ট</option>
-                                    <option value="drive">ড্রাইভ অফার রিকোয়েস্ট</option>
                                 </select>
                                 <button class="btn btn-primary" onclick="loadAllOrders()">
                                     <i class="fas fa-sync-alt"></i> রিফ্রেশ
@@ -1848,38 +1466,10 @@
                                                 <th>ট্রানজেকশন</th>
                                                 <th>ইউজার</th>
                                                 <th>সার্ভিস</th>
-                                                <th>প্রেরক/রিসিভার</th>
+                                                <th>নম্বর</th>
                                                 <th>টাকা</th>
                                                 <th>স্ট্যাটাস</th>
-                                                <th>আগের ব্যালেন্স</th>
-                                                <th>বর্তমান ব্যালেন্স</th>
                                                 <th>তারিখ</th>
-                                                <th>একশন</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td colspan="10" class="text-center">লোড হচ্ছে...</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div id="balanceRequestsContainer" style="display: none;">
-                                <h4 class="mb-20"><i class="fas fa-money-bill-wave"></i> ব্যালেন্স রিকোয়েস্ট (গত ৩০ দিন)</h4>
-                                <div class="alert" id="balanceRequestsAlert"></div>
-                                <div class="table-responsive">
-                                    <table class="data-table" id="balanceRequestsTable">
-                                        <thead>
-                                            <tr>
-                                                <th>ইউজার</th>
-                                                <th>মোবাইল</th>
-                                                <th>পরিমাণ</th>
-                                                <th>পদ্ধতি</th>
-                                                <th>ট্রানজেকশন আইডি</th>
-                                                <th>তারিখ</th>
-                                                <th>স্ট্যাটাস</th>
                                                 <th>একশন</th>
                                             </tr>
                                         </thead>
@@ -1892,19 +1482,18 @@
                                 </div>
                             </div>
 
-                            <div id="driveRequestsContainer" style="display: none;">
-                                <h4 class="mb-20"><i class="fas fa-truck"></i> ড্রাইভ অফার রিকোয়েস্ট (গত ৩০ দিন)</h4>
-                                <div class="alert" id="driveRequestsAlert"></div>
+                            <div id="balanceRequestsContainer" style="display: none;">
+                                <h4 class="mb-20"><i class="fas fa-money-bill-wave"></i> ব্যালেন্স রিকোয়েস্ট</h4>
+                                <div class="alert" id="balanceRequestsAlert"></div>
                                 <div class="table-responsive">
-                                    <table class="data-table" id="driveRequestsTable">
+                                    <table class="data-table" id="balanceRequestsTable">
                                         <thead>
                                             <tr>
                                                 <th>ইউজার</th>
                                                 <th>মোবাইল</th>
-                                                <th>অফার টাইটেল</th>
                                                 <th>পরিমাণ</th>
-                                                <th>প্রেরক নম্বর</th>
-                                                <th>রিসিভার নম্বর</th>
+                                                <th>পদ্ধতি</th>
+                                                <th>ট্রানজেকশন</th>
                                                 <th>তারিখ</th>
                                                 <th>স্ট্যাটাস</th>
                                                 <th>একশন</th>
@@ -1912,7 +1501,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td colspan="9" class="text-center">লোড হচ্ছে...</td>
+                                                <td colspan="8" class="text-center">লোড হচ্ছে...</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1927,7 +1516,7 @@
             <div class="section-item" id="driveOffersItem">
                 <div class="section-header" onclick="toggleSection('driveOffers')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-bolt"></i></span>
+                        <span class="section-icon"><i class="fas fa-bolt" style="color: #00BCD4;"></i></span>
                         ড্রাইভ অফার
                     </h3>
                     <span class="section-toggle">▼</span>
@@ -1959,7 +1548,7 @@
             <div class="section-item" id="sliderImagesItem">
                 <div class="section-header" onclick="toggleSection('sliderImages')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-images"></i></span>
+                        <span class="section-icon"><i class="fas fa-images" style="color: #E91E63;"></i></span>
                         স্লাইডার ইমেজ
                     </h3>
                     <span class="section-toggle">▼</span>
@@ -1975,7 +1564,7 @@
 
                             <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary-color); margin-bottom: 20px;">
                                 <h4><i class="fas fa-info-circle"></i> নির্দেশাবলী:</h4>
-                                <p>• ১০টি স্লাইডার ইমেজ যোগ করুন</p>
+                                <p>• ৫টি স্লাইডার ইমেজ যোগ করুন</p>
                                 <p>• গুগল ড্রাইভ: <code>https://drive.google.com/uc?id=FILE_ID</code></p>
                                 <p>• ওয়েবসাইট লিংক: যেকোনো ইমেজ URL</p>
                             </div>
@@ -2001,11 +1590,11 @@
                 </div>
             </div>
 
-            <!-- Commission Settings Section -->
+            <!-- NEW: Commission Settings Section -->
             <div class="section-item" id="commissionSettingsItem">
                 <div class="section-header" onclick="toggleSection('commissionSettings')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-percentage"></i></span>
+                        <span class="section-icon"><i class="fas fa-percentage" style="color: #8BC34A;"></i></span>
                         কমিশন সেটিংস
                     </h3>
                     <span class="section-toggle">▼</span>
@@ -2080,7 +1669,7 @@
             <div class="section-item" id="settingsItem">
                 <div class="section-header" onclick="toggleSection('settings')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-cog"></i></span>
+                        <span class="section-icon"><i class="fas fa-cog" style="color: #607D8B;"></i></span>
                         সেটিংস
                     </h3>
                     <span class="section-toggle">▼</span>
@@ -2139,7 +1728,7 @@
             <div class="section-item" id="adminManagementItem" style="display: none;">
                 <div class="section-header" onclick="toggleSection('adminManagement')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-user-cog"></i></span>
+                        <span class="section-icon"><i class="fas fa-user-cog" style="color: #795548;"></i></span>
                         এডমিন ম্যানেজমেন্ট
                     </h3>
                     <span class="section-toggle">▼</span>
@@ -2186,7 +1775,7 @@
             <div class="section-item" id="dataManagementItem">
                 <div class="section-header" onclick="toggleSection('dataManagement')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-database"></i></span>
+                        <span class="section-icon"><i class="fas fa-database" style="color: #FF9800;"></i></span>
                         ডাটা ম্যানেজমেন্ট
                     </h3>
                     <span class="section-toggle">▼</span>
@@ -2200,24 +1789,13 @@
                         <div class="card">
                             <div class="alert" id="dataManagementAlert"></div>
 
-                            <div class="cleanup-status" style="margin-bottom: 20px;">
-                                <i class="fas fa-clock"></i>
-                                <span>স্বয়ংক্রিয় ডাটা ক্লিনআপ: ৩০ দিনের পুরনো লেনদেন ডিলিট হবে</span>
-                            </div>
-
                             <h3 class="mb-20"><i class="fas fa-download"></i> এক্সপোর্ট</h3>
                             <p class="mb-20">সকল ডাটা JSON ফরম্যাটে ব্যাকআপ নিন।</p>
                             <button class="btn btn-primary w-100 mb-30" onclick="exportAllData()">
                                 <i class="fas fa-file-export"></i> এক্সপোর্ট
                             </button>
 
-                            <h3 class="mb-20"><i class="fas fa-trash"></i> ম্যানুয়াল ক্লিনআপ</h3>
-                            <p class="mb-20">৩০ দিনের পুরনো ডাটা এখনই ডিলিট করুন।</p>
-                            <button class="btn btn-warning w-100 mb-20" onclick="manualCleanupOldData()">
-                                <i class="fas fa-broom"></i> পুরনো ডাটা ক্লিনআপ
-                            </button>
-
-                            <h3 class="mb-20"><i class="fas fa-trash"></i> সম্পূর্ণ ক্লিয়ার</h3>
+                            <h3 class="mb-20"><i class="fas fa-trash"></i> ক্লিয়ার</h3>
                             <p class="mb-20 text-danger">
                                 <i class="fas fa-exclamation-triangle"></i> সাবধান! সকল ডাটা ডিলিট হবে!
                             </p>
@@ -2229,11 +1807,11 @@
                 </div>
             </div>
 
-            <!-- অন্যান্য লিংক সেকশন -->
+            <!-- NEW: অন্যান্য লিংক সেকশন -->
             <div class="section-item" id="otherLinksItem">
                 <div class="section-header" onclick="toggleSection('otherLinks')">
                     <h3>
-                        <span class="section-icon"><i class="fas fa-link"></i></span>
+                        <span class="section-icon"><i class="fas fa-link" style="color: #9C27B0;"></i></span>
                         অন্যান্য
                     </h3>
                     <span class="section-toggle">▼</span>
@@ -2254,6 +1832,7 @@
                             </div>
 
                             <div id="otherLinksContainer">
+                                <!-- লিংকগুলো ডাইনামিকভাবে এখানে দেখানো হবে -->
                             </div>
 
                             <button class="btn btn-success w-100 mb-20" onclick="showAddOtherLinkModal()">
@@ -2450,29 +2029,12 @@
 
         <div class="alert" id="notificationAlert"></div>
 
+        <!-- সাউন্ড চালু/বন্ধের জন্য চেকবক্স (এখন এখানেও আছে, কিন্তু বেল দিয়েও কন্ট্রোল করা যায়) -->
         <div class="form-group">
             <label class="form-label" style="display: flex; align-items: center; gap: 10px;">
-                <input type="checkbox" id="soundEnabled" checked> <span>নোটিফিকেশন সাউন্ড চালু</span>
+                <input type="checkbox" id="soundEnabled" checked> <span>সাইলেন্ট নোটিফিকেশন চালু</span>
             </label>
-            <p style="font-size: 12px; color: var(--text-light); margin-top: 5px;">বেল বাটন টাচ করেও অন/অফ করা যায়।</p>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label" style="display: flex; align-items: center; gap: 10px;">
-                <input type="checkbox" id="repeatSound" checked> <span>অডিও রিপিট করবে (যতক্ষণ না এপ্রুভ করবেন)</span>
-            </label>
-            <p style="font-size: 12px; color: var(--text-light); margin-top: 5px;">নতুন রিকোয়েস্ট এলে অডিও বারবার বাজতে থাকবে যতক্ষণ না আপনি এপ্রুভ করবেন বা সাউন্ড অফ করবেন।</p>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">রিপিট ইন্টারভাল (সেকেন্ড)</label>
-            <select id="repeatInterval" class="form-control">
-                <option value="5">প্রতি ৫ সেকেন্ড</option>
-                <option value="10" selected>প্রতি ১০ সেকেন্ড</option>
-                <option value="15">প্রতি ১৫ সেকেন্ড</option>
-                <option value="30">প্রতি ৩০ সেকেন্ড</option>
-                <option value="60">প্রতি ১ মিনিট</option>
-            </select>
+            <p style="font-size: 12px; color: var(--text-light); margin-top: 5px;">বেল বাটন টাচ করেও অন/অফ করা যায়। কাউন্ট ০ থাকলে সাউন্ড বাজবে না।</p>
         </div>
 
         <div class="form-group">
@@ -2480,26 +2042,26 @@
             <select id="defaultSound" class="form-control">
                 <option value="beep1">বীপ ১ (৪৪০Hz)</option>
                 <option value="beep2">বীপ ২ (৮৮০Hz)</option>
-                <option value="custom">কাস্টম (লোকাল)</option>
+                <option value="custom">কাস্টম</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label class="form-label">লোকাল অডিও আপলোড (MP3, WAV, OGG)</label>
-            <input type="file" id="localAudioFile" accept="audio/*" class="form-control" onchange="uploadLocalAudio()">
-            <p style="font-size: 12px; color: var(--text-light); margin-top: 5px;">সর্বোচ্চ সাইজ ৫MB। এই অডিও লোকাল স্টোরেজে সেভ হবে।</p>
-            <div id="localAudioProgress" style="display: none;">
-                <progress id="localAudioProgressBar" value="0" max="100" style="width: 100%;"></progress>
-                <span id="localAudioStatus" class="text-primary" style="display: block; margin-top: 5px;"></span>
+            <label class="form-label">কাস্টম অডিও আপলোড (MP3, WAV, OGG)</label>
+            <input type="file" id="customAudioFile" accept="audio/*" class="form-control" onchange="uploadCustomSound()">
+            <p style="font-size: 12px; color: var(--text-light); margin-top: 5px;">সর্বোচ্চ সাইজ ৫MB।</p>
+            <div id="uploadProgress" class="mt-10" style="display: none;">
+                <progress id="uploadProgressBar" value="0" max="100" style="width: 100%;"></progress>
+                <span id="uploadStatus" class="text-primary" style="display: block; margin-top: 5px;"></span>
             </div>
         </div>
 
-        <div id="currentLocalAudioContainer" style="display: none;">
-            <label class="form-label">বর্তমান লোকাল অডিও</label>
-            <audio id="currentLocalAudio" controls style="width: 100%; margin-bottom: 10px;">
+        <div id="currentCustomSoundContainer" style="display: none;">
+            <label class="form-label">বর্তমান কাস্টম সাউন্ড</label>
+            <audio id="currentCustomAudio" controls style="width: 100%; margin-bottom: 10px;">
                 <source src="" type="audio/mpeg">
             </audio>
-            <button class="btn btn-danger btn-sm w-100" onclick="removeLocalAudio()">
+            <button class="btn btn-danger btn-sm w-100" onclick="removeCustomSound()">
                 <i class="fas fa-trash"></i> সরান
             </button>
         </div>
@@ -2507,9 +2069,6 @@
         <div class="form-group">
             <button class="btn btn-primary" onclick="testNotificationSound()">
                 <i class="fas fa-play"></i> টেস্ট
-            </button>
-            <button class="btn btn-info" onclick="stopAllSounds()" style="margin-left: 10px;">
-                <i class="fas fa-stop"></i> স্টপ
             </button>
         </div>
 
@@ -2630,21 +2189,124 @@
     </div>
 </div>
 
-<!-- পপআপ নোটিশ ডিসপ্লে করার জন্য এইচটিএমএল -->
-<div id="popupNoticeDisplay" class="popup-notice" style="display: none;">
-    <div class="popup-content">
-        <div class="popup-header" id="popupDisplayTitle">
-            নোটিশ
-        </div>
-        <div class="popup-body" id="popupDisplayMessage">
-            এখানে বার্তা দেখানো হবে
-        </div>
-        <div class="popup-footer">
-            <button class="btn btn-primary" id="popupDetailsBtn" onclick="openPopupLink()" style="display: none;">বিস্তারিত</button>
-            <button class="btn btn-success" onclick="closePopupNotice()">ঠিক আছে</button>
-        </div>
-    </div>
-</div>
+<!-- ডার্ক মোডের জন্য স্টাইল (অপ্রয়োজনীয়, তবে আগের মত রাখা হলো) -->
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+
+    .profile-image-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .profile-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s;
+        cursor: pointer;
+    }
+
+    .profile-image-container:hover .profile-image-overlay {
+        opacity: 1;
+    }
+
+    .other-link-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-left: 4px solid var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .other-link-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .other-link-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .other-link-details {
+        flex: 1;
+    }
+
+    .other-link-name {
+        font-weight: bold;
+        color: var(--text-dark);
+        margin-bottom: 5px;
+    }
+
+    .other-link-url {
+        color: var(--primary-color);
+        font-size: 12px;
+        word-break: break-all;
+    }
+
+    .other-link-status {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+
+    .other-link-active {
+        background: #e8f5e9;
+        color: var(--success-color);
+    }
+
+    .other-link-inactive {
+        background: #ffebee;
+        color: var(--danger-color);
+    }
+
+    .other-link-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .other-link-card {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .other-link-actions {
+            width: 100%;
+            justify-content: flex-end;
+        }
+    }
+</style>
 
 <script>
     // Firebase Configuration
@@ -2666,31 +2328,19 @@
     let allUsers = [];
     let allOrders = [];
     let allDriveOffers = [];
-    let allDriveRequests = [];
     let allAdmins = [];
     let allOtherLinks = [];
     let notificationSettings = {
         soundEnabled: true,
-        repeatSound: true,
-        repeatInterval: 10,
         defaultSound: 'beep1',
         customSoundURL: ''
     };
-    let localNotificationAudio = null;
     let previousPendingCount = 0;
     let notificationCheckInterval;
     let balanceRequestsListener = null;
     let ordersListener = null;
-    let driveRequestsListener = null;
-    
-    let audioLoopInterval = null;
-    let isAudioLooping = false;
-    let pendingRequestIds = new Set();
 
-    // পপআপ নোটিশের জন্য ভেরিয়েবল
-    let popupNoticeData = null;
-
-    // ==================== ফায়ারবেস ইনিশিয়ালাইজ ====================
+    // ==================== FIREBASE INITIALIZATION ====================
     function initializeFirebase() {
         try {
             if (!firebase.apps.length) {
@@ -2707,27 +2357,7 @@
         }
     }
 
-    // ==================== ডিজিটাল ঘড়ি ফাংশন ====================
-    function updateDigitalClock() {
-        const now = new Date();
-        const options = { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit', 
-            minute: '2-digit', 
-            second: '2-digit',
-            hour12: true,
-            weekday: 'long'
-        };
-        const formattedDateTime = now.toLocaleString('bn-BD', options);
-        const clockElement = document.getElementById('liveDateTime');
-        if (clockElement) {
-            clockElement.textContent = formattedDateTime;
-        }
-    }
-
-    // ==================== ডম কন্টেন্ট লোডেড ====================
+    // ==================== DOM CONTENT LOADED ====================
     document.addEventListener('DOMContentLoaded', function() {
         const firebaseInitialized = initializeFirebase();
         if (firebaseInitialized) {
@@ -2753,10 +2383,6 @@
 
             resetUserForm();
 
-            setInterval(cleanupOldData, 60 * 60 * 1000);
-            
-            setInterval(updateDigitalClock, 1000);
-
             const style = document.createElement('style');
             style.textContent = `
                 @keyframes marquee {
@@ -2774,22 +2400,22 @@
         }
     });
 
-    // ==================== পাসওয়ার্ড টগল ====================
+    // ==================== PASSWORD TOGGLE ====================
     function togglePasswordVisibility() {
         const passwordInput = document.getElementById('adminPassword');
         const toggleIcon = document.querySelector('#togglePassword i');
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
-            toggleIcon.classList.remove('fas fa-eye');
-            toggleIcon.classList.add('fas fa-eye-slash');
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
         } else {
             passwordInput.type = 'password';
-            toggleIcon.classList.remove('fas fa-eye-slash');
-            toggleIcon.classList.add('fas fa-eye');
+            toggleIcon.classList.remove('fa-eye-slash');
+            toggleIcon.classList.add('fa-eye');
         }
     }
 
-    // ==================== সেকশন টগল ====================
+    // ==================== SECTION TOGGLE ====================
     function toggleSection(sectionId) {
         const content = document.getElementById(sectionId + 'Content');
         const toggle = document.querySelector(`#${sectionId}Item .section-toggle`);
@@ -2819,7 +2445,7 @@
         }
     }
 
-    // ==================== এডমিন লগইন ====================
+    // ==================== ADMIN LOGIN ====================
     async function adminLogin() {
         const username = document.getElementById('adminUsername').value.trim();
         const password = document.getElementById('adminPassword').value.trim();
@@ -2908,25 +2534,19 @@
 
         document.body.classList.add('logged-in');
 
-        updateDigitalClock();
-
         await loadDashboardData();
         await loadSettings();
         await loadSliderImages();
         await loadNotificationSettings();
         await loadAllAdmins();
         await loadOtherLinks();
-        await loadCommissionSettings();
-        await loadCombinedNotice();
+        await loadCommissionSettings(); // নতুন কমিশন সেটিংস লোড
 
+        // বেল আইকনের স্টাইল সেট করা
         updateBellIconStyle();
 
         startNotificationChecker();
         setupRealtimeListeners();
-        
-        setTimeout(() => {
-            cleanupOldData();
-        }, 5000);
     }
 
     function checkAutoLogin() {
@@ -2955,12 +2575,7 @@
             if (ordersListener) {
                 database.ref('orders').off('child_added', ordersListener);
             }
-            if (driveRequestsListener) {
-                database.ref('driveRequests').off('child_added', driveRequestsListener);
-            }
             if (notificationCheckInterval) clearInterval(notificationCheckInterval);
-            
-            stopAudioLoop();
 
             localStorage.removeItem('asf_admin_logged_in');
             localStorage.removeItem('asf_admin_data');
@@ -2978,7 +2593,7 @@
         }
     }
 
-    // ==================== রিয়েল-টাইম রিকোয়েস্ট লিসেনার ====================
+    // ==================== নতুন: রিয়েল-টাইম রিকোয়েস্ট লিসেনার ====================
     function setupRealtimeListeners() {
         if (!database || !currentAdmin) return;
 
@@ -2986,9 +2601,6 @@
             .orderByChild('status')
             .equalTo('pending')
             .on('child_added', (snapshot) => {
-                const requestId = snapshot.key;
-                pendingRequestIds.add(requestId);
-                updateTotalPendingCount();
                 playNotificationSoundForNewRequest();
             });
 
@@ -2996,131 +2608,24 @@
             .orderByChild('status')
             .equalTo('Pending')
             .on('child_added', (snapshot) => {
-                const orderId = snapshot.key;
-                pendingRequestIds.add(orderId);
-                updateTotalPendingCount();
                 playNotificationSoundForNewRequest();
             });
-
-        driveRequestsListener = database.ref('driveRequests')
-            .orderByChild('status')
-            .equalTo('pending')
-            .on('child_added', (snapshot) => {
-                const requestId = snapshot.key;
-                pendingRequestIds.add(requestId);
-                updateTotalPendingCount();
-                playNotificationSoundForNewRequest();
-                
-                if (document.getElementById('ordersContent').classList.contains('expanded') && 
-                    document.getElementById('orderFilter').value === 'drive') {
-                    loadDriveRequestsForDisplay();
-                }
-            });
-
-        database.ref('orders').orderByChild('status').notEqualTo('Pending').on('child_removed', (snapshot) => {
-            pendingRequestIds.delete(snapshot.key);
-            updateTotalPendingCount();
-        });
-        
-        database.ref('balanceRequests').orderByChild('status').notEqualTo('pending').on('child_removed', (snapshot) => {
-            pendingRequestIds.delete(snapshot.key);
-            updateTotalPendingCount();
-        });
-        
-        database.ref('driveRequests').orderByChild('status').notEqualTo('pending').on('child_removed', (snapshot) => {
-            pendingRequestIds.delete(snapshot.key);
-            updateTotalPendingCount();
-        });
 
         console.log('Realtime listeners for new requests set up.');
     }
 
-    function updateTotalPendingCount() {
-        const totalPending = pendingRequestIds.size;
-        document.getElementById('totalPendingCount').textContent = totalPending;
-        
-        // কার্ডের আইকনে ব্যাজ আপডেট করুন
-        updateOrdersIconBadge(totalPending);
-    }
-
-    function updateOrdersIconBadge(count) {
-        const badge = document.getElementById('ordersIconBadge');
-        if (count > 0) {
-            badge.textContent = count > 9 ? '9+' : count;
-            badge.style.display = 'block';
-        } else {
-            badge.style.display = 'none';
-        }
-    }
-
+    // নতুন: নোটিফিকেশন সাউন্ড বাজানোর ফাংশন (শুধু নতুন রিকোয়েস্টের জন্য এবং কাউন্ট চেক করে)
     function playNotificationSoundForNewRequest() {
-        if (!notificationSettings.soundEnabled) return;
+        // সাউন্ড চালু এবং কাউন্ট > 0 থাকলেই কেবল বাজবে
+        if (!notificationSettings.soundEnabled || previousPendingCount === 0) return;
 
-        if (notificationSettings.repeatSound && pendingRequestIds.size > 0) {
-            startAudioLoop();
-        } else {
-            playNotificationSoundOnce();
-        }
-    }
-
-    function startAudioLoop() {
-        if (audioLoopInterval || !notificationSettings.soundEnabled) return;
-        
-        isAudioLooping = true;
-        
-        playNotificationSoundOnce();
-        
-        const intervalMs = (notificationSettings.repeatInterval || 10) * 1000;
-        audioLoopInterval = setInterval(() => {
-            if (pendingRequestIds.size > 0 && notificationSettings.soundEnabled) {
-                playNotificationSoundOnce();
-            } else {
-                stopAudioLoop();
-            }
-        }, intervalMs);
-        
-        document.getElementById('notificationBell').classList.add('sound-looping');
-    }
-
-    function stopAudioLoop() {
-        if (audioLoopInterval) {
-            clearInterval(audioLoopInterval);
-            audioLoopInterval = null;
-        }
-        isAudioLooping = false;
-        document.getElementById('notificationBell').classList.remove('sound-looping');
-    }
-
-    function playNotificationSoundOnce() {
-        if (!notificationSettings.soundEnabled) return;
-
-        if (notificationSettings.defaultSound === 'custom') {
-            if (localNotificationAudio) {
-                try {
-                    const audio = new Audio(localNotificationAudio.data);
-                    audio.play().catch(e => {
-                        console.warn('Could not play local audio, falling back to beep:', e);
-                        playBeep(440, 200);
-                    });
-                    return;
-                } catch (e) {
-                    console.warn('Local audio playback failed:', e);
-                }
-            } else if (notificationSettings.customSoundURL) {
-                try {
-                    const audio = new Audio(notificationSettings.customSoundURL);
-                    audio.play().catch(e => {
-                        console.warn('Could not play Firebase sound, falling back to beep:', e);
-                        playBeep(440, 200);
-                    });
-                    return;
-                } catch (e) {
-                    console.warn('Firebase audio playback failed:', e);
-                }
-            }
-        }
-
-        if (notificationSettings.defaultSound === 'beep1') {
+        if (notificationSettings.defaultSound === 'custom' && notificationSettings.customSoundURL) {
+            const audio = new Audio(notificationSettings.customSoundURL);
+            audio.play().catch(e => {
+                console.warn('Could not play custom sound for new request:', e);
+                playBeep(440, 200);
+            });
+        } else if (notificationSettings.defaultSound === 'beep1') {
             playBeep(440, 200);
         } else if (notificationSettings.defaultSound === 'beep2') {
             playBeep(880, 200);
@@ -3129,31 +2634,7 @@
         }
     }
 
-    function playBeep(frequency = 440, duration = 500) {
-        try {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            oscillator.frequency.value = frequency;
-            gainNode.gain.value = 0.1;
-            oscillator.start();
-            oscillator.stop(audioContext.currentTime + duration / 1000);
-            
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-        } catch (e) {
-            console.warn('Beep failed:', e);
-        }
-    }
-
-    function stopAllSounds() {
-        stopAudioLoop();
-        showAlert('notificationAlert', 'সকল সাউন্ড বন্ধ করা হয়েছে!', 'success');
-    }
-
+    // ==================== বেল আইকনের স্টাইল এবং সাউন্ড টগল ====================
     function updateBellIconStyle() {
         const bell = document.getElementById('notificationBell');
         const volumeIcon = document.getElementById('volumeIcon');
@@ -3169,414 +2650,23 @@
             bell.classList.remove('sound-on');
             volumeIcon.style.display = 'none';
             muteIcon.style.display = 'block';
-            
-            stopAudioLoop();
         }
     }
 
     function toggleSoundMute() {
         notificationSettings.soundEnabled = !notificationSettings.soundEnabled;
         updateBellIconStyle();
+        // সেটিংস মোডালের চেকবক্সও আপডেট করা
         const soundCheckbox = document.getElementById('soundEnabled');
         if (soundCheckbox) {
             soundCheckbox.checked = notificationSettings.soundEnabled;
         }
-        
-        if (notificationSettings.soundEnabled) {
-            if (pendingRequestIds.size > 0 && notificationSettings.repeatSound) {
-                startAudioLoop();
-            }
-        } else {
-            stopAudioLoop();
-        }
-        
-        saveNotificationSettingsLocally();
+        // ডাটাবেসে সেভ করা (ঐচ্ছিক)
+        database.ref('adminSettings/notification').update({ soundEnabled: notificationSettings.soundEnabled })
+            .catch(error => console.error('Error saving sound toggle state:', error));
     }
 
-    async function uploadLocalAudio() {
-        const fileInput = document.getElementById('localAudioFile');
-        const file = fileInput.files[0];
-
-        if (!file) {
-            showAlert('notificationAlert', 'অনুগ্রহ করে একটি অডিও ফাইল সিলেক্ট করুন!', 'error');
-            return;
-        }
-
-        const allowedTypes = ['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp3', 'audio/mp4'];
-        if (!allowedTypes.includes(file.type)) {
-            showAlert('notificationAlert', 'শুধুমাত্র অডিও ফাইল আপলোড করুন! (MP3, WAV, OGG)', 'error');
-            return;
-        }
-
-        if (file.size > 5 * 1024 * 1024) {
-            showAlert('notificationAlert', 'ফাইলের সাইজ ৫MB এর কম হতে হবে!', 'error');
-            return;
-        }
-
-        const progressContainer = document.getElementById('localAudioProgress');
-        const progressBar = document.getElementById('localAudioProgressBar');
-        const statusSpan = document.getElementById('localAudioStatus');
-
-        progressContainer.style.display = 'block';
-        statusSpan.textContent = 'অডিও প্রসেসিং হচ্ছে...';
-        progressBar.value = 0;
-
-        try {
-            const reader = new FileReader();
-            
-            reader.onprogress = (e) => {
-                if (e.lengthComputable) {
-                    const percentLoaded = Math.round((e.loaded / e.total) * 100);
-                    progressBar.value = percentLoaded;
-                    statusSpan.textContent = `লোড হচ্ছে: ${percentLoaded}%`;
-                }
-            };
-
-            reader.onload = function(e) {
-                const audioData = e.target.result;
-                
-                localStorage.setItem('asf_notification_audio', audioData);
-                localStorage.setItem('asf_notification_audio_type', file.type);
-                
-                localNotificationAudio = {
-                    data: audioData,
-                    type: file.type
-                };
-                
-                const audioElement = document.getElementById('currentLocalAudio');
-                const sourceElement = audioElement.querySelector('source');
-                sourceElement.src = audioData;
-                sourceElement.type = file.type;
-                audioElement.load();
-                
-                document.getElementById('currentLocalAudioContainer').style.display = 'block';
-                
-                document.getElementById('defaultSound').value = 'custom';
-                notificationSettings.defaultSound = 'custom';
-                
-                showAlert('notificationAlert', 'লোকাল অডিও সফলভাবে আপলোড হয়েছে!', 'success');
-                
-                progressContainer.style.display = 'none';
-                fileInput.value = '';
-                progressBar.value = 100;
-            };
-
-            reader.onerror = function() {
-                showAlert('notificationAlert', 'অডিও পড়তে সমস্যা!', 'error');
-                progressContainer.style.display = 'none';
-            };
-
-            reader.readAsDataURL(file);
-            progressBar.value = 10;
-            statusSpan.textContent = 'ফাইল পড়া হচ্ছে...';
-
-        } catch (error) {
-            console.error('Audio upload error:', error);
-            showAlert('notificationAlert', 'অডিও আপলোড ব্যর্থ!', 'error');
-            progressContainer.style.display = 'none';
-        }
-    }
-
-    function removeLocalAudio() {
-        if (!confirm('লোকাল অডিও সরাতে চান?')) return;
-
-        localStorage.removeItem('asf_notification_audio');
-        localStorage.removeItem('asf_notification_audio_type');
-        localNotificationAudio = null;
-        
-        document.getElementById('currentLocalAudioContainer').style.display = 'none';
-        
-        if (notificationSettings.defaultSound === 'custom') {
-            document.getElementById('defaultSound').value = 'beep1';
-            notificationSettings.defaultSound = 'beep1';
-        }
-        
-        showAlert('notificationAlert', 'লোকাল অডিও সরানো হয়েছে!', 'success');
-    }
-
-    function loadLocalAudio() {
-        const audioData = localStorage.getItem('asf_notification_audio');
-        const audioType = localStorage.getItem('asf_notification_audio_type');
-        
-        if (audioData && audioType) {
-            localNotificationAudio = {
-                data: audioData,
-                type: audioType
-            };
-            
-            const audioElement = document.getElementById('currentLocalAudio');
-            const sourceElement = audioElement.querySelector('source');
-            sourceElement.src = audioData;
-            sourceElement.type = audioType;
-            audioElement.load();
-            
-            document.getElementById('currentLocalAudioContainer').style.display = 'block';
-            
-            return true;
-        }
-        return false;
-    }
-
-    async function loadNotificationSettings() {
-        try {
-            const snapshot = await database.ref('adminSettings/notification').once('value');
-            const settings = snapshot.val() || {};
-            
-            notificationSettings = {
-                soundEnabled: settings.soundEnabled !== undefined ? settings.soundEnabled : true,
-                repeatSound: settings.repeatSound !== undefined ? settings.repeatSound : true,
-                repeatInterval: settings.repeatInterval || 10,
-                defaultSound: settings.defaultSound || 'beep1',
-                customSoundURL: settings.customSoundURL || ''
-            };
-            
-            loadLocalAudio();
-            
-            const soundEnabledCheckbox = document.getElementById('soundEnabled');
-            const repeatSoundCheckbox = document.getElementById('repeatSound');
-            const repeatIntervalSelect = document.getElementById('repeatInterval');
-            
-            if (soundEnabledCheckbox) {
-                soundEnabledCheckbox.checked = notificationSettings.soundEnabled;
-            }
-            
-            if (repeatSoundCheckbox) {
-                repeatSoundCheckbox.checked = notificationSettings.repeatSound;
-            }
-            
-            if (repeatIntervalSelect) {
-                repeatIntervalSelect.value = notificationSettings.repeatInterval;
-            }
-            
-            document.getElementById('defaultSound').value = notificationSettings.defaultSound;
-            
-            updateBellIconStyle();
-            
-        } catch (error) {
-            console.error('Error loading notification settings:', error);
-            loadLocalAudio();
-        }
-    }
-
-    function saveNotificationSettingsLocally() {
-        try {
-            const settingsToSave = {
-                soundEnabled: notificationSettings.soundEnabled,
-                repeatSound: notificationSettings.repeatSound,
-                repeatInterval: notificationSettings.repeatInterval,
-                defaultSound: notificationSettings.defaultSound
-            };
-            localStorage.setItem('asf_notification_settings', JSON.stringify(settingsToSave));
-        } catch (e) {
-            console.warn('Could not save notification settings locally:', e);
-        }
-    }
-
-    async function saveNotificationSettings() {
-        try {
-            notificationSettings.soundEnabled = document.getElementById('soundEnabled').checked;
-            notificationSettings.repeatSound = document.getElementById('repeatSound').checked;
-            notificationSettings.repeatInterval = parseInt(document.getElementById('repeatInterval').value);
-            notificationSettings.defaultSound = document.getElementById('defaultSound').value;
-            
-            saveNotificationSettingsLocally();
-            
-            await database.ref('adminSettings/notification').set({
-                soundEnabled: notificationSettings.soundEnabled,
-                repeatSound: notificationSettings.repeatSound,
-                repeatInterval: notificationSettings.repeatInterval,
-                defaultSound: notificationSettings.defaultSound,
-                customSoundURL: notificationSettings.customSoundURL || ''
-            });
-            
-            showAlert('notificationAlert', 'নোটিফিকেশন সেটিংস সংরক্ষণ করা হয়েছে!', 'success');
-            updateBellIconStyle();
-            
-            if (notificationSettings.soundEnabled && notificationSettings.repeatSound && pendingRequestIds.size > 0) {
-                startAudioLoop();
-            } else if (!notificationSettings.repeatSound || pendingRequestIds.size === 0) {
-                stopAudioLoop();
-            }
-            
-            setTimeout(() => { closeNotificationModal(); }, 1500);
-        } catch (error) {
-            console.error('Error saving notification settings:', error);
-            showAlert('notificationAlert', 'সংরক্ষণ করতে সমস্যা!', 'error');
-        }
-    }
-
-    function testNotificationSound() {
-        if (!notificationSettings.soundEnabled) {
-            alert('নোটিফিকেশন সাউন্ড বর্তমানে বন্ধ আছে। টেস্ট করতে "সাউন্ড চালু" করুন।');
-            return;
-        }
-        
-        playNotificationSoundOnce();
-    }
-
-    function toggleNotificationModal() {
-        loadNotificationSettings();
-        document.getElementById('notificationModal').style.display = 'flex';
-        document.getElementById('notificationAlert').style.display = 'none';
-    }
-
-    function closeNotificationModal() {
-        document.getElementById('notificationModal').style.display = 'none';
-    }
-
-    async function checkForNotifications() {
-        try {
-            const balanceSnapshot = await database.ref('balanceRequests')
-                .orderByChild('status')
-                .equalTo('pending')
-                .once('value');
-            const balancePending = balanceSnapshot.val() || {};
-
-            const ordersSnapshot = await database.ref('orders')
-                .orderByChild('status')
-                .equalTo('Pending')
-                .once('value');
-            const ordersPending = ordersSnapshot.val() || {};
-
-            const driveSnapshot = await database.ref('driveRequests')
-                .orderByChild('status')
-                .equalTo('pending')
-                .once('value');
-            const drivePending = driveSnapshot.val() || {};
-
-            const totalPending = Object.keys(balancePending).length + Object.keys(ordersPending).length + Object.keys(drivePending).length;
-
-            const badge = document.getElementById('notificationBadge');
-            const bell = document.getElementById('notificationBell');
-            const totalPendingSpan = document.getElementById('totalPendingCount');
-
-            if (totalPending > 0) {
-                badge.textContent = totalPending > 9 ? '9+' : totalPending;
-                badge.style.display = 'block';
-                bell.classList.add('blink');
-                totalPendingSpan.textContent = totalPending;
-                
-                // কার্ডের আইকনে ব্যাজ আপডেট করুন
-                updateOrdersIconBadge(totalPending);
-            } else {
-                badge.style.display = 'none';
-                bell.classList.remove('blink');
-                totalPendingSpan.textContent = '0';
-                
-                // কার্ডের আইকন থেকে ব্যাজ সরান
-                updateOrdersIconBadge(0);
-                
-                stopAudioLoop();
-                pendingRequestIds.clear();
-            }
-
-            previousPendingCount = totalPending;
-            updateOldDataCount();
-
-        } catch (error) {
-            console.error('Error checking notifications:', error);
-        }
-    }
-
-    function startNotificationChecker() {
-        checkForNotifications();
-        if (notificationCheckInterval) clearInterval(notificationCheckInterval);
-        notificationCheckInterval = setInterval(checkForNotifications, 10000);
-    }
-
-    async function cleanupOldData() {
-        if (!database) return;
-        
-        try {
-            const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
-            let deletedCount = 0;
-            
-            const ordersSnapshot = await database.ref('orders').once('value');
-            const orders = ordersSnapshot.val() || {};
-            
-            for (const [orderId, order] of Object.entries(orders)) {
-                const orderTime = order.timestamp || 0;
-                if (orderTime < thirtyDaysAgo) {
-                    await database.ref('orders/' + orderId).remove();
-                    deletedCount++;
-                }
-            }
-            
-            const balanceSnapshot = await database.ref('balanceRequests').once('value');
-            const balances = balanceSnapshot.val() || {};
-            
-            for (const [reqId, req] of Object.entries(balances)) {
-                const reqTime = req.timestamp || 0;
-                if (reqTime < thirtyDaysAgo) {
-                    await database.ref('balanceRequests/' + reqId).remove();
-                    deletedCount++;
-                }
-            }
-            
-            const driveRequestsSnapshot = await database.ref('driveRequests').once('value');
-            const driveRequests = driveRequestsSnapshot.val() || {};
-            
-            for (const [reqId, req] of Object.entries(driveRequests)) {
-                const reqTime = req.timestamp || 0;
-                if (reqTime < thirtyDaysAgo) {
-                    await database.ref('driveRequests/' + reqId).remove();
-                    deletedCount++;
-                }
-            }
-            
-            if (deletedCount > 0) {
-                console.log(`✅ ${deletedCount} পুরনো রেকর্ড ডিলিট করা হয়েছে`);
-                updateOldDataCount();
-                loadDashboardData();
-            }
-            
-        } catch (error) {
-            console.error('Error cleaning up old data:', error);
-        }
-    }
-
-    async function updateOldDataCount() {
-        try {
-            const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
-            let oldCount = 0;
-            
-            const ordersSnapshot = await database.ref('orders').once('value');
-            const orders = ordersSnapshot.val() || {};
-            for (const order of Object.values(orders)) {
-                if ((order.timestamp || 0) < thirtyDaysAgo) oldCount++;
-            }
-            
-            const balanceSnapshot = await database.ref('balanceRequests').once('value');
-            const balances = balanceSnapshot.val() || {};
-            for (const req of Object.values(balances)) {
-                if ((req.timestamp || 0) < thirtyDaysAgo) oldCount++;
-            }
-            
-            const driveRequestsSnapshot = await database.ref('driveRequests').once('value');
-            const driveRequests = driveRequestsSnapshot.val() || {};
-            for (const req of Object.values(driveRequests)) {
-                if ((req.timestamp || 0) < thirtyDaysAgo) oldCount++;
-            }
-            
-            document.getElementById('oldDataCount').textContent = `${oldCount}টি পুরনো রেকর্ড`;
-            
-        } catch (error) {
-            console.error('Error updating old data count:', error);
-        }
-    }
-
-    async function manualCleanupOldData() {
-        if (!confirm('৩০ দিনের পুরনো সকল লেনদেন ডিলিট করতে চান?')) return;
-        
-        try {
-            await cleanupOldData();
-            showAlert('dataManagementAlert', 'পুরনো ডাটা সফলভাবে ক্লিনআপ করা হয়েছে!', 'success');
-        } catch (error) {
-            console.error('Error in manual cleanup:', error);
-            showAlert('dataManagementAlert', 'ক্লিনআপ করতে সমস্যা!', 'error');
-        }
-    }
-
+    // ==================== প্রোফাইল ছবি আপলোড (আগের মত) ====================
     async function uploadProfileImage(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -3678,6 +2768,7 @@
         }
     }
 
+    // ==================== প্রোফাইল সংরক্ষণ (শুধু নাম আপডেট) ====================
     async function saveAdminProfile() {
         if (!currentAdmin || !currentAdminId) {
             showAlert('profileAlert', 'এডমিন তথ্য পাওয়া যায়নি!', 'error');
@@ -3703,6 +2794,7 @@
         }
     }
 
+    // ==================== ADMIN MANAGEMENT (সংক্ষিপ্ত) ====================
     async function loadAllAdmins() {
         try {
             const snapshot = await database.ref('adminUsers').once('value');
@@ -3821,6 +2913,7 @@
         }
     }
 
+    // ==================== PROFILE FUNCTIONS ====================
     function toggleProfileModal() {
         if (!currentAdmin) return;
         document.getElementById('profileModalImage').src = 
@@ -3834,6 +2927,263 @@
         document.getElementById('profileModal').style.display = 'none';
     }
 
+    // ==================== NOTIFICATION FUNCTIONS (আপডেটেড) ====================
+    async function loadNotificationSettings() {
+        try {
+            const snapshot = await database.ref('adminSettings/notification').once('value');
+            const settings = snapshot.val() || {};
+            notificationSettings = {
+                soundEnabled: settings.soundEnabled !== undefined ? settings.soundEnabled : true,
+                defaultSound: settings.defaultSound || 'beep1',
+                customSoundURL: settings.customSoundURL || ''
+            };
+            const soundEnabledCheckbox = document.getElementById('soundEnabled');
+            if (soundEnabledCheckbox) {
+                soundEnabledCheckbox.checked = notificationSettings.soundEnabled;
+                document.getElementById('defaultSound').value = notificationSettings.defaultSound;
+                const customContainer = document.getElementById('currentCustomSoundContainer');
+                if (notificationSettings.customSoundURL) {
+                    customContainer.style.display = 'block';
+                    const audioSource = document.querySelector('#currentCustomAudio source');
+                    audioSource.src = notificationSettings.customSoundURL;
+                    document.getElementById('currentCustomAudio').load();
+                } else {
+                    customContainer.style.display = 'none';
+                }
+            }
+            updateBellIconStyle(); // বেলের স্টাইল আপডেট
+        } catch (error) {
+            console.error('Error loading notification settings:', error);
+        }
+    }
+
+    async function saveNotificationSettings() {
+        try {
+            notificationSettings.soundEnabled = document.getElementById('soundEnabled').checked;
+            notificationSettings.defaultSound = document.getElementById('defaultSound').value;
+            await database.ref('adminSettings/notification').set(notificationSettings);
+            showAlert('notificationAlert', 'নোটিফিকেশন সেটিংস সংরক্ষণ করা হয়েছে!', 'success');
+            updateBellIconStyle(); // সেভ করার পর বেল আপডেট
+            setTimeout(() => { closeNotificationModal(); }, 1500);
+        } catch (error) {
+            console.error('Error saving notification settings:', error);
+            showAlert('notificationAlert', 'সংরক্ষণ করতে সমস্যা!', 'error');
+        }
+    }
+
+    // ==================== কাস্টম অডিও আপলোড (আগের মত) ====================
+    async function uploadCustomSound() {
+        const fileInput = document.getElementById('customAudioFile');
+        const file = fileInput.files[0];
+
+        if (!file) {
+            showAlert('notificationAlert', 'অনুগ্রহ করে একটি অডিও ফাইল সিলেক্ট করুন!', 'error');
+            return;
+        }
+
+        const allowedTypes = ['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp3', 'audio/mp4'];
+        if (!allowedTypes.includes(file.type)) {
+            showAlert('notificationAlert', 'শুধুমাত্র অডিও ফাইল আপলোড করুন! (MP3, WAV, OGG)', 'error');
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            showAlert('notificationAlert', 'ফাইলের সাইজ ৫MB এর কম হতে হবে!', 'error');
+            return;
+        }
+
+        if (!storage) {
+            showAlert('notificationAlert', 'Firebase Storage সঠিকভাবে ইনিশিয়ালাইজ হয়নি!', 'error');
+            return;
+        }
+
+        const progressContainer = document.getElementById('uploadProgress');
+        const progressBar = document.getElementById('uploadProgressBar');
+        const statusSpan = document.getElementById('uploadStatus');
+
+        progressContainer.style.display = 'block';
+        statusSpan.textContent = 'আপলোড শুরু হচ্ছে...';
+        progressBar.value = 0;
+
+        try {
+            const fileName = `notification_sounds/${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+
+            const storageRef = storage.ref();
+            const fileRef = storageRef.child(fileName);
+
+            const uploadTask = fileRef.put(file);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    progressBar.value = progress;
+                    statusSpan.textContent = `আপলোড: ${Math.round(progress)}%`;
+                },
+                (error) => {
+                    console.error('Upload error:', error);
+                    showAlert('notificationAlert', 'অডিও আপলোড ব্যর্থ!', 'error');
+                    progressContainer.style.display = 'none';
+                },
+                async () => {
+                    try {
+                        const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+
+                        notificationSettings.customSoundURL = downloadURL;
+                        notificationSettings.defaultSound = 'custom';
+
+                        await database.ref('adminSettings/notification').set(notificationSettings);
+
+                        document.getElementById('defaultSound').value = 'custom';
+
+                        const customContainer = document.getElementById('currentCustomSoundContainer');
+                        customContainer.style.display = 'block';
+
+                        const audioSource = document.querySelector('#currentCustomAudio source');
+                        audioSource.src = downloadURL;
+                        document.getElementById('currentCustomAudio').load();
+
+                        showAlert('notificationAlert', 'কাস্টম সাউন্ড সফলভাবে আপলোড হয়েছে!', 'success');
+
+                        progressContainer.style.display = 'none';
+                        fileInput.value = '';
+
+                    } catch (error) {
+                        console.error('Error getting download URL:', error);
+                        showAlert('notificationAlert', 'অডিও URL পাওয়া যায়নি!', 'error');
+                        progressContainer.style.display = 'none';
+                    }
+                }
+            );
+
+        } catch (error) {
+            console.error('Upload error:', error);
+            showAlert('notificationAlert', 'অডিও আপলোড ব্যর্থ!', 'error');
+            progressContainer.style.display = 'none';
+        }
+    }
+
+    async function removeCustomSound() {
+        if (!confirm('কাস্টম সাউন্ড সরাতে চান?')) return;
+
+        try {
+            if (notificationSettings.customSoundURL) {
+                try {
+                    const fileRef = storage.refFromURL(notificationSettings.customSoundURL);
+                    await fileRef.delete();
+                    console.log('Previous sound file deleted from storage');
+                } catch (e) {
+                    console.warn('Could not delete file from storage:', e);
+                }
+            }
+
+            notificationSettings.customSoundURL = '';
+            notificationSettings.defaultSound = 'beep1';
+
+            await database.ref('adminSettings/notification').set(notificationSettings);
+
+            document.getElementById('currentCustomSoundContainer').style.display = 'none';
+            document.getElementById('defaultSound').value = 'beep1';
+
+            showAlert('notificationAlert', 'কাস্টম সাউন্ড সরানো হয়েছে!', 'success');
+
+        } catch (error) {
+            console.error('Error removing custom sound:', error);
+            showAlert('notificationAlert', 'সাউন্ড সরাতে সমস্যা!', 'error');
+        }
+    }
+
+    function playBeep(frequency = 440, duration = 500) {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.value = frequency;
+            gainNode.gain.value = 0.1;
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + duration / 1000);
+        } catch (e) {
+            console.warn('Beep failed:', e);
+        }
+    }
+
+    function testNotificationSound() {
+        if (!notificationSettings.soundEnabled) {
+            alert('সাইলেন্ট নোটিফিকেশন বর্তমানে বন্ধ আছে। টেস্ট করতে "সাউন্ড চালু" করুন।');
+            return;
+        }
+        const selectedSound = document.getElementById('defaultSound').value;
+
+        if (selectedSound === 'custom' && notificationSettings.customSoundURL) {
+            const audio = new Audio(notificationSettings.customSoundURL);
+            audio.play().catch(e => {
+                console.warn('Could not play custom sound:', e);
+                playBeep(440, 300);
+            });
+        } else if (selectedSound === 'beep1') {
+            playBeep(440, 300);
+        } else if (selectedSound === 'beep2') {
+            playBeep(880, 300);
+        } else {
+            playBeep(440, 300);
+        }
+    }
+
+    function toggleNotificationModal() {
+        loadNotificationSettings();
+        document.getElementById('notificationModal').style.display = 'flex';
+        document.getElementById('notificationAlert').style.display = 'none';
+    }
+
+    function closeNotificationModal() {
+        document.getElementById('notificationModal').style.display = 'none';
+    }
+
+    // ==================== পেন্ডিং কাউন্ট চেক করার ফাংশন (আপডেটেড) ====================
+    async function checkForNotifications() {
+        try {
+            const balanceSnapshot = await database.ref('balanceRequests')
+                .orderByChild('status')
+                .equalTo('pending')
+                .once('value');
+            const balancePending = balanceSnapshot.val() || {};
+
+            const ordersSnapshot = await database.ref('orders')
+                .orderByChild('status')
+                .equalTo('Pending')
+                .once('value');
+            const ordersPending = ordersSnapshot.val() || {};
+
+            const totalPending = Object.keys(balancePending).length + Object.keys(ordersPending).length;
+
+            const badge = document.getElementById('notificationBadge');
+            const bell = document.getElementById('notificationBell');
+
+            if (totalPending > 0) {
+                badge.textContent = totalPending > 9 ? '9+' : totalPending;
+                badge.style.display = 'block';
+                bell.classList.add('blink');
+            } else {
+                badge.style.display = 'none';
+                bell.classList.remove('blink');
+            }
+
+            // পুরাতন কাউন্ট সংরক্ষণ করে রাখি, যাতে নতুন রিকোয়েস্ট এলে চেক করা যায়
+            previousPendingCount = totalPending;
+
+        } catch (error) {
+            console.error('Error checking notifications:', error);
+        }
+    }
+
+    function startNotificationChecker() {
+        checkForNotifications();
+        if (notificationCheckInterval) clearInterval(notificationCheckInterval);
+        notificationCheckInterval = setInterval(checkForNotifications, 10000);
+    }
+
+    // ==================== DASHBOARD FUNCTIONS (সংক্ষিপ্ত) ====================
     async function loadDashboardData() {
         try {
             const usersSnapshot = await database.ref('users').once('value');
@@ -3847,24 +3197,18 @@
                 .slice(0, 5);
             displayRecentUsers(recentUsers);
 
-            const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
-            
             const ordersSnapshot = await database.ref('orders').once('value');
             const orders = ordersSnapshot.val() || {};
-            
-            let orderCount = 0, totalRevenue = 0, pendingOrders = 0;
-            const orderList = [];
-            
-            for (const [id, order] of Object.entries(orders)) {
-                if ((order.timestamp || 0) >= thirtyDaysAgo) {
-                    orderCount++;
-                    orderList.push({ id, ...order });
-                    if (order.status === 'Success') totalRevenue += parseFloat(order.amount) || 0;
-                    if (order.status === 'Pending') pendingOrders++;
-                }
-            }
-            
+            const orderCount = Object.keys(orders).length;
             document.getElementById('totalOrders').textContent = orderCount;
+
+            let totalRevenue = 0, pendingOrders = 0;
+            const orderList = Object.values(orders);
+            orderList.forEach(order => {
+                if (order.status === 'Success') totalRevenue += parseFloat(order.amount) || 0;
+                if (order.status === 'Pending') pendingOrders++;
+            });
+
             document.getElementById('totalRevenue').textContent = `৳${totalRevenue.toFixed(2)}`;
             document.getElementById('pendingOrders').textContent = pendingOrders;
 
@@ -3872,9 +3216,6 @@
                 .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
                 .slice(0, 5);
             displayRecentOrders(recentOrders);
-            
-            updateOldDataCount();
-            
         } catch (error) {
             console.error('Error loading dashboard data:', error);
         }
@@ -3910,36 +3251,12 @@
                               order.status === 'Pending' ? 'status-pending' : 'status-inactive';
             const statusText = order.status === 'Success' ? 'সফল' : 
                               order.status === 'Pending' ? 'পেন্ডিং' : 'বাতিল';
-            const numberDisplay = order.number || order.offerTitle || order.transactionId || 'N/A';
-            
-            // ব্যালেন্স হিস্টোরি দেখান
-            let balanceHistory = '';
-            if (order.previousBalance !== undefined || order.currentBalance !== undefined) {
-                balanceHistory = `<div class="balance-history">
-                    <span class="previous">পূর্বের ব্যালেন্স: ৳${(order.previousBalance || 0).toFixed(2)}</span>
-                    <span class="current">বর্তমান ব্যালেন্স: ৳${(order.currentBalance || 0).toFixed(2)}</span>
-                </div>`;
-            }
-            
-            html += `<tr>
-                <td>${order.userName || 'N/A'}</td>
-                <td>${order.category || 'N/A'}</td>
-                <td><span class="copyable-number" onclick="copyToClipboard('${numberDisplay}')" title="ক্লিক করে কপি করুন"><i class="fas fa-copy"></i> ${numberDisplay}</span></td>
-                <td>৳${order.amount || '0'}</td>
-                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-            </tr>`;
+            html += `<tr><td>${order.userName || 'N/A'}</td><td>${order.category || 'N/A'}</td><td>${order.number || 'N/A'}</td><td>৳${order.amount || '0'}</td><td><span class="status-badge ${statusClass}">${statusText}</span></td></tr>`;
         });
         tbody.innerHTML = html;
     }
 
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            alert('কপি করা হয়েছে!');
-        }).catch(() => {
-            alert('কপি করতে সমস্যা!');
-        });
-    }
-
+    // ==================== USER MANAGEMENT FUNCTIONS (সংক্ষিপ্ত) ====================
     async function loadAllUsers() {
         try {
             const snapshot = await database.ref('users').once('value');
@@ -4050,30 +3367,42 @@
         }
     }
 
-    // ==================== সমন্বিত নোটিশ ফাংশন (FIXED) ====================
-    async function loadCombinedNotice() {
+    // ==================== NOTICE FUNCTIONS (সংক্ষিপ্ত) ====================
+    async function loadPopupNotice() {
         try {
-            const marqueeSnapshot = await database.ref('notice').once('value');
-            const marquee = marqueeSnapshot.val() || {};
-            document.getElementById('marqueeMessage').value = marquee.message || '';
-            document.getElementById('marqueeStatus').value = marquee.status || 'active';
-            document.getElementById('marqueeColor').value = marquee.color || '#1a237e';
+            const snapshot = await database.ref('popupNotice').once('value');
+            const notice = snapshot.val() || {};
+            document.getElementById('popupTitle').value = notice.title || '';
+            document.getElementById('popupMessage').value = notice.message || '';
+            document.getElementById('popupLink').value = notice.link || '';
+            document.getElementById('popupStatus').value = notice.status || 'active';
+        } catch (error) { console.error('Error loading popup notice:', error); }
+    }
 
-            const popupSnapshot = await database.ref('popupNotice').once('value');
-            const popup = popupSnapshot.val() || {};
-            document.getElementById('popupEnabled').checked = popup.enabled || false;
-            document.getElementById('popupTitle').value = popup.title || '';
-            document.getElementById('popupMessage').value = popup.message || '';
-            document.getElementById('popupLink').value = popup.link || '';
-
-            popupNoticeData = popup;
-
-            showPopupNotice();
-
-            updateMarqueePreview();
+    async function savePopupNotice() {
+        const title = document.getElementById('popupTitle').value.trim();
+        const message = document.getElementById('popupMessage').value.trim();
+        const link = document.getElementById('popupLink').value.trim();
+        const status = document.getElementById('popupStatus').value;
+        if (!title || !message) { showAlert('popupNoticeAlert', 'টাইটেল এবং মেসেজ দিন!', 'error'); return; }
+        try {
+            await database.ref('popupNotice').set({ title, message, link, status, updatedAt: Date.now(), updatedBy: currentAdmin?.username || 'admin' });
+            showAlert('popupNoticeAlert', 'পপআপ নোটিশ সফলভাবে সংরক্ষণ করা হয়েছে!', 'success');
         } catch (error) {
-            console.error('Error loading combined notice:', error);
+            console.error('Error saving popup notice:', error);
+            showAlert('popupNoticeAlert', 'সংরক্ষণ করতে সমস্যা!', 'error');
         }
+    }
+
+    async function loadMarqueeNotice() {
+        try {
+            const snapshot = await database.ref('notice').once('value');
+            const notice = snapshot.val() || {};
+            document.getElementById('marqueeMessage').value = notice.message || '';
+            document.getElementById('marqueeStatus').value = notice.status || 'active';
+            document.getElementById('marqueeColor').value = notice.color || '#1a237e';
+            updateMarqueePreview();
+        } catch (error) { console.error('Error loading marquee notice:', error); }
     }
 
     function updateMarqueePreview() {
@@ -4083,101 +3412,22 @@
         document.getElementById('marqueePreview').style.color = col;
     }
 
-    // FIXED: saveCombinedNotice function with proper status field
-    async function saveCombinedNotice() {
-        const marqueeMessage = document.getElementById('marqueeMessage').value.trim();
-        const marqueeStatus = document.getElementById('marqueeStatus').value;
-        const marqueeColor = document.getElementById('marqueeColor').value;
-
-        const popupEnabled = document.getElementById('popupEnabled').checked;
-        const popupTitle = document.getElementById('popupTitle').value.trim();
-        const popupMessage = document.getElementById('popupMessage').value.trim();
-        const popupLink = document.getElementById('popupLink').value.trim();
-
-        if (!marqueeMessage) {
-            showAlert('noticeAlert', 'চলন্ত নোটিশের মেসেজ দিন!', 'error');
-            return;
-        }
-
-        if (popupEnabled && (!popupTitle || !popupMessage)) {
-            showAlert('noticeAlert', 'পপআপ সক্রিয় থাকলে শিরোনাম এবং বার্তা দিন!', 'error');
-            return;
-        }
-
+    async function saveMarqueeNotice() {
+        const message = document.getElementById('marqueeMessage').value.trim();
+        const status = document.getElementById('marqueeStatus').value;
+        const color = document.getElementById('marqueeColor').value;
+        if (!message) { showAlert('marqueeNoticeAlert', 'নোটিশ মেসেজ দিন!', 'error'); return; }
         try {
-            await database.ref('notice').set({
-                message: marqueeMessage,
-                status: marqueeStatus,
-                color: marqueeColor,
-                updatedAt: Date.now(),
-                updatedBy: currentAdmin?.username || 'admin'
-            });
-
-            const popupData = {
-                enabled: popupEnabled,
-                title: popupTitle,
-                message: popupMessage,
-                link: popupLink,
-                updatedAt: Date.now(),
-                updatedBy: currentAdmin?.username || 'admin'
-            };
-            
-            // ইউজার প্যানেলের জন্য status ফিল্ড যোগ করুন
-            if (popupEnabled) {
-                popupData.status = 'active';
-            } else {
-                popupData.status = 'inactive';
-            }
-            
-            await database.ref('popupNotice').set(popupData);
-
-            popupNoticeData = popupData;
-
-            showAlert('noticeAlert', 'নোটিশ সফলভাবে সংরক্ষণ করা হয়েছে!', 'success');
+            await database.ref('notice').set({ message, status, color, updatedAt: Date.now(), updatedBy: currentAdmin?.username || 'admin' });
+            showAlert('marqueeNoticeAlert', 'চলন্ত নোটিশ সফলভাবে সংরক্ষণ করা হয়েছে!', 'success');
             updateMarqueePreview();
         } catch (error) {
-            console.error('Error saving combined notice:', error);
-            showAlert('noticeAlert', 'সংরক্ষণ করতে সমস্যা!', 'error');
+            console.error('Error saving marquee notice:', error);
+            showAlert('marqueeNoticeAlert', 'সংরক্ষণ করতে সমস্যা!', 'error');
         }
     }
 
-    // ==================== পপআপ নোটিশ ডিসপ্লে ফাংশন ====================
-    function showPopupNotice() {
-        if (!popupNoticeData || !popupNoticeData.enabled) return;
-
-        const popupDiv = document.getElementById('popupNoticeDisplay');
-        document.getElementById('popupDisplayTitle').textContent = popupNoticeData.title || 'নোটিশ';
-        document.getElementById('popupDisplayMessage').textContent = popupNoticeData.message || '';
-
-        const detailsBtn = document.getElementById('popupDetailsBtn');
-        if (popupNoticeData.link && popupNoticeData.link.trim() !== '') {
-            detailsBtn.style.display = 'inline-block';
-        } else {
-            detailsBtn.style.display = 'none';
-        }
-
-        popupDiv.style.display = 'flex';
-    }
-
-    function closePopupNotice() {
-        document.getElementById('popupNoticeDisplay').style.display = 'none';
-    }
-
-    function openPopupLink() {
-        if (popupNoticeData && popupNoticeData.link) {
-            window.open(popupNoticeData.link, '_blank');
-        }
-    }
-
-    window.addEventListener('click', function(event) {
-        const popupDiv = document.getElementById('popupNoticeDisplay');
-        const popupContent = document.querySelector('.popup-content');
-        
-        if (popupDiv.style.display === 'flex' && !popupContent.contains(event.target)) {
-            closePopupNotice();
-        }
-    });
-
+    // ==================== USER CREATION FUNCTIONS (সংক্ষিপ্ত) ====================
     function resetUserForm() {
         document.getElementById('newUserName').value = '';
         document.getElementById('newUserPhone').value = '';
@@ -4218,46 +3468,31 @@
         }
     }
 
-    // ==================== অর্ডার ও রিকোয়েস্ট ফাংশন ====================
+    // ==================== ORDER FUNCTIONS (সংক্ষিপ্ত) ====================
     async function loadAllOrders() {
         const filterValue = document.getElementById('orderFilter').value;
-        const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
-        
-        document.getElementById('ordersTableContainer').style.display = 'none';
-        document.getElementById('balanceRequestsContainer').style.display = 'none';
-        document.getElementById('driveRequestsContainer').style.display = 'none';
-        
         if (filterValue === 'balance') {
+            document.getElementById('ordersTableContainer').style.display = 'none';
             document.getElementById('balanceRequestsContainer').style.display = 'block';
             await loadBalanceRequests();
-        } else if (filterValue === 'drive') {
-            document.getElementById('driveRequestsContainer').style.display = 'block';
-            await loadDriveRequestsForDisplay();
         } else {
             document.getElementById('ordersTableContainer').style.display = 'block';
+            document.getElementById('balanceRequestsContainer').style.display = 'none';
             try {
                 const snapshot = await database.ref('orders').once('value');
                 const orders = snapshot.val() || {};
-                allOrders = Object.entries(orders)
-                    .map(([id, order]) => ({ id, ...order }))
-                    .filter(order => (order.timestamp || 0) >= thirtyDaysAgo);
-                    
+                allOrders = Object.entries(orders).map(([id, order]) => ({ id, ...order }));
                 let filtered = allOrders;
                 if (filterValue !== 'all') filtered = allOrders.filter(order => order.status === filterValue);
                 filtered.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
                 displayOrders(filtered);
-            } catch (error) { 
-                console.error('Error loading orders:', error);
-            }
+            } catch (error) { console.error('Error loading orders:', error); }
         }
     }
 
     function displayOrders(orders) {
         const tbody = document.querySelector('#ordersTable tbody');
-        if (orders.length === 0) { 
-            tbody.innerHTML = '<tr><td colspan="10" class="text-center">কোনো অর্ডার নেই</td></tr>'; 
-            return; 
-        }
+        if (orders.length === 0) { tbody.innerHTML = '<tr><td colspan="8" class="text-center">কোনো অর্ডার নেই</td></tr>'; return; }
         let html = '';
         orders.forEach(order => {
             const statusClass = order.status === 'Success' ? 'status-active' : 
@@ -4265,101 +3500,28 @@
             const statusText = order.status === 'Success' ? 'সফল' : 
                               order.status === 'Pending' ? 'পেন্ডিং' : 'বাতিল';
             const trxId = order.id ? order.id.substring(0, 8).toUpperCase() : 'N/A';
-            
-            // ড্রাইভ অফার হলে প্রেরক ও রিসিভার নম্বর দেখানো হবে
-            let numberDisplay = '';
-            if (order.category === 'Drive Offer' && order.senderNumber && order.receiverNumber) {
-                numberDisplay = `<div class="sender-receiver-info">
-                    <span class="copyable-number" onclick="copyToClipboard('${order.senderNumber}')" title="প্রেরক নম্বর কপি করুন"><i class="fas fa-arrow-up"></i> ${order.senderNumber}</span>
-                    <span style="margin: 0 5px;">→</span>
-                    <span class="copyable-number" onclick="copyToClipboard('${order.receiverNumber}')" title="রিসিভার নম্বর কপি করুন"><i class="fas fa-arrow-down"></i> ${order.receiverNumber}</span>
-                </div>`;
-            } else {
-                numberDisplay = `<span class="copyable-number" onclick="copyToClipboard('${order.number || order.offerTitle || order.transactionId || 'N/A'}')" title="ক্লিক করে কপি করুন"><i class="fas fa-copy"></i> ${order.number || order.offerTitle || order.transactionId || 'N/A'}</span>`;
-            }
-            
-            // ব্যালেন্স হিস্টোরি দেখান
-            let balanceHistory = '';
-            if (order.previousBalance !== undefined || order.currentBalance !== undefined) {
-                balanceHistory = `<div class="balance-history">
-                    <span class="previous">পূর্বের: ৳${(order.previousBalance || 0).toFixed(2)}</span>
-                    <span class="current">বর্তমান: ৳${(order.currentBalance || 0).toFixed(2)}</span>
-                </div>`;
-            }
-            
-            html += `<tr>
-                <td>${trxId}</td>
-                <td>${order.userName || 'N/A'}</td>
-                <td>${order.category || 'ড্রাইভ অফার'}</td>
-                <td>${numberDisplay}</td>
-                <td>৳${order.amount || '0'}</td>
-                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                <td>৳${(order.previousBalance || 0).toFixed(2)}</td>
-                <td>৳${(order.currentBalance || 0).toFixed(2)}</td>
-                <td>${order.time || 'N/A'}</td>
-                <td>${order.status === 'Pending' ? `<div class="action-buttons"><button class="btn-icon btn-edit" onclick="updateOrderStatus('${order.id}', 'Success')" title="এপ্রুভ"><i class="fas fa-check"></i></button><button class="btn-icon btn-delete" onclick="updateOrderStatus('${order.id}', 'Cancelled')" title="বাতিল"><i class="fas fa-times"></i></button></div>` : '<span class="text-success">সম্পন্ন</span>'}</td>
-            </tr>`;
+            html += `<tr><td>${trxId}</td><td>${order.userName || 'N/A'}</td><td>${order.category || 'N/A'}</td><td>${order.number || 'N/A'}</td><td>৳${order.amount || '0'}</td><td><span class="status-badge ${statusClass}">${statusText}</span></td><td>${order.time || 'N/A'}</td><td>${order.status === 'Pending' ? `<div class="action-buttons"><button class="btn-icon btn-edit" onclick="updateOrderStatus('${order.id}', 'Success')" title="এপ্রুভ"><i class="fas fa-check"></i></button><button class="btn-icon btn-delete" onclick="updateOrderStatus('${order.id}', 'Cancelled')" title="বাতিল"><i class="fas fa-times"></i></button></div>` : '<span class="text-success">সম্পন্ন</span>'}</td></tr>`;
         });
         tbody.innerHTML = html;
     }
 
     async function updateOrderStatus(orderId, status) {
         if (!confirm(`অর্ডার স্ট্যাটাস "${status}" করতে চান?`)) return;
-        
         try {
-            // অর্ডার ডাটা লোড করুন
-            const orderSnapshot = await database.ref('orders/' + orderId).once('value');
-            const order = orderSnapshot.val();
-            
-            if (status === 'Success' && order && order.userId) {
-                // ইউজারের বর্তমান ব্যালেন্স লোড করুন
-                const userSnapshot = await database.ref('users/' + order.userId).once('value');
-                const user = userSnapshot.val();
-                
-                if (user) {
-                    const previousBalance = user.balance || 0;
-                    const currentBalance = previousBalance; // Success হলে ব্যালেন্স পরিবর্তন হবে না, কারণ অর্ডার করার সময়ই কেটে নেওয়া হয়েছে
-                    
-                    // অর্ডার আপডেট করুন
-                    await database.ref('orders/' + orderId).update({ 
-                        status, 
-                        completedAt: Date.now(),
-                        previousBalance,
-                        currentBalance
-                    });
-                } else {
-                    await database.ref('orders/' + orderId).update({ status, completedAt: Date.now() });
-                }
-            } else {
-                await database.ref('orders/' + orderId).update({ status, completedAt: status === 'Success' ? Date.now() : null });
-            }
-            
-            if (status !== 'Pending') {
-                pendingRequestIds.delete(orderId);
-                updateTotalPendingCount();
-                
-                if (pendingRequestIds.size === 0) {
-                    stopAudioLoop();
-                }
-            }
-            
-            loadAllOrders(); 
-            loadDashboardData();
+            await database.ref('orders/' + orderId).update({ status, completedAt: status === 'Success' ? Date.now() : null });
+            loadAllOrders(); loadDashboardData();
         } catch (error) {
             console.error('Error updating order:', error);
             alert('স্ট্যাটাস আপডেট করতে সমস্যা!');
         }
     }
 
+    // ==================== BALANCE REQUEST FUNCTIONS (সংক্ষিপ্ত) ====================
     async function loadBalanceRequests() {
         try {
-            const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
             const snapshot = await database.ref('balanceRequests').once('value');
             const requests = snapshot.val() || {};
-            const list = Object.entries(requests)
-                .map(([id, r]) => ({ id, ...r }))
-                .filter(req => (req.timestamp || 0) >= thirtyDaysAgo);
-                
+            const list = Object.entries(requests).map(([id, r]) => ({ id, ...r }));
             list.sort((a,b) => (b.timestamp||0) - (a.timestamp||0));
             displayBalanceRequests(list);
         } catch (error) {
@@ -4378,77 +3540,23 @@
             const statusText = req.status === 'approved' ? 'অনুমোদিত' : 
                               req.status === 'rejected' ? 'বাতিল' : 'পেন্ডিং';
             const date = req.timestamp ? new Date(req.timestamp).toLocaleString('bn-BD') : 'N/A';
-            const transactionIdDisplay = req.transactionId || 'N/A';
-            html += `<tr>
-                <td>${req.userName || 'N/A'}</td>
-                <td>${req.userPhone || 'N/A'}</td>
-                <td>৳${req.amount || '0'}</td>
-                <td>${req.method || 'N/A'}</td>
-                <td><span class="copyable-number" onclick="copyToClipboard('${transactionIdDisplay}')" title="ক্লিক করে কপি করুন"><i class="fas fa-copy"></i> ${transactionIdDisplay}</span></td>
-                <td>${date}</td>
-                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                <td>${req.status === 'pending' ? `<div class="action-buttons"><button class="btn-icon btn-approve" onclick="approveBalanceRequest('${req.id}', '${req.userId}', ${req.amount})" title="অনুমোদন"><i class="fas fa-check"></i></button><button class="btn-icon btn-reject" onclick="rejectBalanceRequest('${req.id}')" title="বাতিল"><i class="fas fa-times"></i></button></div>` : '<span class="text-success">সম্পন্ন</span>'}</td>
-            </tr>`;
+            html += `<tr><td>${req.userName || 'N/A'}</td><td>${req.userPhone || 'N/A'}</td><td>৳${req.amount || '0'}</td><td>${req.method || 'N/A'}</td><td>${req.transactionId || 'N/A'}</td><td>${date}</td><td><span class="status-badge ${statusClass}">${statusText}</span></td><td>${req.status === 'pending' ? `<div class="action-buttons"><button class="btn-icon btn-approve" onclick="approveBalanceRequest('${req.id}', '${req.userId}', ${req.amount})" title="অনুমোদন"><i class="fas fa-check"></i></button><button class="btn-icon btn-reject" onclick="rejectBalanceRequest('${req.id}')" title="বাতিল"><i class="fas fa-times"></i></button></div>` : '<span class="text-success">সম্পন্ন</span>'}</td></tr>`;
         });
         tbody.innerHTML = html;
     }
 
     async function approveBalanceRequest(requestId, userId, amount) {
         if (!confirm(`এই ব্যালেন্স রিকোয়েস্টটি অনুমোদন করছেন?`)) return;
-        
         try {
             const userSnapshot = await database.ref('users/' + userId).once('value');
             const user = userSnapshot.val();
-            
             if (user) {
-                const previousBalance = parseFloat(user.balance) || 0;
-                const newBalance = previousBalance + parseFloat(amount);
-                
+                const newBalance = (parseFloat(user.balance) || 0) + parseFloat(amount);
                 await database.ref('users/' + userId).update({ balance: newBalance });
-                
-                // ব্যালেন্স রিকোয়েস্ট আপডেট করুন
-                await database.ref('balanceRequests/' + requestId).update({ 
-                    status: 'approved', 
-                    approvedAt: Date.now(), 
-                    approvedBy: currentAdmin?.username || 'admin',
-                    previousBalance,
-                    currentBalance: newBalance
-                });
-                
-                // অর্ডার হিস্টোরিতে যোগ করুন
-                const requestSnapshot = await database.ref('balanceRequests/' + requestId).once('value');
-                const request = requestSnapshot.val();
-                
-                if (request) {
-                    const orderData = {
-                        userId: userId,
-                        userName: request.userName,
-                        userPhone: request.userPhone,
-                        category: 'ব্যালেন্স রিচার্জ',
-                        amount: amount,
-                        status: 'Success',
-                        timestamp: Date.now(),
-                        time: new Date().toLocaleString('bn-BD'),
-                        transactionId: request.transactionId,
-                        method: request.method,
-                        previousBalance,
-                        currentBalance: newBalance
-                    };
-                    
-                    await database.ref('orders').push(orderData);
-                }
             }
-            
-            pendingRequestIds.delete(requestId);
-            updateTotalPendingCount();
-            
-            if (pendingRequestIds.size === 0) {
-                stopAudioLoop();
-            }
-            
+            await database.ref('balanceRequests/' + requestId).update({ status: 'approved', approvedAt: Date.now(), approvedBy: currentAdmin?.username || 'admin' });
             showAlert('balanceRequestsAlert', 'ব্যালেন্স রিকোয়েস্ট অনুমোদন করা হয়েছে!', 'success');
-            loadBalanceRequests(); 
-            loadDashboardData();
+            loadBalanceRequests(); loadDashboardData();
         } catch (error) {
             console.error('Error approving balance request:', error);
             showAlert('balanceRequestsAlert', 'অনুমোদন করতে সমস্যা!', 'error');
@@ -4457,21 +3565,8 @@
 
     async function rejectBalanceRequest(requestId) {
         if (!confirm(`এই ব্যালেন্স রিকোয়েস্টটি বাতিল করছেন?`)) return;
-        
         try {
-            await database.ref('balanceRequests/' + requestId).update({ 
-                status: 'rejected', 
-                rejectedAt: Date.now(), 
-                rejectedBy: currentAdmin?.username || 'admin' 
-            });
-            
-            pendingRequestIds.delete(requestId);
-            updateTotalPendingCount();
-            
-            if (pendingRequestIds.size === 0) {
-                stopAudioLoop();
-            }
-            
+            await database.ref('balanceRequests/' + requestId).update({ status: 'rejected', rejectedAt: Date.now(), rejectedBy: currentAdmin?.username || 'admin' });
             showAlert('balanceRequestsAlert', 'ব্যালেন্স রিকোয়েস্ট বাতিল করা হয়েছে!', 'success');
             loadBalanceRequests();
         } catch (error) {
@@ -4480,185 +3575,7 @@
         }
     }
 
-    // ==================== ড্রাইভ অফার রিকোয়েস্ট ফাংশন ====================
-    async function loadDriveRequestsForDisplay() {
-        const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
-        
-        try {
-            const snapshot = await database.ref('driveRequests').once('value');
-            const requests = snapshot.val() || {};
-            
-            allDriveRequests = Object.entries(requests)
-                .map(([id, request]) => ({ id, ...request }))
-                .filter(request => (request.timestamp || 0) >= thirtyDaysAgo);
-            
-            allDriveRequests.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-            displayDriveRequests(allDriveRequests);
-            
-        } catch (error) {
-            console.error('Error loading drive requests:', error);
-            showAlert('driveRequestsAlert', 'রিকোয়েস্ট লোড করতে সমস্যা!', 'error');
-        }
-    }
-
-    function displayDriveRequests(requests) {
-        const tbody = document.querySelector('#driveRequestsTable tbody');
-        
-        if (requests.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="9" class="text-center">কোনো রিকোয়েস্ট নেই</td></tr>';
-            return;
-        }
-        
-        let html = '';
-        requests.forEach(request => {
-            const statusClass = request.status === 'approved' ? 'status-active' : 
-                              request.status === 'rejected' ? 'status-inactive' : 'status-pending';
-            const statusText = request.status === 'approved' ? 'অনুমোদিত' : 
-                              request.status === 'rejected' ? 'বাতিল' : 'পেন্ডিং';
-            const date = request.timestamp ? new Date(request.timestamp).toLocaleString('bn-BD') : 'N/A';
-            
-            html += `<tr>
-                <td>${request.userName || 'N/A'}</td>
-                <td>${request.userPhone || 'N/A'}</td>
-                <td>${request.offerTitle || 'N/A'}</td>
-                <td>৳${request.amount || '0'}</td>
-                <td><span class="copyable-number" onclick="copyToClipboard('${request.senderNumber || 'N/A'}')" title="প্রেরক নম্বর কপি করুন"><i class="fas fa-arrow-up"></i> ${request.senderNumber || 'N/A'}</span></td>
-                <td><span class="copyable-number" onclick="copyToClipboard('${request.receiverNumber || 'N/A'}')" title="রিসিভার নম্বর কপি করুন"><i class="fas fa-arrow-down"></i> ${request.receiverNumber || 'N/A'}</span></td>
-                <td>${date}</td>
-                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                <td>
-                    ${request.status === 'pending' ? 
-                        `<div class="action-buttons">
-                            <button class="btn-icon btn-approve" onclick="approveDriveRequest('${request.id}', '${request.userId}', ${request.amount}, '${request.senderNumber}', '${request.receiverNumber}')" title="অনুমোদন">
-                                <i class="fas fa-check"></i>
-                            </button>
-                            <button class="btn-icon btn-reject" onclick="rejectDriveRequest('${request.id}')" title="বাতিল">
-                                <i class="fas fa-times"></i>
-                            </button>
-                            <button class="btn-icon btn-info" onclick="viewDriveRequestDetails('${request.id}')" title="বিস্তারিত">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>` : 
-                        '<span class="text-success">সম্পন্ন</span>'
-                    }
-                </td>
-            </tr>`;
-        });
-        
-        tbody.innerHTML = html;
-    }
-
-    // আপডেটেড: প্রেরক ও রিসিভার নম্বর প্যারামিটার হিসেবে পাঠানো হচ্ছে
-    async function approveDriveRequest(requestId, userId, amount, senderNumber, receiverNumber) {
-        if (!confirm('এই ড্রাইভ অফার রিকোয়েস্টটি অনুমোদন করছেন?')) return;
-        
-        try {
-            const userSnapshot = await database.ref('users/' + userId).once('value');
-            const user = userSnapshot.val();
-            
-            if (user) {
-                const previousBalance = parseFloat(user.balance) || 0;
-                const newBalance = previousBalance - parseFloat(amount);
-                
-                if (newBalance < 0) {
-                    showAlert('driveRequestsAlert', 'ইউজারের পর্যাপ্ত ব্যালেন্স নেই!', 'error');
-                    return;
-                }
-                
-                await database.ref('users/' + userId).update({ balance: newBalance });
-                
-                await database.ref('driveRequests/' + requestId).update({ 
-                    status: 'approved', 
-                    approvedAt: Date.now(), 
-                    approvedBy: currentAdmin?.username || 'admin',
-                    previousBalance,
-                    currentBalance: newBalance
-                });
-                
-                const requestSnapshot = await database.ref('driveRequests/' + requestId).once('value');
-                const request = requestSnapshot.val();
-                
-                if (request) {
-                    const orderData = {
-                        userId: userId,
-                        userName: request.userName,
-                        userPhone: request.userPhone,
-                        category: 'Drive Offer',
-                        offerTitle: request.offerTitle,
-                        amount: amount,
-                        status: 'Success',
-                        timestamp: Date.now(),
-                        time: new Date().toLocaleString('bn-BD'),
-                        address: request.address,
-                        senderNumber: senderNumber || request.senderNumber,
-                        receiverNumber: receiverNumber || request.receiverNumber,
-                        requestId: requestId,
-                        previousBalance,
-                        currentBalance: newBalance
-                    };
-                    
-                    await database.ref('orders').push(orderData);
-                }
-            }
-            
-            pendingRequestIds.delete(requestId);
-            updateTotalPendingCount();
-            
-            if (pendingRequestIds.size === 0) {
-                stopAudioLoop();
-            }
-            
-            showAlert('driveRequestsAlert', 'ড্রাইভ অফার রিকোয়েস্ট অনুমোদন করা হয়েছে!', 'success');
-            
-            if (document.getElementById('orderFilter').value === 'drive') {
-                loadDriveRequestsForDisplay();
-            }
-            loadDashboardData();
-            
-        } catch (error) {
-            console.error('Error approving drive request:', error);
-            showAlert('driveRequestsAlert', 'অনুমোদন করতে সমস্যা!', 'error');
-        }
-    }
-
-    async function rejectDriveRequest(requestId) {
-        if (!confirm('এই ড্রাইভ অফার রিকোয়েস্টটি বাতিল করছেন?')) return;
-        
-        try {
-            await database.ref('driveRequests/' + requestId).update({ 
-                status: 'rejected', 
-                rejectedAt: Date.now(), 
-                rejectedBy: currentAdmin?.username || 'admin' 
-            });
-            
-            pendingRequestIds.delete(requestId);
-            updateTotalPendingCount();
-            
-            if (pendingRequestIds.size === 0) {
-                stopAudioLoop();
-            }
-            
-            showAlert('driveRequestsAlert', 'ড্রাইভ অফার রিকোয়েস্ট বাতিল করা হয়েছে!', 'success');
-            
-            if (document.getElementById('orderFilter').value === 'drive') {
-                loadDriveRequestsForDisplay();
-            }
-            
-        } catch (error) {
-            console.error('Error rejecting drive request:', error);
-            showAlert('driveRequestsAlert', 'বাতিল করতে সমস্যা!', 'error');
-        }
-    }
-
-    function viewDriveRequestDetails(requestId) {
-        const request = allDriveRequests.find(r => r.id === requestId);
-        if (!request) return;
-        
-        const details = `ইউজার: ${request.userName || 'N/A'}\nমোবাইল: ${request.userPhone || 'N/A'}\nঅফার: ${request.offerTitle || 'N/A'}\nপরিমাণ: ৳${request.amount || '0'}\nপ্রেরক নম্বর: ${request.senderNumber || 'N/A'}\nরিসিভার নম্বর: ${request.receiverNumber || 'N/A'}\nঠিকানা: ${request.address || 'N/A'}\nবিস্তারিত: ${request.details || 'N/A'}\nতারিখ: ${request.timestamp ? new Date(request.timestamp).toLocaleString('bn-BD') : 'N/A'}\nস্ট্যাটাস: ${request.status || 'N/A'}`;
-        
-        alert(details);
-    }
-
+    // ==================== DRIVE OFFER FUNCTIONS (সংক্ষিপ্ত) ====================
     async function loadDriveOffers() {
         try {
             const snapshot = await database.ref('driveOffers').once('value');
@@ -4771,34 +3688,22 @@
         }
     }
 
+    // ==================== SLIDER FUNCTIONS (সংক্ষিপ্ত) ====================
     async function loadSliderImages() {
         try {
             const snapshot = await database.ref('sliderImages').once('value');
             const sliderImages = snapshot.val() || {};
             const tbody = document.getElementById('sliderTableBody');
             let html = '';
-            // ১০টি স্লাইডার ইমেজ লোড করুন
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= 5; i++) {
                 const key = `slider${i}`;
                 const slider = sliderImages[key] || {};
-                const colors = ['1a237e','3949ab','2196f3','4caf50','ff9800','e91e63','9c27b0','00bcd4','ff5722','795548'];
-                const defaultImg = `https://via.placeholder.com/100x60/${colors[(i-1)%10]}/ffffff?text=Slider+${i}`;
-                html += `<tr>
-                    <td><strong>স্লাইডার ${i}</strong></td>
-                    <td><input type="text" id="sliderImage${i}" class="form-control" placeholder="ইমেজ লিংক (URL)" value="${slider.url || ''}" oninput="updateSliderPreview(${i})"></td>
-                    <td>
-                        <select id="sliderType${i}" class="form-control" onchange="updateSliderPreview(${i})">
-                            <option value="drive" ${slider.type === 'drive' ? 'selected' : ''}>গুগল ড্রাইভ</option>
-                            <option value="web" ${slider.type === 'web' ? 'selected' : ''}>ওয়েবসাইট</option>
-                        </select>
-                    </td>
-                    <td><img id="previewImage${i}" class="slider-image-preview" src="${slider.url || defaultImg}" alt="প্রিভিউ"></td>
-                </tr>`;
+                const colors = ['1a237e','3949ab','2196f3','4caf50','ff9800'];
+                const defaultImg = `https://via.placeholder.com/100x60/${colors[i-1]}/ffffff?text=Slider+${i}`;
+                html += `<tr><td><strong>স্লাইডার ${i}</strong></td><td><input type="text" id="sliderImage${i}" class="form-control" placeholder="ইমেজ লিংক (URL)" value="${slider.url || ''}" oninput="updateSliderPreview(${i})"></td><td><select id="sliderType${i}" class="form-control" onchange="updateSliderPreview(${i})"><option value="drive" ${slider.type === 'drive' ? 'selected' : ''}>গুগল ড্রাইভ</option><option value="web" ${slider.type === 'web' ? 'selected' : ''}>ওয়েবসাইট</option></select></td><td><img id="previewImage${i}" class="slider-image-preview" src="${slider.url || defaultImg}" alt="প্রিভিউ"></td></tr>`;
             }
             tbody.innerHTML = html;
-        } catch (error) { 
-            console.error('Error loading slider images:', error); 
-        }
+        } catch (error) { console.error('Error loading slider images:', error); }
     }
 
     function updateSliderPreview(sliderNumber) {
@@ -4806,15 +3711,15 @@
         const img = document.getElementById(`previewImage${sliderNumber}`);
         if (url) img.src = url;
         else {
-            const colors = ['1a237e','3949ab','2196f3','4caf50','ff9800','e91e63','9c27b0','00bcd4','ff5722','795548'];
-            img.src = `https://via.placeholder.com/100x60/${colors[(sliderNumber-1)%10]}/ffffff?text=Slider+${sliderNumber}`;
+            const colors = ['1a237e','3949ab','2196f3','4caf50','ff9800'];
+            img.src = `https://via.placeholder.com/100x60/${colors[sliderNumber-1]}/ffffff?text=Slider+${sliderNumber}`;
         }
     }
 
     async function saveSliderImages() {
         try {
             const sliderImages = {};
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= 5; i++) {
                 const url = document.getElementById(`sliderImage${i}`).value.trim();
                 const type = document.getElementById(`sliderType${i}`).value;
                 if (url) sliderImages[`slider${i}`] = { url, type, updatedAt: Date.now() };
@@ -4827,6 +3732,7 @@
         }
     }
 
+    // ==================== NEW: COMMISSION SETTINGS FUNCTIONS ====================
     async function loadCommissionSettings() {
         try {
             const snapshot = await database.ref('settings/commissionRates').once('value');
@@ -4870,6 +3776,7 @@
         }
     }
 
+    // ==================== SETTINGS FUNCTIONS (সংক্ষিপ্ত) ====================
     async function loadSettings() {
         try {
             const supportSnapshot = await database.ref('support').once('value');
@@ -4893,9 +3800,10 @@
 
     function saveSliderSettings() { alert('এই সেকশনটি পুরাতন। দয়া করে "স্লাইডার ইমেজ" সেকশন ব্যবহার করুন।'); }
 
+    // ==================== DATA MANAGEMENT FUNCTIONS (সংক্ষিপ্ত) ====================
     async function exportAllData() {
         try {
-            const [users, orders, notice, popup, support, slider, driveOffers, driveOrders, balanceRequests, adminSettings, otherLinks, driveRequests] = await Promise.all([
+            const [users, orders, notice, popup, support, slider, driveOffers, driveOrders, balanceRequests, adminSettings, otherLinks] = await Promise.all([
                 database.ref('users').once('value'),
                 database.ref('orders').once('value'),
                 database.ref('notice').once('value'),
@@ -4906,10 +3814,8 @@
                 database.ref('driveOrders').once('value'),
                 database.ref('balanceRequests').once('value'),
                 database.ref('adminSettings').once('value'),
-                database.ref('otherLinks').once('value'),
-                database.ref('driveRequests').once('value')
+                database.ref('otherLinks').once('value')
             ]);
-            
             const data = {
                 users: users.val() || {},
                 orders: orders.val() || {},
@@ -4922,11 +3828,9 @@
                 balanceRequests: balanceRequests.val() || {},
                 adminSettings: adminSettings.val() || {},
                 otherLinks: otherLinks.val() || {},
-                driveRequests: driveRequests.val() || {},
                 exportedAt: new Date().toISOString(),
                 exportedBy: currentAdmin?.username || 'admin'
             };
-            
             const dataStr = JSON.stringify(data, null, 2);
             const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
             const link = document.createElement('a');
@@ -4960,6 +3864,7 @@
         }
     }
 
+    // ==================== অন্যান্য লিংক ফাংশন (সংক্ষিপ্ত) ====================
     async function loadOtherLinks() {
         try {
             const snapshot = await database.ref('otherLinks').once('value');
@@ -5091,6 +3996,7 @@
         }
     }
 
+    // ==================== UTILITY FUNCTIONS ====================
     function showAlert(elementId, message, type) {
         const el = document.getElementById(elementId);
         if (!el) return;
@@ -5104,18 +4010,34 @@
         switch(sectionId) {
             case 'dashboard': loadDashboardData(); break;
             case 'users': loadAllUsers(); break;
-            case 'notice': loadCombinedNotice(); break;
+            case 'popupNotice': loadPopupNotice(); break;
+            case 'marqueeNotice': loadMarqueeNotice(); break;
             case 'createUser': resetUserForm(); break;
             case 'orders': loadAllOrders(); break;
             case 'driveOffers': loadDriveOffers(); break;
             case 'sliderImages': loadSliderImages(); break;
             case 'settings': loadSettings(); break;
-            case 'commissionSettings': loadCommissionSettings(); break;
+            case 'commissionSettings': loadCommissionSettings(); break; // নতুন
             case 'adminManagement': loadAllAdmins(); break;
             case 'otherLinks': loadOtherLinks(); break;
         }
     }
-</script>
 
+    // ==================== পুরাতন নোটিফিকেশন সাউন্ড ফাংশন (শুধু টেস্টের জন্য) ====================
+    function playNotificationSound() {
+        if (!notificationSettings.soundEnabled) return;
+        if (notificationSettings.defaultSound === 'custom' && notificationSettings.customSoundURL) {
+            const audio = new Audio(notificationSettings.customSoundURL);
+            audio.play().catch(e => console.warn('Could not play custom sound:', e));
+        } else if (notificationSettings.defaultSound === 'beep1') {
+            playBeep(440, 300);
+        } else if (notificationSettings.defaultSound === 'beep2') {
+            playBeep(880, 300);
+        } else {
+            playBeep(440, 300);
+        }
+    }
+</script>
 </body>
 </html>
+
