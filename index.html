@@ -4255,54 +4255,62 @@
         }
     }
 
-    function displayOrders(orders) {
-        const tbody = document.querySelector('#ordersTable tbody');
-        if (orders.length === 0) { 
-            tbody.innerHTML = '<tr><td colspan="10" class="text-center">কোনো অর্ডার নেই</td></tr>'; 
-            return; 
-        }
-        let html = '';
-        orders.forEach(order => {
-            const statusClass = order.status === 'Success' ? 'status-active' : 
-                              order.status === 'Pending' ? 'status-pending' : 'status-inactive';
-            const statusText = order.status === 'Success' ? 'সফল' : 
-                              order.status === 'Pending' ? 'পেন্ডিং' : 'বাতিল';
-            const trxId = order.id ? order.id.substring(0, 8).toUpperCase() : 'N/A';
-            
-            let numberDisplay = '';
-            if (order.category === 'Drive Offer' && order.senderNumber && order.receiverNumber) {
-                numberDisplay = `<div class="sender-receiver-info">
-                    <span class="copyable-number" onclick="copyToClipboard('${order.senderNumber}')" title="প্রেরক নম্বর কপি করুন"><i class="fas fa-arrow-up"></i> ${order.senderNumber}</span>
-                    <span style="margin: 0 5px;">→</span>
-                    <span class="copyable-number" onclick="copyToClipboard('${order.receiverNumber}')" title="রিসিভার নম্বর কপি করুন"><i class="fas fa-arrow-down"></i> ${order.receiverNumber}</span>
-                </div>`;
-            } else {
-                numberDisplay = `<span class="copyable-number" onclick="copyToClipboard('${order.number || order.offerTitle || order.transactionId || 'N/A'}')" title="ক্লিক করে কপি করুন"><i class="fas fa-copy"></i> ${order.number || order.offerTitle || order.transactionId || 'N/A'}</span>`;
-            }
-            
-            let balanceHistory = '';
-            if (order.previousBalance !== undefined || order.currentBalance !== undefined) {
-                balanceHistory = `<div class="balance-history">
-                    <span class="previous">পূর্বের: ৳${(order.previousBalance || 0).toFixed(2)}</span>
-                    <span class="current">বর্তমান: ৳${(order.currentBalance || 0).toFixed(2)}</span>
-                </div>`;
-            }
-            
-            html += `<tr>
-                <td>${trxId}</td>
-                <td>${order.userName || 'N/A'}</td>
-                <td>${order.category || 'ড্রাইভ অফার'}</td>
-                <td>${numberDisplay}</td>
-                <td>৳${order.amount || '0'}</td>
-                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                <td>৳${(order.previousBalance || 0).toFixed(2)}</td>
-                <td>৳${(order.currentBalance || 0).toFixed(2)}</td>
-                <td>${order.time || 'N/A'}</td>
-                <td>${order.status === 'Pending' ? `<div class="action-buttons"><button class="btn-icon btn-edit" onclick="updateOrderStatus('${order.id}', 'Success')" title="এপ্রুভ"><i class="fas fa-check"></i></button><button class="btn-icon btn-delete" onclick="updateOrderStatus('${order.id}', 'Cancelled')" title="বাতিল"><i class="fas fa-times"></i></button></div>` : '<span class="text-success">সম্পন্ন</span>'}</td>
-            </tr>`;
-        });
-        tbody.innerHTML = html;
+   function displayOrders(orders) {
+    const tbody = document.querySelector('#ordersTable tbody');
+    if (orders.length === 0) { 
+        tbody.innerHTML = '<tr><td colspan="10" class="text-center">কোনো অর্ডার নেই</td</tr>'; 
+        return; 
     }
+    let html = '';
+    orders.forEach(order => {
+        const statusClass = order.status === 'Success' ? 'status-active' : 
+                          order.status === 'Pending' ? 'status-pending' : 'status-inactive';
+        const statusText = order.status === 'Success' ? 'সফল' : 
+                          order.status === 'Pending' ? 'পেন্ডিং' : 'বাতিল';
+        const trxId = order.id ? order.id.substring(0, 8).toUpperCase() : 'N/A';
+        
+        // 🟢 সার্ভিসের নাম দেখানোর জন্য লজিক
+        let serviceDisplay = order.category || 'N/A';
+        if (order.category === 'এম-ব্যাংক' && order.operatorName) {
+            serviceDisplay = `এম-ব্যাংক (${order.operatorName})`;  // 👈 এখানে "বিকাশ/নগদ/রকেট" দেখাবে
+        } else if (order.category === 'মোবাইল রিচার্জ' && order.operatorName) {
+            serviceDisplay = `মোবাইল রিচার্জ (${order.operatorName})`;
+        }
+        
+        let numberDisplay = '';
+        if (order.category === 'Drive Offer' && order.senderNumber && order.receiverNumber) {
+            numberDisplay = `<div>
+                <span class="copyable-number" onclick="copyToClipboard('${order.senderNumber}')" title="প্রেরক নম্বর"><i class="fas fa-arrow-up"></i> ${order.senderNumber}</span>
+                <span style="margin:0 5px;">→</span>
+                <span class="copyable-number" onclick="copyToClipboard('${order.receiverNumber}')" title="রিসিভার নম্বর"><i class="fas fa-arrow-down"></i> ${order.receiverNumber}</span>
+            </div>`;
+        } else {
+            numberDisplay = `<span class="copyable-number" onclick="copyToClipboard('${order.number || order.offerTitle || order.transactionId || 'N/A'}')" title="ক্লিক করে কপি করুন"><i class="fas fa-copy"></i> ${order.number || order.offerTitle || order.transactionId || 'N/A'}</span>`;
+        }
+        
+        let balanceHistory = '';
+        if (order.previousBalance !== undefined || order.currentBalance !== undefined) {
+            balanceHistory = `<div class="balance-history">
+                <span class="previous">পূর্বের: ৳${(order.previousBalance || 0).toFixed(2)}</span>
+                <span class="current">বর্তমান: ৳${(order.currentBalance || 0).toFixed(2)}</span>
+            </div>`;
+        }
+        
+        html += `<tr>
+            <td>${trxId}</td>
+            <td>${order.userName || 'N/A'}</td>
+            <td>${serviceDisplay}</td>   <!-- 👈 এখানে পরিবর্তন -->
+            <td>${numberDisplay}</td>
+            <td>৳${order.amount || '0'}</td>
+            <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+            <td>৳${(order.previousBalance || 0).toFixed(2)}</td>
+            <td>৳${(order.currentBalance || 0).toFixed(2)}</td>
+            <td>${order.time || 'N/A'}</td>
+            <td>${order.status === 'Pending' ? `<div class="action-buttons"><button class="btn-icon btn-edit" onclick="updateOrderStatus('${order.id}', 'Success')" title="এপ্রুভ"><i class="fas fa-check"></i></button><button class="btn-icon btn-delete" onclick="updateOrderStatus('${order.id}', 'Cancelled')" title="বাতিল"><i class="fas fa-times"></i></button></div>` : '<span class="text-success">সম্পন্ন</span>'}</td>
+        </tr>`;
+    });
+    tbody.innerHTML = html;
+}
 
     async function updateOrderStatus(orderId, status) {
         if (!confirm(`অর্ডার স্ট্যাটাস "${status}" করতে চান?`)) return;
