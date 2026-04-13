@@ -4366,10 +4366,10 @@
         }
     }
 
-    function displayBalanceRequests(requests) {
+   function displayBalanceRequests(requests) {
     const tbody = document.querySelector('#balanceRequestsTable tbody');
     if (requests.length === 0) { 
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center">কোনো রিকোয়েস্ট নেই</td></tr>'; 
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center">কোনো রিকোয়েস্ট নেই</td</tr>'; 
         return; 
     }
     let html = '';
@@ -4381,26 +4381,21 @@
         const date = req.timestamp ? new Date(req.timestamp).toLocaleString('bn-BD') : 'N/A';
         const transactionIdDisplay = req.transactionId || 'N/A';
         
-        // 🟢 এখানে পেমেন্ট পদ্ধতি দেখান (method বা operator)
-        let paymentMethod = 'N/A';
-        if (req.operator && req.operator !== '') {
-            paymentMethod = req.operator;  // যদি operator থাকে (বিকাশ/নগদ/রকেট)
-        } else if (req.method && req.method !== '') {
-            paymentMethod = req.method;     // ব্যাকআপ হিসেবে method
-        }
+        // 🟢 এখানে পেমেন্ট পদ্ধতি দেখানো হচ্ছে
+        let paymentMethod = req.operator || req.paymentMethod || req.method || 'N/A';
         
-        // পদ্ধতির জন্য ব্যাজ স্টাইল (ঐচ্ছিক)
-        let methodBadgeClass = 'status-pending';
-        if (paymentMethod === 'বিকাশ') methodBadgeClass = 'status-active';
-        else if (paymentMethod === 'নগদ') methodBadgeClass = 'status-active';
-        else if (paymentMethod === 'রকেট') methodBadgeClass = 'status-active';
+        // পদ্ধতি অনুযায়ী ব্যাজ স্টাইল
+        let methodClass = 'status-pending';
+        if (paymentMethod === 'বিকাশ') methodClass = 'status-active';
+        else if (paymentMethod === 'নগদ') methodClass = 'status-active';
+        else if (paymentMethod === 'রকেট') methodClass = 'status-active';
         
         html += `<tr>
             <td>${req.userName || 'N/A'}</td>
             <td>${req.userPhone || 'N/A'}</td>
             <td>৳${req.amount || '0'}</td>
-            <td><span class="status-badge ${methodBadgeClass}">${paymentMethod}</span></td>
-            <td><span class="copyable-number" onclick="copyToClipboard('${transactionIdDisplay}')" title="ক্লিক করে কপি করুন"><i class="fas fa-copy"></i> ${transactionIdDisplay}</span></td>
+            <td><span class="status-badge ${methodClass}">${paymentMethod}</span></td>
+            <td><span class="copyable-number" onclick="copyToClipboard('${transactionIdDisplay}')"><i class="fas fa-copy"></i> ${transactionIdDisplay}</span></td>
             <td>${date}</td>
             <td><span class="status-badge ${statusClass}">${statusText}</span></td>
             <td>${req.status === 'pending' ? `<div class="action-buttons"><button class="btn-icon btn-approve" onclick="approveBalanceRequest('${req.id}', '${req.userId}', ${req.amount})" title="অনুমোদন"><i class="fas fa-check"></i></button><button class="btn-icon btn-reject" onclick="rejectBalanceRequest('${req.id}')" title="বাতিল"><i class="fas fa-times"></i></button></div>` : '<span class="text-success">সম্পন্ন</span>'}</td>
