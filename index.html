@@ -18,7 +18,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-storage-compat.js"></script>
 
     <style>
-        /* সম্পূর্ণ স্টাইল আগের মতই থাকবে */
+        /* সম্পূর্ণ স্টাইল আগের মতই থাকবে (কোনো পরিবর্তন নেই) */
         :root {
             --primary-color: #1a237e;
             --secondary-color: #3949ab;
@@ -1323,53 +1323,6 @@
             font-size: 12px;
         }
 
-        .popup-notice {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .popup-content {
-            background: white;
-            max-width: 400px;
-            width: 90%;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: slideUp 0.3s ease;
-        }
-
-        .popup-header {
-            background: var(--primary-color);
-            color: white;
-            padding: 15px 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .popup-body {
-            padding: 25px 20px;
-            color: var(--text-dark);
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        .popup-footer {
-            padding: 15px 20px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-        
         /* Balance History Styles */
         .balance-history {
             font-size: 12px;
@@ -1643,7 +1596,7 @@
                 </div>
             </div>
 
-            <!-- সমন্বিত নোটিশ সেকশন (পপআপ + চলন্ত) -->
+            <!-- সমন্বিত নোটিশ সেকশন (শুধু চলন্ত নোটিশ + লিংক) -->
             <div class="section-item" id="noticeItem">
                 <div class="section-header" onclick="toggleSection('notice')">
                     <h3>
@@ -1655,15 +1608,14 @@
                 <div class="section-content" id="noticeContent">
                     <div class="section-inner">
                         <div class="section-title">
-                            <i class="fas fa-bullhorn"></i> নোটিশ সেটিংস
+                            <i class="fas fa-bullhorn"></i> চলন্ত নোটিশ সেটিংস
                         </div>
 
                         <div class="card">
                             <div class="alert" id="noticeAlert"></div>
 
-                            <h3 class="mb-20"><i class="fas fa-scroll"></i> চলন্ত নোটিশ (মার্কি)</h3>
                             <div class="form-group">
-                                <label class="form-label">মেসেজ</label>
+                                <label class="form-label">মেসেজ *</label>
                                 <textarea id="marqueeMessage" class="form-control" rows="2" placeholder="চলন্ত নোটিশের মেসেজ লিখুন"></textarea>
                             </div>
                             <div class="form-row">
@@ -1680,26 +1632,11 @@
                                 </div>
                             </div>
 
-                            <hr class="my-30" style="margin: 30px 0; border-color: var(--border-color);">
-
-                            <h3 class="mb-20"><i class="fas fa-window-maximize"></i> পপআপ নোটিশ (অ্যাপস ওপেনের সময়)</h3>
-                            <div class="form-group">
-                                <label class="form-label">
-                                    <input type="checkbox" id="popupEnabled"> পপআপ নোটিশ সক্রিয় করুন
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">শিরোনাম</label>
-                                <input type="text" id="popupTitle" class="form-control" placeholder="পপআপের শিরোনাম">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">বার্তা</label>
-                                <textarea id="popupMessage" class="form-control" rows="3" placeholder="পপআপের বিস্তারিত বার্তা"></textarea>
-                            </div>
+                            <!-- নতুন লিংক ফিল্ড -->
                             <div class="form-group">
                                 <label class="form-label">লিংক (ঐচ্ছিক)</label>
-                                <input type="url" id="popupLink" class="form-control" placeholder="https://example.com">
-                                <small>লিংক দিলে ব্যবহারকারী 'বিস্তারিত' বাটনে ক্লিক করে সেখানে যেতে পারবেন।</small>
+                                <input type="url" id="noticeLink" class="form-control" placeholder="https://example.com/notice">
+                                <small>ইউজার নোটিশে ক্লিক করলে এই লিংকে যাবে।</small>
                             </div>
 
                             <button class="btn btn-success w-100" onclick="saveCombinedNotice()">
@@ -1876,18 +1813,18 @@
                                 <div class="alert" id="balanceRequestsAlert"></div>
                                 <div class="table-responsive">
                                     <table class="data-table" id="balanceRequestsTable">
-                                       <thead>
-    <tr>
-        <th>ইউজার</th>
-        <th>মোবাইল</th>
-        <th>পরিমাণ</th>
-        <th>পেমেন্ট পদ্ধতি</th>   <!-- এই লাইনটি পরিবর্তন করুন -->
-        <th>ট্রানজেকশন আইডি</th>
-        <th>তারিখ</th>
-        <th>স্ট্যাটাস</th>
-        <th>একশন</th>
-    </tr>
-</thead>
+                                        <thead>
+                                            <tr>
+                                                <th>ইউজার</th>
+                                                <th>মোবাইল</th>
+                                                <th>পরিমাণ</th>
+                                                <th>পেমেন্ট পদ্ধতি</th>
+                                                <th>ট্রানজেকশন আইডি</th>
+                                                <th>তারিখ</th>
+                                                <th>স্ট্যাটাস</th>
+                                                <th>একশন</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
                                             <tr>
                                                 <td colspan="8" class="text-center">লোড হচ্ছে...</td>
@@ -2635,22 +2572,6 @@
     </div>
 </div>
 
-<!-- পপআপ নোটিশ ডিসপ্লে করার জন্য এইচটিএমএল -->
-<div id="popupNoticeDisplay" class="popup-notice" style="display: none;">
-    <div class="popup-content">
-        <div class="popup-header" id="popupDisplayTitle">
-            নোটিশ
-        </div>
-        <div class="popup-body" id="popupDisplayMessage">
-            এখানে বার্তা দেখানো হবে
-        </div>
-        <div class="popup-footer">
-            <button class="btn btn-primary" id="popupDetailsBtn" onclick="openPopupLink()" style="display: none;">বিস্তারিত</button>
-            <button class="btn btn-success" onclick="closePopupNotice()">ঠিক আছে</button>
-        </div>
-    </div>
-</div>
-
 <script>
     // Firebase Configuration
     const firebaseConfig = {
@@ -2691,9 +2612,6 @@
     let audioLoopInterval = null;
     let isAudioLooping = false;
     let pendingRequestIds = new Set();
-
-    // পপআপ নোটিশের জন্য ভেরিয়েবল
-    let popupNoticeData = null;
 
     // ==================== ফায়ারবেস ইনিশিয়ালাইজ ====================
     function initializeFirebase() {
@@ -3724,7 +3642,7 @@
     function displayAdmins(admins) {
         const tbody = document.querySelector('#adminsTable tbody');
         if (admins.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="text-center">কোনো এডমিন নেই</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center">কোনো এডমিন নেই</td>';
             return;
         }
         let html = '';
@@ -3918,15 +3836,6 @@
                               order.status === 'Pending' ? 'পেন্ডিং' : 'বাতিল';
             const numberDisplay = order.number || order.offerTitle || order.transactionId || 'N/A';
             
-            // ব্যালেন্স হিস্টোরি দেখান
-            let balanceHistory = '';
-            if (order.previousBalance !== undefined || order.currentBalance !== undefined) {
-                balanceHistory = `<div class="balance-history">
-                    <span class="previous">পূর্বের ব্যালেন্স: ৳${(order.previousBalance || 0).toFixed(2)}</span>
-                    <span class="current">বর্তমান ব্যালেন্স: ৳${(order.currentBalance || 0).toFixed(2)}</span>
-                </div>`;
-            }
-            
             html += `<tr>
                 <td>${order.userName || 'N/A'}</td>
                 <td>${order.category || 'N/A'}</td>
@@ -4056,7 +3965,7 @@
         }
     }
 
-    // ==================== সমন্বিত নোটিশ ফাংশন (FIXED) ====================
+    // ==================== সমন্বিত নোটিশ ফাংশন (শুধু চলন্ত + লিংক) ====================
     async function loadCombinedNotice() {
         try {
             const marqueeSnapshot = await database.ref('notice').once('value');
@@ -4064,21 +3973,11 @@
             document.getElementById('marqueeMessage').value = marquee.message || '';
             document.getElementById('marqueeStatus').value = marquee.status || 'active';
             document.getElementById('marqueeColor').value = marquee.color || '#1a237e';
-
-            const popupSnapshot = await database.ref('popupNotice').once('value');
-            const popup = popupSnapshot.val() || {};
-            document.getElementById('popupEnabled').checked = popup.enabled || false;
-            document.getElementById('popupTitle').value = popup.title || '';
-            document.getElementById('popupMessage').value = popup.message || '';
-            document.getElementById('popupLink').value = popup.link || '';
-
-            popupNoticeData = popup;
-
-            showPopupNotice();
+            document.getElementById('noticeLink').value = marquee.link || '';   // লিংক লোড
 
             updateMarqueePreview();
         } catch (error) {
-            console.error('Error loading combined notice:', error);
+            console.error('Error loading notice:', error);
         }
     }
 
@@ -4093,19 +3992,10 @@
         const marqueeMessage = document.getElementById('marqueeMessage').value.trim();
         const marqueeStatus = document.getElementById('marqueeStatus').value;
         const marqueeColor = document.getElementById('marqueeColor').value;
-
-        const popupEnabled = document.getElementById('popupEnabled').checked;
-        const popupTitle = document.getElementById('popupTitle').value.trim();
-        const popupMessage = document.getElementById('popupMessage').value.trim();
-        const popupLink = document.getElementById('popupLink').value.trim();
+        const noticeLink = document.getElementById('noticeLink').value.trim();   // লিংক নেওয়া
 
         if (!marqueeMessage) {
             showAlert('noticeAlert', 'চলন্ত নোটিশের মেসেজ দিন!', 'error');
-            return;
-        }
-
-        if (popupEnabled && (!popupTitle || !popupMessage)) {
-            showAlert('noticeAlert', 'পপআপ সক্রিয় থাকলে শিরোনাম এবং বার্তা দিন!', 'error');
             return;
         }
 
@@ -4114,72 +4004,18 @@
                 message: marqueeMessage,
                 status: marqueeStatus,
                 color: marqueeColor,
+                link: noticeLink,                     // লিংক সংরক্ষণ
                 updatedAt: Date.now(),
                 updatedBy: currentAdmin?.username || 'admin'
             });
 
-            const popupData = {
-                enabled: popupEnabled,
-                title: popupTitle,
-                message: popupMessage,
-                link: popupLink,
-                updatedAt: Date.now(),
-                updatedBy: currentAdmin?.username || 'admin'
-            };
-            
-            if (popupEnabled) {
-                popupData.status = 'active';
-            } else {
-                popupData.status = 'inactive';
-            }
-            
-            await database.ref('popupNotice').set(popupData);
-
-            popupNoticeData = popupData;
-
             showAlert('noticeAlert', 'নোটিশ সফলভাবে সংরক্ষণ করা হয়েছে!', 'success');
             updateMarqueePreview();
         } catch (error) {
-            console.error('Error saving combined notice:', error);
+            console.error('Error saving notice:', error);
             showAlert('noticeAlert', 'সংরক্ষণ করতে সমস্যা!', 'error');
         }
     }
-
-    function showPopupNotice() {
-        if (!popupNoticeData || !popupNoticeData.enabled) return;
-
-        const popupDiv = document.getElementById('popupNoticeDisplay');
-        document.getElementById('popupDisplayTitle').textContent = popupNoticeData.title || 'নোটিশ';
-        document.getElementById('popupDisplayMessage').textContent = popupNoticeData.message || '';
-
-        const detailsBtn = document.getElementById('popupDetailsBtn');
-        if (popupNoticeData.link && popupNoticeData.link.trim() !== '') {
-            detailsBtn.style.display = 'inline-block';
-        } else {
-            detailsBtn.style.display = 'none';
-        }
-
-        popupDiv.style.display = 'flex';
-    }
-
-    function closePopupNotice() {
-        document.getElementById('popupNoticeDisplay').style.display = 'none';
-    }
-
-    function openPopupLink() {
-        if (popupNoticeData && popupNoticeData.link) {
-            window.open(popupNoticeData.link, '_blank');
-        }
-    }
-
-    window.addEventListener('click', function(event) {
-        const popupDiv = document.getElementById('popupNoticeDisplay');
-        const popupContent = document.querySelector('.popup-content');
-        
-        if (popupDiv.style.display === 'flex' && !popupContent.contains(event.target)) {
-            closePopupNotice();
-        }
-    });
 
     function resetUserForm() {
         document.getElementById('newUserName').value = '';
@@ -4258,7 +4094,7 @@
    function displayOrders(orders) {
     const tbody = document.querySelector('#ordersTable tbody');
     if (orders.length === 0) { 
-        tbody.innerHTML = '<tr><td colspan="10" class="text-center">কোনো অর্ডার নেই</td</tr>'; 
+        tbody.innerHTML = '<tr><td colspan="10" class="text-center">কোনো অর্ডার নেই</td</td>'; 
         return; 
     }
     let html = '';
@@ -4269,10 +4105,9 @@
                           order.status === 'Pending' ? 'পেন্ডিং' : 'বাতিল';
         const trxId = order.id ? order.id.substring(0, 8).toUpperCase() : 'N/A';
         
-        // 🟢 সার্ভিসের নাম দেখানোর জন্য লজিক
         let serviceDisplay = order.category || 'N/A';
         if (order.category === 'এম-ব্যাংক' && order.operatorName) {
-            serviceDisplay = `এম-ব্যাংক (${order.operatorName})`;  // 👈 এখানে "বিকাশ/নগদ/রকেট" দেখাবে
+            serviceDisplay = `এম-ব্যাংক (${order.operatorName})`;
         } else if (order.category === 'মোবাইল রিচার্জ' && order.operatorName) {
             serviceDisplay = `মোবাইল রিচার্জ (${order.operatorName})`;
         }
@@ -4299,7 +4134,7 @@
         html += `<tr>
             <td>${trxId}</td>
             <td>${order.userName || 'N/A'}</td>
-            <td>${serviceDisplay}</td>   <!-- 👈 এখানে পরিবর্তন -->
+            <td>${serviceDisplay}</td>
             <td>${numberDisplay}</td>
             <td>৳${order.amount || '0'}</td>
             <td><span class="status-badge ${statusClass}">${statusText}</span></td>
@@ -4320,40 +4155,49 @@
             const order = orderSnapshot.val();
             
             if (status === 'Success' && order && order.userId) {
-                const userSnapshot = await database.ref('users/' + order.userId).once('value');
-                const user = userSnapshot.val();
+                await database.ref('orders/' + orderId).update({ 
+                    status, 
+                    completedAt: Date.now()
+                });
+            } 
+            else if (status === 'Cancelled' && order && order.userId) {
+                const refundAmount = order.amount || 0;
                 
-                if (user) {
-                    const previousBalance = user.balance || 0;
-                    const currentBalance = previousBalance;
-                    
-                    await database.ref('orders/' + orderId).update({ 
-                        status, 
-                        completedAt: Date.now(),
-                        previousBalance,
-                        currentBalance
-                    });
-                } else {
-                    await database.ref('orders/' + orderId).update({ status, completedAt: Date.now() });
-                }
-            } else {
+                await database.ref('orders/' + orderId).update({ 
+                    status: 'Cancelled',
+                    refundAmount: refundAmount,
+                    refundProcessed: false,
+                    cancellationReason: "এডমিন দ্বারা বাতিল",
+                    cancelledAt: Date.now(),
+                    cancelledBy: currentAdmin?.username || 'admin'
+                });
+                
+                await database.ref(`notifications/${order.userId}`).push({
+                    title: "অর্ডার বাতিল",
+                    message: `আপনার ${refundAmount} টাকার অর্ডারটি বাতিল করা হয়েছে। টাকা আপনার ব্যালেন্সে ফেরত আসবে।`,
+                    time: new Date().toLocaleString('bn-BD'),
+                    read: false,
+                    timestamp: Date.now()
+                });
+            }
+            else {
                 await database.ref('orders/' + orderId).update({ status, completedAt: status === 'Success' ? Date.now() : null });
             }
             
             if (status !== 'Pending') {
                 pendingRequestIds.delete(orderId);
                 updateTotalPendingCount();
-                
-                if (pendingRequestIds.size === 0) {
-                    stopAudioLoop();
-                }
+                if (pendingRequestIds.size === 0) stopAudioLoop();
             }
             
             loadAllOrders(); 
             loadDashboardData();
+            
+            showAlert('ordersAlert', `অর্ডার ${status === 'Success' ? 'অনুমোদিত' : 'বাতিল'} হয়েছে!`, 'success');
+            
         } catch (error) {
             console.error('Error updating order:', error);
-            alert('স্ট্যাটাস আপডেট করতে সমস্যা!');
+            showAlert('ordersAlert', 'স্ট্যাটাস আপডেট করতে সমস্যা!', 'error');
         }
     }
 
@@ -4374,43 +4218,40 @@
         }
     }
 
-   function displayBalanceRequests(requests) {
-    const tbody = document.querySelector('#balanceRequestsTable tbody');
-    if (requests.length === 0) { 
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center">কোনো রিকোয়েস্ট নেই</td</tr>'; 
-        return; 
+    function displayBalanceRequests(requests) {
+        const tbody = document.querySelector('#balanceRequestsTable tbody');
+        if (requests.length === 0) { 
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center">কোনো রিকোয়েস্ট নেই</td</tr>'; 
+            return; 
+        }
+        let html = '';
+        requests.forEach(req => {
+            const statusClass = req.status === 'approved' ? 'status-active' : 
+                              req.status === 'rejected' ? 'status-inactive' : 'status-pending';
+            const statusText = req.status === 'approved' ? 'অনুমোদিত' : 
+                              req.status === 'rejected' ? 'বাতিল' : 'পেন্ডিং';
+            const date = req.timestamp ? new Date(req.timestamp).toLocaleString('bn-BD') : 'N/A';
+            const transactionIdDisplay = req.transactionId || 'N/A';
+            
+            let paymentMethod = req.operator || req.paymentMethod || req.method || 'N/A';
+            let methodClass = 'status-pending';
+            if (paymentMethod === 'বিকাশ') methodClass = 'status-active';
+            else if (paymentMethod === 'নগদ') methodClass = 'status-active';
+            else if (paymentMethod === 'রকেট') methodClass = 'status-active';
+            
+            html += `<tr>
+                <td>${req.userName || 'N/A'}</td>
+                <td>${req.userPhone || 'N/A'}</td>
+                <td>৳${req.amount || '0'}</td>
+                <td><span class="status-badge ${methodClass}">${paymentMethod}</span></td>
+                <td><span class="copyable-number" onclick="copyToClipboard('${transactionIdDisplay}')"><i class="fas fa-copy"></i> ${transactionIdDisplay}</span></td>
+                <td>${date}</td>
+                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                <td>${req.status === 'pending' ? `<div class="action-buttons"><button class="btn-icon btn-approve" onclick="approveBalanceRequest('${req.id}', '${req.userId}', ${req.amount})" title="অনুমোদন"><i class="fas fa-check"></i></button><button class="btn-icon btn-reject" onclick="rejectBalanceRequest('${req.id}')" title="বাতিল"><i class="fas fa-times"></i></button></div>` : '<span class="text-success">সম্পন্ন</span>'}</td>
+            </tr>`;
+        });
+        tbody.innerHTML = html;
     }
-    let html = '';
-    requests.forEach(req => {
-        const statusClass = req.status === 'approved' ? 'status-active' : 
-                          req.status === 'rejected' ? 'status-inactive' : 'status-pending';
-        const statusText = req.status === 'approved' ? 'অনুমোদিত' : 
-                          req.status === 'rejected' ? 'বাতিল' : 'পেন্ডিং';
-        const date = req.timestamp ? new Date(req.timestamp).toLocaleString('bn-BD') : 'N/A';
-        const transactionIdDisplay = req.transactionId || 'N/A';
-        
-        // 🟢 এখানে পেমেন্ট পদ্ধতি দেখানো হচ্ছে
-        let paymentMethod = req.operator || req.paymentMethod || req.method || 'N/A';
-        
-        // পদ্ধতি অনুযায়ী ব্যাজ স্টাইল
-        let methodClass = 'status-pending';
-        if (paymentMethod === 'বিকাশ') methodClass = 'status-active';
-        else if (paymentMethod === 'নগদ') methodClass = 'status-active';
-        else if (paymentMethod === 'রকেট') methodClass = 'status-active';
-        
-        html += `<tr>
-            <td>${req.userName || 'N/A'}</td>
-            <td>${req.userPhone || 'N/A'}</td>
-            <td>৳${req.amount || '0'}</td>
-            <td><span class="status-badge ${methodClass}">${paymentMethod}</span></td>
-            <td><span class="copyable-number" onclick="copyToClipboard('${transactionIdDisplay}')"><i class="fas fa-copy"></i> ${transactionIdDisplay}</span></td>
-            <td>${date}</td>
-            <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-            <td>${req.status === 'pending' ? `<div class="action-buttons"><button class="btn-icon btn-approve" onclick="approveBalanceRequest('${req.id}', '${req.userId}', ${req.amount})" title="অনুমোদন"><i class="fas fa-check"></i></button><button class="btn-icon btn-reject" onclick="rejectBalanceRequest('${req.id}')" title="বাতিল"><i class="fas fa-times"></i></button></div>` : '<span class="text-success">সম্পন্ন</span>'}</td>
-        </tr>`;
-    });
-    tbody.innerHTML = html;
-}
 
     async function approveBalanceRequest(requestId, userId, amount) {
         if (!confirm(`এই ব্যালেন্স রিকোয়েস্টটি অনুমোদন করছেন?`)) return;
@@ -4521,7 +4362,7 @@
         const tbody = document.querySelector('#driveRequestsTable tbody');
         
         if (requests.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="9" class="text-center">কোনো রিকোয়েস্ট নেই</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="9" class="text-center">কোনো রিকোয়েস্ট নেই</td</tr>';
             return;
         }
         
@@ -4806,7 +4647,7 @@
                             <option value="web" ${slider.type === 'web' ? 'selected' : ''}>ওয়েবসাইট</option>
                         </select>
                     </td>
-                    <td><img id="previewImage${i}" class="slider-image-preview" src="${slider.url || defaultImg}" alt="প্রিভিউ"></td>
+                    <td><img id="previewImage${i}" class="slider-image-preview" src="${slider.url || defaultImg}" alt="প্রিভュー"></td>
                 </tr>`;
             }
             tbody.innerHTML = html;
@@ -4909,11 +4750,10 @@
 
     async function exportAllData() {
         try {
-            const [users, orders, notice, popup, support, slider, driveOffers, driveOrders, balanceRequests, adminSettings, otherLinks, driveRequests] = await Promise.all([
+            const [users, orders, notice, support, slider, driveOffers, driveOrders, balanceRequests, adminSettings, otherLinks, driveRequests] = await Promise.all([
                 database.ref('users').once('value'),
                 database.ref('orders').once('value'),
                 database.ref('notice').once('value'),
-                database.ref('popupNotice').once('value'),
                 database.ref('support').once('value'),
                 database.ref('sliderImages').once('value'),
                 database.ref('driveOffers').once('value'),
@@ -4928,7 +4768,6 @@
                 users: users.val() || {},
                 orders: orders.val() || {},
                 notice: notice.val() || {},
-                popupNotice: popup.val() || {},
                 support: support.val() || {},
                 sliderImages: slider.val() || {},
                 driveOffers: driveOffers.val() || {},
