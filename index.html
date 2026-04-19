@@ -1138,6 +1138,57 @@
             color: var(--success-color);
             font-weight: bold;
         }
+        
+        /* মডালের জন্য অতিরিক্ত স্টাইল */
+#transactionsList .transaction-item {
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid #ccc;
+}
+body.dark-mode #transactionsList .transaction-item {
+    background: #2a2a2a;
+}
+.transaction-status-success { border-left-color: #4CAF50; }
+.transaction-status-pending { border-left-color: #2196F3; }
+.transaction-status-cancelled { border-left-color: #d32f2f; }
+.pagination-btn {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.pagination-btn.active {
+    background: #1a237e;
+    color: white;
+    border-color: #1a237e;
+}
+
+/* ট্রানজেকশন মডালের জন্য স্টাইল */
+.transaction-item {
+    transition: all 0.3s ease;
+}
+.transaction-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.transaction-status-success { border-left-color: #4CAF50; }
+.transaction-status-pending { border-left-color: #FF9800; }
+.transaction-status-cancelled { border-left-color: #d32f2f; }
+.pagination-btn.active {
+    background: #1a237e !important;
+    color: white !important;
+}
+#transactionFilters input, #transactionFilters select {
+    transition: all 0.3s;
+}
+#transactionFilters input:focus, #transactionFilters select:focus {
+    border-color: #1a237e;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+}
     </style>
 </head>
 <body>
@@ -2046,32 +2097,55 @@
     </div>
 </div>
 
-<!-- User Transactions Modal -->
+<!-- ইউজারের লেনদেন দেখানোর মডাল -->
 <div id="userTransactionsModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="max-width: 900px; max-height: 80vh; overflow-y: auto;">
         <div class="modal-header">
-            <h3><i class="fas fa-history"></i> ইউজারের লেনদেন (সর্বশেষ ৫০টি)</h3>
-            <button class="close-modal" onclick="closeUserTransactionsModal()">
-                <i class="fas fa-times"></i>
-            </button>
+            <h3><i class="fas fa-history"></i> <span id="transactionModalUserName">ইউজারের</span> লেনদেনের ইতিহাস</h3>
+            <button class="close-modal" onclick="closeUserTransactionsModal()"><i class="fas fa-times"></i></button>
         </div>
-        <div id="transactionsTableContainer" class="table-responsive">
-            <table class="data-table" id="transactionsTable">
-                <thead>
-                    <tr>
-                        <th>তারিখ</th>
-                        <th>সার্ভিস</th>
-                        <th>বিবরণ</th>
-                        <th>পরিমাণ</th>
-                        <th>স্ট্যাটাস</th>
-                        <th>ব্যালেন্স পরিবর্তন</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td colspan="6" class="text-center">লোড হচ্ছে...</td></tr>
-                </tbody>
-            </table>
+        
+        <!-- উন্নত সার্চ ফিল্টার -->
+        <div id="transactionFilters" style="margin-bottom: 15px; background: #f5f5f5; padding: 15px; border-radius: 10px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                <input type="text" id="transactionSearch" placeholder="🔍 নম্বর দিয়ে খুঁজুন (যেমন: 017XXXXXXXX)" style="flex: 2; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" onkeyup="filterTransactions()">
+                <select id="serviceFilter" style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" onchange="filterTransactions()">
+                    <option value="all">📱 সব সার্ভিস</option>
+                    <option value="মোবাইল রিচার্জ">📞 মোবাইল রিচার্জ</option>
+                    <option value="এম-ব্যাংক">🏦 এম-ব্যাংক</option>
+                    <option value="Drive Offer">🚚 ড্রাইভ অফার</option>
+                    <option value="ব্যালেন্স">💰 ব্যালেন্স সংক্রান্ত</option>
+                </select>
+                <select id="categoryFilter" style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" onchange="filterTransactions()">
+                    <option value="all">🗂️ সব ক্যাটাগরি</option>
+                    <option value="GP">📶 গ্রামীণফোন (GP)</option>
+                    <option value="Robi">📶 রবি (Robi)</option>
+                    <option value="Airtel">📶 এয়ারটেল</option>
+                    <option value="BL">📶 বাংলালিংক</option>
+                    <option value="Teletalk">📶 টেলিটক</option>
+                    <option value="বিকাশ">💸 বিকাশ</option>
+                    <option value="নগদ">💸 নগদ</option>
+                    <option value="রকেট">💸 রকেট</option>
+                </select>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <select id="statusFilter" style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" onchange="filterTransactions()">
+                    <option value="all">🔄 সব স্ট্যাটাস</option>
+                    <option value="Success">✅ সফল</option>
+                    <option value="Pending">⏳ পেন্ডিং</option>
+                    <option value="Cancelled">❌ বাতিল</option>
+                </select>
+                <button onclick="resetFilters()" style="padding: 10px 20px; background: #607d8b; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                    <i class="fas fa-undo"></i> রিসেট
+                </button>
+                <span id="filterResultCount" style="padding: 5px 10px; background: #1a237e; color: white; border-radius: 20px; font-size: 12px;">0টি লেনদেন</span>
+            </div>
         </div>
+        
+        <div id="transactionsList">
+            <div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div>
+        </div>
+        <div id="paginationControls" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap;"></div>
     </div>
 </div>
 
@@ -4778,61 +4852,257 @@
         }
     }
     
-    async function viewUserTransactions(userId) {
+    // ==================== উন্নত সার্চ ফাংশন ====================
+
+// রিসেট ফিল্টার
+function resetFilters() {
+    document.getElementById('transactionSearch').value = '';
+    document.getElementById('serviceFilter').value = 'all';
+    document.getElementById('categoryFilter').value = 'all';
+    document.getElementById('statusFilter').value = 'all';
+    currentTransactionPage = 1;
+    renderTransactions();
+}
+
+// ইউজারের লেনদেন দেখানো (আপডেটেড)
+async function viewUserTransactions(userId) {
+    currentTransactionUserId = userId;
+    currentTransactionPage = 1;
+    
+    // ফিল্টার রিসেট
+    if (document.getElementById('transactionSearch')) {
+        document.getElementById('transactionSearch').value = '';
+        document.getElementById('serviceFilter').value = 'all';
+        document.getElementById('categoryFilter').value = 'all';
+        document.getElementById('statusFilter').value = 'all';
+    }
+    
+    // ইউজারের নাম দেখানোর জন্য
     try {
-        const snapshot = await database.ref('orders').orderByChild('userId').equalTo(userId).once('value');
-        const orders = snapshot.val() || {};
-        let transactions = Object.entries(orders).map(([id, order]) => ({ id, ...order }));
-        transactions.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+        const userSnap = await database.ref('users/' + userId).once('value');
+        const user = userSnap.val();
+        document.getElementById('transactionModalUserName').innerText = user?.name || user?.phone || 'ইউজার';
+    } catch(e) {}
+    
+    document.getElementById('userTransactionsModal').style.display = 'flex';
+    document.getElementById('transactionsList').innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner"></i> লেনদেন লোড হচ্ছে...</div>';
+    
+    // ডাটাবেস থেকে সব লেনদেন লোড (অর্ডার + ব্যালেন্স রিকোয়েস্ট + ড্রাইভ রিকোয়েস্ট)
+    try {
+        allTransactions = [];
         
-        if (transactions.length === 0) {
-            alert('এই ইউজারের কোনো লেনদেন নেই।');
-            return;
+        // 1. অর্ডার লোড
+        const ordersSnapshot = await database.ref('orders').orderByChild('userId').equalTo(userId).once('value');
+        const orders = ordersSnapshot.val() || {};
+        for (const [id, order] of Object.entries(orders)) {
+            allTransactions.push({ id, ...order, source: 'order' });
         }
         
-        let msg = '📋 লেনদেনের ইতিহাস:\n\n';
-        transactions.slice(0, 100).forEach(tx => {
-            msg += `📅 ${tx.time || new Date(tx.timestamp).toLocaleString()}\n`;
-            msg += `💰 ${tx.amount} টাকা | ${tx.status}\n`;
-            msg += `📱 ${tx.number || tx.offerTitle || '-'}\n`;
-            msg += `➖➖➖➖➖➖➖\n`;
-        });
-        if (transactions.length > 10) msg += `\n... এবং আরও ${transactions.length - 10}টি লেনদেন`;
-        alert(msg);
-    } catch (error) {
+        // 2. ব্যালেন্স রিকোয়েস্ট লোড
+        const balanceSnapshot = await database.ref('balanceRequests').orderByChild('userId').equalTo(userId).once('value');
+        const balanceReqs = balanceSnapshot.val() || {};
+        for (const [id, req] of Object.entries(balanceReqs)) {
+            allTransactions.push({ 
+                id, ...req, 
+                source: 'balance',
+                category: 'ব্যালেন্স রিকোয়েস্ট',
+                amount: req.amount,
+                status: req.status === 'approved' ? 'Success' : (req.status === 'pending' ? 'Pending' : 'Cancelled'),
+                time: req.time || new Date(req.timestamp).toLocaleString('bn-BD'),
+                timestamp: req.timestamp,
+                number: req.transactionId || 'N/A',
+                operatorName: req.operator || req.paymentMethod
+            });
+        }
+        
+        // 3. ড্রাইভ রিকোয়েস্ট লোড
+        const driveSnapshot = await database.ref('driveRequests').orderByChild('userId').equalTo(userId).once('value');
+        const driveReqs = driveSnapshot.val() || {};
+        for (const [id, req] of Object.entries(driveReqs)) {
+            allTransactions.push({ 
+                id, ...req, 
+                source: 'drive',
+                category: 'Drive Offer',
+                amount: req.amount,
+                status: req.status === 'approved' ? 'Success' : (req.status === 'pending' ? 'Pending' : 'Cancelled'),
+                time: req.time || new Date(req.timestamp).toLocaleString('bn-BD'),
+                timestamp: req.timestamp,
+                number: req.senderNumber ? `${req.senderNumber} → ${req.receiverNumber}` : 'N/A',
+                operatorName: req.offerTitle
+            });
+        }
+        
+        // তারিখ অনুযায়ী সাজানো (নতুন প্রথম)
+        allTransactions.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+        
+        renderTransactions();
+    } catch(error) {
         console.error(error);
-        alert('ট্রানজেকশন লোড করতে সমস্যা!');
+        document.getElementById('transactionsList').innerHTML = '<div class="error-message" style="color: red; text-align: center; padding: 20px;">লেনদেন লোড করতে সমস্যা! ইন্টারনেট চেক করুন।</div>';
     }
 }
 
-    function showClearDataConfirmation() {
-        document.getElementById('clearDataModal').style.display = 'flex';
-        document.getElementById('confirmationText').value = '';
-        document.getElementById('clearDataBtn').disabled = true;
+// লেনদেন রেন্ডার করা (পেজিনেশন ও ফিল্টার সহ) - আপডেটেড
+function renderTransactions() {
+    const searchTerm = document.getElementById('transactionSearch').value.toLowerCase().trim();
+    const serviceFilter = document.getElementById('serviceFilter').value;
+    const categoryFilter = document.getElementById('categoryFilter').value;
+    const statusFilter = document.getElementById('statusFilter').value;
+    
+    let filtered = [...allTransactions];
+    
+    // নম্বর দিয়ে সার্চ
+    if (searchTerm) {
+        filtered = filtered.filter(tx => {
+            // নম্বর চেক করা
+            const numberMatch = tx.number && tx.number.toLowerCase().includes(searchTerm);
+            const phoneMatch = tx.userPhone && tx.userPhone.includes(searchTerm);
+            const trxMatch = tx.transactionId && tx.transactionId.toLowerCase().includes(searchTerm);
+            const senderMatch = tx.senderNumber && tx.senderNumber.includes(searchTerm);
+            const receiverMatch = tx.receiverNumber && tx.receiverNumber.includes(searchTerm);
+            const offerMatch = tx.offerTitle && tx.offerTitle.toLowerCase().includes(searchTerm);
+            
+            return numberMatch || phoneMatch || trxMatch || senderMatch || receiverMatch || offerMatch;
+        });
     }
-    function closeClearDataModal() { document.getElementById('clearDataModal').style.display = 'none'; }
-
-    async function clearAllData() {
-        try {
-            await database.ref().set(null);
-            await database.ref('adminUsers/admin_1').set({ username: 'user', password: 'admin123', name: 'সুপার এডমিন', role: 'super_admin', createdAt: Date.now() });
-            showAlert('dataManagementAlert', 'সকল ডাটা ক্লিয়ার করা হয়েছে!', 'success');
-            closeClearDataModal();
-            setTimeout(() => { loadDashboardData(); }, 1000);
-        } catch (error) {
-            console.error('Error clearing data:', error);
-            showAlert('dataManagementAlert', 'ডাটা ক্লিয়ার করতে সমস্যা!', 'error');
+    
+    // সার্ভিস ফিল্টার
+    if (serviceFilter !== 'all') {
+        filtered = filtered.filter(tx => {
+            if (serviceFilter === 'ব্যালেন্স') {
+                return tx.category === 'ব্যালেন্স রিকোয়েস্ট' || tx.category === 'ব্যালেন্স এড (ম্যানুয়াল)';
+            }
+            return tx.category === serviceFilter;
+        });
+    }
+    
+    // ক্যাটাগরি ফিল্টার (অপারেটর/মোবাইল কোম্পানি)
+    if (categoryFilter !== 'all') {
+        filtered = filtered.filter(tx => {
+            const operator = tx.operatorName || '';
+            const category = tx.category || '';
+            
+            if (categoryFilter === 'GP') return operator === 'GP' || operator === 'গ্রামীণফোন' || (category === 'মোবাইল রিচার्ज' && operator.includes('GP'));
+            if (categoryFilter === 'Robi') return operator === 'Robi' || operator === 'রবি';
+            if (categoryFilter === 'Airtel') return operator === 'Airtel' || operator === 'এয়ারটেল';
+            if (categoryFilter === 'BL') return operator === 'BL' || operator === 'বাংলালিংক';
+            if (categoryFilter === 'Teletalk') return operator === 'Teletalk' || operator === 'টেলিটক';
+            if (categoryFilter === 'বিকাশ') return operator === 'বিকাশ' || (tx.method === 'বিকাশ');
+            if (categoryFilter === 'নগদ') return operator === 'নগদ' || (tx.method === 'নগদ');
+            if (categoryFilter === 'রকেট') return operator === 'রকেট' || (tx.method === 'রকেট');
+            
+            return false;
+        });
+    }
+    
+    // স্ট্যাটাস ফিল্টার
+    if (statusFilter !== 'all') {
+        filtered = filtered.filter(tx => tx.status === statusFilter);
+    }
+    
+    // ফলাফল কাউন্ট দেখানো
+    document.getElementById('filterResultCount').innerHTML = `${filtered.length}টি লেনদেন`;
+    
+    const totalPages = Math.ceil(filtered.length / transactionsPerPage);
+    const start = (currentTransactionPage - 1) * transactionsPerPage;
+    const paginated = filtered.slice(start, start + transactionsPerPage);
+    
+    // কন্টেন্ট দেখানো
+    const container = document.getElementById('transactionsList');
+    if (paginated.length === 0) {
+        container.innerHTML = '<div class="text-center p-20" style="padding: 40px; color: #666;"><i class="fas fa-search" style="font-size: 48px; margin-bottom: 10px; display: block;"></i>কোনো লেনদেন পাওয়া যায়নি</div>';
+    } else {
+        let html = '';
+        for (let tx of paginated) {
+            let statusClass = '';
+            let statusText = '';
+            if (tx.status === 'Success' || tx.status === 'approved') {
+                statusClass = 'transaction-status-success';
+                statusText = '✅ সফল';
+            } else if (tx.status === 'Pending' || tx.status === 'pending') {
+                statusClass = 'transaction-status-pending';
+                statusText = '⏳ পেন্ডিং';
+            } else {
+                statusClass = 'transaction-status-cancelled';
+                statusText = '❌ বাতিল';
+            }
+            
+            let displayCategory = tx.category || 'N/A';
+            if (tx.category === 'এম-ব্যাংক' && tx.operatorName && tx.operatorName !== 'এম-ব্যাংক') {
+                displayCategory = `এম-ব্যাংক (${tx.operatorName})`;
+            }
+            
+            let details = tx.number || tx.offerTitle || tx.transactionId || '-';
+            if (tx.senderNumber && tx.receiverNumber) {
+                details = `📞 প্রেরক: ${tx.senderNumber} → 📞 রিসিভার: ${tx.receiverNumber}`;
+            }
+            
+            // কপি করার সুবিধা
+            let copyNumber = '';
+            if (tx.number && tx.number !== 'N/A') {
+                copyNumber = `<span class="copyable-number" onclick="copyToClipboard('${tx.number.replace(/'/g, "\\'")}')" style="font-size: 11px; margin-left: 8px;"><i class="fas fa-copy"></i> কপি</span>`;
+            }
+            
+            let operatorBadge = '';
+            if (tx.operatorName && tx.operatorName !== 'N/A') {
+                operatorBadge = `<span style="background: #e3f2fd; padding: 2px 8px; border-radius: 12px; font-size: 11px; margin-left: 8px;">${tx.operatorName}</span>`;
+            }
+            
+            html += `
+                <div class="transaction-item ${statusClass}" style="background: #f9f9f9; padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #ccc;">
+                    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center;">
+                        <div>
+                            <strong><i class="fas fa-tag"></i> ${displayCategory}</strong>
+                            ${operatorBadge}
+                        </div>
+                        <div>
+                            <strong style="color: #1a237e;">৳${(tx.amount || 0).toFixed(2)}</strong>
+                            <span class="status-badge" style="background:${tx.status==='Success'||tx.status==='approved'?'#4CAF50':tx.status==='Pending'||tx.status==='pending'?'#2196F3':'#d32f2f'}; color:white; margin-left: 8px; padding: 2px 8px; border-radius: 12px; font-size: 11px;">${tx.status === 'Success' || tx.status === 'approved' ? 'সফল' : (tx.status === 'Pending' || tx.status === 'pending' ? 'পেন্ডিং' : 'বাতিল')}</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 13px; margin-top: 8px;">
+                        <div><i class="fas fa-mobile-alt"></i> ${details} ${copyNumber}</div>
+                        <div style="margin-top: 4px;"><i class="fas fa-clock"></i> ${tx.time || (tx.timestamp ? new Date(tx.timestamp).toLocaleString('bn-BD') : 'N/A')}</div>
+                        <div class="balance-info" style="margin-top: 6px; font-size: 12px; background: #f0f0f0; padding: 5px 8px; border-radius: 6px;">
+                            <span class="previous-balance">💰 পূর্বের: ৳${(tx.previousBalance || 0).toFixed(2)}</span> → 
+                            <span class="current-balance">বর্তমান: ৳${(tx.currentBalance || tx.newBalance || 0).toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
+        container.innerHTML = html;
     }
+    
+    // পেজিনেশন কন্ট্রোল
+    const paginationDiv = document.getElementById('paginationControls');
+    if (totalPages <= 1) {
+        paginationDiv.innerHTML = '';
+        return;
+    }
+    let paginationHtml = '<div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">';
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHtml += `<button class="pagination-btn" style="padding: 6px 12px; border: 1px solid #ddd; background: ${i === currentTransactionPage ? '#1a237e' : 'white'}; color: ${i === currentTransactionPage ? 'white' : '#333'}; border-radius: 5px; cursor: pointer;" onclick="goToTransactionPage(${i})">${i}</button>`;
+    }
+    paginationHtml += '</div>';
+    paginationDiv.innerHTML = paginationHtml;
+}
 
-    function showAlert(elementId, message, type) {
-        const el = document.getElementById(elementId);
-        if (!el) return;
-        el.textContent = message;
-        el.className = `alert alert-${type}`;
-        el.style.display = 'block';
-        if (type === 'success') setTimeout(() => { el.style.display = 'none'; }, 5000);
-    }
+function goToTransactionPage(page) {
+    currentTransactionPage = page;
+    renderTransactions();
+}
+
+function filterTransactions() {
+    currentTransactionPage = 1;
+    renderTransactions();
+}
+
+function closeUserTransactionsModal() {
+    document.getElementById('userTransactionsModal').style.display = 'none';
+    currentTransactionUserId = null;
+    allTransactions = [];
+}
 
     function loadSectionData(sectionId) {
         switch(sectionId) {
@@ -4848,8 +5118,164 @@
             case 'adminManagement': loadAllAdmins(); break;
         }
     }
-</script>
+    // গ্লোবাল ভেরিয়েবল
+let currentTransactionUserId = null;
+let allTransactions = [];
+let currentTransactionPage = 1;
+const transactionsPerPage = 10;
 
+// মডাল খোলার ফাংশন (এটি viewUserTransactions-এর জায়গায় ব্যবহার করবেন)
+async function viewUserTransactions(userId) {
+    currentTransactionUserId = userId;
+    currentTransactionPage = 1;
+    
+    // ইউজারের নাম দেখানোর জন্য
+    try {
+        const userSnap = await database.ref('users/' + userId).once('value');
+        const user = userSnap.val();
+        document.getElementById('transactionModalUserName').innerText = user?.name || user?.phone || 'ইউজার';
+    } catch(e) {}
+    
+    document.getElementById('userTransactionsModal').style.display = 'flex';
+    document.getElementById('transactionsList').innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner"></i> লেনদেন লোড হচ্ছে...</div>';
+    
+    // ডাটাবেস থেকে লেনদেন লোড
+    try {
+        const snapshot = await database.ref('orders').orderByChild('userId').equalTo(userId).once('value');
+        const orders = snapshot.val() || {};
+        allTransactions = Object.entries(orders).map(([id, order]) => ({ id, ...order }));
+        // তারিখ অনুযায়ী সাজানো (নতুন প্রথম)
+        allTransactions.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+        
+        renderTransactions();
+    } catch(error) {
+        console.error(error);
+        document.getElementById('transactionsList').innerHTML = '<div class="error-message">লেনদেন লোড করতে সমস্যা!</div>';
+    }
+}
+
+// লেনদেন রেন্ডার করা (পেজিনেশন ও ফিল্টার সহ)
+function renderTransactions() {
+    const searchTerm = document.getElementById('transactionSearch').value.toLowerCase();
+    const statusFilter = document.getElementById('transactionStatusFilter').value;
+    
+    let filtered = allTransactions;
+    if (searchTerm) {
+        filtered = filtered.filter(tx => 
+            (tx.number && tx.number.toLowerCase().includes(searchTerm)) ||
+            (tx.offerTitle && tx.offerTitle.toLowerCase().includes(searchTerm)) ||
+            (tx.category && tx.category.toLowerCase().includes(searchTerm))
+        );
+    }
+    if (statusFilter !== 'all') {
+        filtered = filtered.filter(tx => tx.status === statusFilter);
+    }
+    
+    const totalPages = Math.ceil(filtered.length / transactionsPerPage);
+    const start = (currentTransactionPage - 1) * transactionsPerPage;
+    const paginated = filtered.slice(start, start + transactionsPerPage);
+    
+    // কন্টেন্ট দেখানো
+    const container = document.getElementById('transactionsList');
+    if (paginated.length === 0) {
+        container.innerHTML = '<div class="text-center p-20">কোনো লেনদেন নেই</div>';
+    } else {
+        let html = '';
+        for (let tx of paginated) {
+            let statusClass = '';
+            let statusText = '';
+            if (tx.status === 'Success') {
+                statusClass = 'transaction-status-success';
+                statusText = '✅ সফল';
+            } else if (tx.status === 'Pending') {
+                statusClass = 'transaction-status-pending';
+                statusText = '⏳ পেন্ডিং';
+            } else {
+                statusClass = 'transaction-status-cancelled';
+                statusText = '❌ বাতিল';
+            }
+            
+            let displayCategory = tx.category || 'N/A';
+            if (tx.category === 'এম-ব্যাংক' && tx.operatorName && tx.operatorName !== 'এম-ব্যাংক') {
+                displayCategory = `এম-ব্যাংক (${tx.operatorName})`;
+            }
+            
+            let details = tx.number || tx.offerTitle || tx.transactionId || '-';
+            if (tx.senderNumber && tx.receiverNumber) {
+                details = `প্রেরক: ${tx.senderNumber} → রিসিভার: ${tx.receiverNumber}`;
+            }
+            
+            html += `
+                <div class="transaction-item ${statusClass}">
+                    <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                        <div><strong>${displayCategory}</strong> <span style="font-size:12px;">(${tx.operatorName || ''})</span></div>
+                        <div><strong>৳${(tx.amount || 0).toFixed(2)}</strong> <span class="status-badge" style="background:${tx.status==='Success'?'#4CAF50':tx.status==='Pending'?'#2196F3':'#d32f2f'}; color:white;">${tx.status}</span></div>
+                    </div>
+                    <div style="font-size:13px; margin-top:5px;">
+                        <i class="fas fa-mobile-alt"></i> ${details}<br>
+                        <i class="fas fa-clock"></i> ${tx.time || new Date(tx.timestamp).toLocaleString('bn-BD')}<br>
+                        <div class="balance-info" style="margin-top:5px;">
+                            <span class="previous-balance">পূর্বের: ৳${(tx.previousBalance || 0).toFixed(2)}</span> → 
+                            <span class="current-balance">বর্তমান: ৳${(tx.newBalance || 0).toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+    
+    // পেজিনেশন কন্ট্রোল
+    const paginationDiv = document.getElementById('paginationControls');
+    if (totalPages <= 1) {
+        paginationDiv.innerHTML = '';
+        return;
+    }
+    let paginationHtml = '';
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHtml += `<button class="pagination-btn ${i === currentTransactionPage ? 'active' : ''}" onclick="goToTransactionPage(${i})">${i}</button>`;
+    }
+    paginationDiv.innerHTML = paginationHtml;
+}
+
+function goToTransactionPage(page) {
+    currentTransactionPage = page;
+    renderTransactions();
+}
+
+function filterTransactions() {
+    currentTransactionPage = 1;
+    renderTransactions();
+}
+
+function closeUserTransactionsModal() {
+    document.getElementById('userTransactionsModal').style.display = 'none';
+    currentTransactionUserId = null;
+    allTransactions = [];
+}
+</script>
+<!-- ইউজারের লেনদেন দেখানোর মডাল -->
+<div id="userTransactionsModal" class="modal">
+    <div class="modal-content" style="max-width: 900px; max-height: 80vh; overflow-y: auto;">
+        <div class="modal-header">
+            <h3><i class="fas fa-history"></i> <span id="transactionModalUserName">ইউজারের</span> লেনদেনের ইতিহাস</h3>
+            <button class="close-modal" onclick="closeUserTransactionsModal()"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="transactionFilters" style="margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <input type="text" id="transactionSearch" placeholder="🔍 নম্বর বা বিবরণ দিয়ে খুঁজুন" style="flex:1;" onkeyup="filterTransactions()">
+            <select id="transactionStatusFilter" onchange="filterTransactions()">
+                <option value="all">সব স্ট্যাটাস</option>
+                <option value="Success">সফল</option>
+                <option value="Pending">পেন্ডিং</option>
+                <option value="Cancelled">বাতিল</option>
+            </select>
+        </div>
+        <div id="transactionsList">
+            <div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div>
+        </div>
+        <div id="paginationControls" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;"></div>
+    </div>
+</div>
 <!-- AdSense Auto Ad Code -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
      crossorigin="anonymous"></script>
