@@ -18,6 +18,45 @@
     <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-storage-compat.js"></script>
 
     <style>
+    
+    /* কার্ডের ক্লোজ/মিনিমাইজ বাটন স্টাইল */
+.card-close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    font-size: 16px;
+}
+
+.card-close-btn:hover {
+    background: var(--danger-color);
+    transform: scale(1.1);
+}
+
+/* মোবাইলের জন্য টাচ ফ্রেন্ডলি */
+@media (max-width: 768px) {
+    .card-close-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .section-header {
+        padding: 15px;
+    }
+    
+    .section-header h3 {
+        font-size: 14px;
+    }
+}
+    
         /* সম্পূর্ণ স্টাইল আগের মতই থাকবে (কোনো পরিবর্তন নেই) */
         :root {
             --primary-color: #1a237e;
@@ -1278,21 +1317,18 @@ body.dark-mode #transactionsList .transaction-item {
             <span class="badge" id="oldDataCount">0</span>
         </div>
 
-        <div class="sections-list">
-            <!-- Dashboard Section -->
-            <div class="section-item" id="dashboardItem">
-                <div class="section-header" onclick="toggleSection('dashboard')">
-                    <h3>
-                        <span class="section-icon"><i class="fas fa-tachometer-alt"></i></span>
-                        ড্যাশবোর্ড
-                    </h3>
-                    <span class="section-toggle">▼</span>
-                </div>
-                <div class="section-content" id="dashboardContent">
-                    <div class="section-inner">
-                        <div class="section-title">
-                            <i class="fas fa-tachometer-alt"></i> ড্যাশবোর্ড
-                        </div>
+        <div class="section-header" onclick="toggleSection('dashboard')">
+    <h3>
+        <span class="section-icon"><i class="fas fa-tachometer-alt"></i></span>
+        ড্যাশবোর্ড
+    </h3>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <span class="section-toggle">▼</span>
+        <button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('dashboard')" title="মিনিমাইজ/ক্লোজ">
+            <i class="fas fa-window-minimize"></i>
+        </button>
+    </div>
+</div>
 
                         <!-- Stats Cards -->
                         <div class="stats-grid">
@@ -5253,6 +5289,106 @@ function closeUserTransactionsModal() {
     currentTransactionUserId = null;
     allTransactions = [];
 }
+// ==================== সব কার্ডে ক্লোজ বাটন যোগ করার ফাংশন ====================
+function addCloseButtonsToAllCards() {
+    const sections = document.querySelectorAll('.section-item');
+    sections.forEach(section => {
+        const header = section.querySelector('.section-header');
+        const existingCloseBtn = header.querySelector('.card-close-btn');
+        if (!existingCloseBtn) {
+            const toggleSpan = header.querySelector('.section-toggle');
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'card-close-btn';
+            closeBtn.setAttribute('onclick', 'event.stopPropagation(); minimizeCard(this)');
+            closeBtn.setAttribute('title', 'মিনিমাইজ/ক্লোজ');
+            closeBtn.innerHTML = '<i class="fas fa-window-minimize"></i>';
+            
+            // টগল স্প্যানের পাশে বাটন যোগ করুন
+            if (toggleSpan && toggleSpan.parentNode) {
+                const wrapper = document.createElement('div');
+                wrapper.style.display = 'flex';
+                wrapper.style.alignItems = 'center';
+                wrapper.style.gap = '15px';
+                toggleSpan.parentNode.insertBefore(wrapper, toggleSpan);
+                wrapper.appendChild(toggleSpan);
+                wrapper.appendChild(closeBtn);
+            } else {
+                header.appendChild(closeBtn);
+            }
+        }
+    });
+}
+
+// ==================== কার্ড মিনিমাইজ ফাংশন ====================
+function minimizeCard(element) {
+    // element হতে কার্ড খুঁজে বের করা
+    let card;
+    if (typeof element === 'string') {
+        card = document.getElementById(element + 'Item');
+    } else {
+        card = element.closest('.section-item');
+    }
+    
+    if (card) {
+        const content = card.querySelector('.section-content');
+        const toggle = card.querySelector('.section-toggle');
+        
+        if (content.classList.contains('expanded')) {
+            // কার্ড বন্ধ করুন
+            content.classList.remove('expanded');
+            if (toggle) toggle.textContent = '▼';
+        } else {
+            // অন্য সব কার্ড বন্ধ করে এই কার্ড খুলুন
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('expanded');
+            });
+            document.querySelectorAll('.section-toggle').forEach(icon => {
+                icon.textContent = '▼';
+            });
+            content.classList.add('expanded');
+            if (toggle) toggle.textContent = '▲';
+            
+            // সেকশনের ডাটা লোড করুন
+            const sectionId = card.id.replace('Item', '');
+            loadSectionData(sectionId);
+        }
+    }
+}
+
+// ==================== আপডেটেড টগল সেকশন ফাংশন ====================
+function toggleSection(sectionId) {
+    const content = document.getElementById(sectionId + 'Content');
+    const toggle = document.querySelector(`#${sectionId}Item .section-toggle`);
+    
+    if (!content) return;
+    
+    const isExpanded = content.classList.contains('expanded');
+    
+    // সব কার্ড বন্ধ করুন
+    document.querySelectorAll('.section-content').forEach(section => {
+        section.classList.remove('expanded');
+    });
+    document.querySelectorAll('.section-toggle').forEach(icon => {
+        if (icon) icon.textContent = '▼';
+    });
+    
+    // যদি আগে বন্ধ ছিল, তাহলে এটি খুলুন
+    if (!isExpanded) {
+        content.classList.add('expanded');
+        if (toggle) toggle.textContent = '▲';
+        loadSectionData(sectionId);
+    }
+}
+
+// DOM লোড হলে ক্লোজ বাটন যোগ করুন
+document.addEventListener('DOMContentLoaded', function() {
+    // ... আপনার বিদ্যমান কোড ...
+    
+    // সব কার্ডে ক্লোজ বাটন যোগ করুন
+    setTimeout(() => {
+        addCloseButtonsToAllCards();
+    }, 500);
+});
 </script>
 <!-- ইউজারের লেনদেন দেখানোর মডাল -->
 <div id="userTransactionsModal" class="modal">
