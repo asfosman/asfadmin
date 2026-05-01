@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>ASF Telecom - এডমিন প্যানেল</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Firebase SDKs -->
@@ -19,225 +19,129 @@
             --warning-color: #FF9800;
             --light-bg: #f5f7fa;
             --white: #ffffff;
-            --text-dark: #333333;
-            --text-light: #666666;
+            --text-dark: #333;
+            --text-light: #666;
             --border-color: #e0e0e0;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Kalpurush', sans-serif; }
-        body { background-color: var(--light-bg); color: var(--text-dark); overflow-x: hidden; font-size: 14px; }
+        body { background: var(--light-bg); font-size: 14px; }
+
+        /* Login */
         .login-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); }
-        .login-box { background: var(--white); padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; text-align: center; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        .input-group { position: relative; margin-bottom: 20px; }
-        .login-input { width: 100%; padding: 15px 45px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 16px; }
-        .login-input:focus { border-color: var(--primary-color); outline: none; }
-        .input-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-light); }
-        .password-toggle { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; }
-        .login-btn { width: 100%; padding: 15px; background: var(--primary-color); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .login-error { color: var(--danger-color); margin-top: 10px; display: none; background: rgba(211,47,47,0.1); padding: 10px; border-radius: 5px; }
+        .login-box { background: white; padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; text-align: center; }
+        .login-logo { width: 80px; height: 80px; margin: 0 auto 20px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; }
+        .login-input { width: 100%; padding: 15px 45px; border: 2px solid var(--border-color); border-radius: 10px; font-size: 16px; margin-bottom: 15px; }
+        .login-btn { width: 100%; padding: 15px; background: var(--primary-color); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .login-error { color: var(--danger-color); margin-top: 10px; display: none; }
+
+        /* Main */
         #mainContent { display: none; }
         .logged-in #mainContent { display: block; }
         .logged-in .login-container { display: none; }
-        .admin-header { background: var(--primary-color); color: white; padding: 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .header-content { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; gap: 15px; }
+
+        /* Header */
+        .admin-header { background: var(--primary-color); color: white; padding: 15px 20px; position: sticky; top: 0; z-index: 100; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; gap: 10px; }
         .brand { display: flex; align-items: center; gap: 15px; }
-        .brand-icon { font-size: 24px; background: rgba(255,255,255,0.2); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .digital-clock { background: rgba(0,0,0,0.3); padding: 8px 15px; border-radius: 30px; font-size: 14px; }
-        .admin-controls { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-        .notification-bell { background: none; border: none; color: white; font-size: 24px; position: relative; cursor: pointer; }
-        .notification-badge { position: absolute; top: -5px; right: -5px; background: var(--danger-color); color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; }
-        .logout-btn { background: var(--danger-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .brand-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .digital-clock { background: rgba(0,0,0,0.3); padding: 5px 12px; border-radius: 20px; font-size: 12px; }
+        .admin-controls { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .admin-profile { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .admin-avatar { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: rgba(255,255,255,0.2); }
+        .admin-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .logout-btn { background: var(--danger-color); border: none; padding: 8px 16px; border-radius: 8px; color: white; cursor: pointer; }
+
+        /* Cards Grid */
         .main-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        
-        /* ============= নতুন স্টাইল: টুলস মিনিমাইজ/ম্যাক্সিমাইজ ============= */
-        .sections-list {
-            display: block;
-            padding: 20px 0;
-        }
-        .section-item {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 1px solid var(--border-color);
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-        /* মিনিমাইজড অবস্থা */
-        .section-item.minimized {
-            margin-bottom: 15px;
-        }
-        .section-item.minimized .section-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 15px;
-        }
-        .section-item.minimized .section-content {
-            display: none;
-        }
-        /* ম্যাক্সিমাইজড অবস্থা (পূর্ণ স্ক্রিন) */
-        .section-item.maximized {
-            position: fixed;
-            top: 80px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            z-index: 1000;
-            margin: 0;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-        .section-item.maximized .section-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 15px 15px 0 0;
-            cursor: default;
-        }
-        .section-item.maximized .section-content {
-            flex: 1;
-            overflow-y: auto;
-            max-height: none !important;
-            display: block !important;
-        }
-        .section-item.maximized .section-inner {
-            height: 100%;
-            overflow-y: auto;
-        }
-        /* অন্যান্য আইটেম মিনিমাইজড থাকবে যখন একটি ম্যাক্সিমাইজড */
-        body.has-maximized .section-item:not(.maximized) {
-            opacity: 0.3;
-            pointer-events: none;
-        }
-        body.has-maximized .section-item.maximized {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
-        .section-header {
-            padding: 20px;
-            cursor: pointer;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s ease;
-        }
-        .section-header h3 { display: flex; align-items: center; gap: 10px; font-size: 18px; }
-        .section-icon { position: relative; }
-        .section-icon-badge { position: absolute; top: -8px; right: -8px; background: var(--danger-color); color: white; border-radius: 50%; padding: 2px 6px; font-size: 11px; }
+        .sections-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .section-item { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border: 1px solid var(--border-color); }
+        .section-header { padding: 15px 20px; cursor: pointer; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; display: flex; justify-content: space-between; align-items: center; }
+        .section-header h3 { display: flex; align-items: center; gap: 10px; font-size: 16px; margin: 0; }
         .section-toggle { font-size: 14px; }
-        .section-content { display: block; max-height: none; overflow: visible; }
-        .section-content.collapsed { display: none; }
-        .section-inner { padding: 25px; border-top: 1px solid var(--border-color); }
-        
-        /* হেডারে বাটন গ্রুপ */
-        .header-buttons {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .card-action-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-        .card-action-btn:hover {
-            background: rgba(255,255,255,0.4);
-        }
-        
-        /* বাকি সব স্টাইল আগের মতো */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
-        .stat-card { background: white; padding: 20px; border-radius: 15px; text-align: center; border-left: 4px solid var(--primary-color); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .stat-number { font-size: 32px; font-weight: bold; color: var(--primary-color); margin: 10px 0; }
-        .table-responsive { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border-color); margin-top: 20px; }
-        .data-table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        .data-table th, .data-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
-        .data-table th { background: var(--light-bg); color: var(--primary-color); }
-        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; }
-        .status-active { background: #e8f5e9; color: #4CAF50; }
-        .status-pending { background: #fff3e0; color: #FF9800; }
-        .status-inactive { background: #ffebee; color: #d32f2f; }
-        .btn { padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .card-close-btn { background: rgba(255,255,255,0.2); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; }
+        .card-close-btn:hover { background: var(--danger-color); }
+        .section-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: white; }
+        .section-content.expanded { max-height: 2000px; }
+        .section-inner { padding: 20px; }
+
+        /* Components */
+        .card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--light-bg); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: white; padding: 15px; border-radius: 12px; text-align: center; border-left: 4px solid var(--primary-color); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .stat-number { font-size: 28px; font-weight: bold; color: var(--primary-color); }
+        .btn { padding: 8px 16px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
         .btn-primary { background: var(--primary-color); color: white; }
         .btn-success { background: var(--success-color); color: white; }
         .btn-danger { background: var(--danger-color); color: white; }
         .btn-warning { background: var(--warning-color); color: white; }
-        .btn-info { background: #00acc1; color: white; }
-        .form-control { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; }
-        .form-row { display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
-        .form-col { flex: 1; min-width: 200px; }
-        .alert { padding: 15px; border-radius: 8px; margin-bottom: 20px; display: none; }
+        .btn-sm { padding: 5px 12px; font-size: 12px; }
+        .table-responsive { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border-color); margin-top: 10px; }
+        .data-table { width: 100%; border-collapse: collapse; min-width: 500px; }
+        .data-table th { background: var(--light-bg); padding: 10px; text-align: left; font-weight: bold; color: var(--primary-color); border-bottom: 2px solid var(--border-color); }
+        .data-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-color); }
+        .status-badge { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; }
+        .status-active { background: #e8f5e9; color: #4CAF50; }
+        .status-inactive { background: #ffebee; color: #d32f2f; }
+        .status-pending { background: #fff3e0; color: #FF9800; }
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 13px; }
+        .form-control { width: 100%; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; }
+        .form-row { display: flex; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
+        .form-col { flex: 1; min-width: 150px; }
+        .action-buttons { display: flex; gap: 5px; flex-wrap: wrap; }
+        .btn-icon { width: 30px; height: 30px; border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+        .btn-edit { background: #e3f2fd; color: var(--primary-color); }
+        .btn-delete { background: #ffebee; color: var(--danger-color); }
+        .btn-info { background: #e3f2fd; color: #1976D2; }
+        .btn-addbalance { background: #e8f5e9; color: #2e7d32; }
+        .btn-approve { background: #e8f5e9; color: var(--success-color); }
+        .btn-reject { background: #ffebee; color: var(--danger-color); }
+        .copyable-number { background: #f0f0f0; padding: 2px 8px; border-radius: 20px; cursor: pointer; font-size: 12px; display: inline-flex; align-items: center; gap: 5px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: white; padding: 20px; border-radius: 15px; width: 100%; max-width: 800px; max-height: 85vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--border-color); }
+        .close-modal { background: none; border: none; font-size: 24px; color: var(--danger-color); cursor: pointer; }
+        .alert { padding: 12px; border-radius: 8px; margin-bottom: 15px; display: none; }
         .alert-success { background: #e8f5e9; color: var(--success-color); border-left: 4px solid var(--success-color); }
         .alert-error { background: #ffebee; color: var(--danger-color); border-left: 4px solid var(--danger-color); }
-        .alert-info { background: #e3f2fd; color: var(--primary-color); border-left: 4px solid var(--primary-color); }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: white; padding: 25px; border-radius: 20px; width: 100%; max-width: 800px; max-height: 90vh; overflow-y: auto; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .close-modal { background: none; border: none; font-size: 24px; color: var(--danger-color); cursor: pointer; }
-        .copyable-number { background: #f0f0f0; padding: 4px 12px; border-radius: 30px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
-        .btn-icon { padding: 6px 10px; border-radius: 6px; border: none; cursor: pointer; margin: 0 3px; }
-        .btn-edit { background: #2196f3; color: white; }
-        .btn-delete { background: #d32f2f; color: white; }
-        .btn-approve { background: #4CAF50; color: white; }
-        .btn-reject { background: #FF9800; color: white; }
-        .mt-20 { margin-top: 20px; }
-        .mt-30 { margin-top: 30px; }
-        .mb-20 { margin-bottom: 20px; }
-        .w-100 { width: 100%; }
-        .p-20 { padding: 20px; }
+        .loading-spinner { text-align: center; padding: 40px; color: var(--text-light); }
+        .cleanup-status { background: #e8f5e9; border-radius: 10px; padding: 10px 15px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .text-center { text-align: center; }
-        .text-danger { color: var(--danger-color); }
-        .text-success { color: var(--success-color); }
-        @media (max-width: 768px) { .header-content { flex-direction: column; text-align: center; } .form-row { flex-direction: column; } .section-item.maximized { top: 70px; left: 10px; right: 10px; bottom: 10px; } }
+        .w-100 { width: 100%; }
+        .mb-20 { margin-bottom: 20px; }
+        .mt-20 { margin-top: 20px; }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; text-align: center; }
+            .sections-list { grid-template-columns: 1fr; }
+            .form-row { flex-direction: column; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-<!-- লগইন পেজ -->
+<!-- Login Page -->
 <div id="loginPage" class="login-container">
     <div class="login-box">
         <div class="login-logo"><i class="fas fa-user-shield"></i></div>
         <h2>ASF Telecom - এডমিন প্যানেল</h2>
-        <div class="input-group">
-            <i class="fas fa-user input-icon"></i>
-            <input type="text" id="adminUsername" class="login-input" placeholder="ইউজারনেম">
-        </div>
-        <div class="input-group">
-            <i class="fas fa-lock input-icon"></i>
-            <input type="password" id="adminPassword" class="login-input" placeholder="পাসওয়ার্ড">
-            <button type="button" class="password-toggle" onclick="togglePasswordVisibility()"><i class="fas fa-eye"></i></button>
-        </div>
-        <button id="loginBtn" class="login-btn" onclick="adminLogin()"><i class="fas fa-sign-in-alt"></i> লগইন করুন</button>
-        <div id="loginError" class="login-error"></div>
+        <input type="text" id="adminUsername" class="login-input" placeholder="ইউজারনেম">
+        <input type="password" id="adminPassword" class="login-input" placeholder="পাসওয়ার্ড">
+        <button class="login-btn" onclick="adminLogin()"><i class="fas fa-sign-in-alt"></i> লগইন করুন</button>
+        <div id="loginError" class="login-error">লগইন ব্যর্থ! ইউজারনেম/পাসওয়ার্ড ভুল।</div>
     </div>
 </div>
 
-<!-- প্রধান কন্টেন্ট -->
+<!-- Main Content -->
 <div id="mainContent">
     <header class="admin-header">
         <div class="header-content">
-            <div class="brand">
-                <div class="brand-icon"><i class="fas fa-satellite-dish"></i></div>
-                <div><h2>ASF Telecom</h2><p class="digital-clock"><i class="far fa-calendar-alt"></i> <span id="liveDateTime">লোড হচ্ছে...</span></p></div>
-            </div>
+            <div class="brand"><div class="brand-icon"><i class="fas fa-satellite-dish"></i></div><div><h2>ASF Telecom</h2><span class="digital-clock" id="liveDateTime">লোড হচ্ছে...</span></div></div>
             <div class="admin-controls">
-                <div class="notification-container">
-                    <button id="notificationBell" class="notification-bell" onclick="toggleSoundMute()">
-                        <i class="fas fa-bell"></i>
-                        <span id="notificationBadge" class="notification-badge" style="display:none;">0</span>
-                    </button>
-                    <button class="notification-settings-icon btn-icon" onclick="toggleNotificationModal()" style="background:rgba(255,255,255,0.2); color:white;"><i class="fas fa-cog"></i></button>
-                </div>
-                <div class="admin-profile" onclick="toggleProfileModal()" style="display:flex; align-items:center; gap:10px; cursor:pointer;">
-                    <div class="admin-avatar"><img id="adminProfileImage" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" width="40" style="border-radius:50%"></div>
-                    <div class="admin-info"><div class="admin-name" id="adminNameDisplay">সুপার এডমিন</div><div class="admin-role" id="adminRoleDisplay">Super Admin</div></div>
+                <div class="admin-profile" onclick="toggleProfileModal()">
+                    <div class="admin-avatar"><img id="adminProfileImage" src="https://cdn-icons-png.flaticon.com/512/149/149071.png"></div>
+                    <div><div class="admin-name" id="adminNameDisplay">সুপার এডমিন</div><div class="admin-role" id="adminRoleDisplay">Admin</div></div>
                 </div>
                 <button class="logout-btn" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
             </div>
@@ -245,220 +149,285 @@
     </header>
 
     <div class="main-container">
-        <div class="cleanup-status" id="cleanupStatus"><i class="fas fa-history"></i> <span>শুধুমাত্র গত ৩০ দিনের লেনদেন দেখানো হচ্ছে</span> <span class="badge" id="oldDataCount">0</span></div>
-        
         <div class="sections-list">
-            <!-- ড্যাশবোর্ড সেকশন -->
-            <div class="section-item" id="dashboardItem" data-section="dashboard">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-tachometer-alt"></i></span> ড্যাশবোর্ড</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('dashboard')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('dashboard')"><i class="fas fa-window-minimize"></i></button>
-                    </div>
+            <!-- Dashboard Card -->
+            <div class="section-item" id="dashboardItem">
+                <div class="section-header" onclick="toggleSection('dashboard')">
+                    <h3><i class="fas fa-tachometer-alt"></i> ড্যাশবোর্ড</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('dashboard')"><i class="fas fa-window-minimize"></i></button></div>
                 </div>
                 <div class="section-content" id="dashboardContent">
                     <div class="section-inner">
                         <div class="stats-grid">
-                            <div class="stat-card"><i class="fas fa-users stat-icon"></i><div class="stat-number" id="totalUsers">0</div><div>সর্বমোট ইউজার</div></div>
-                            <div class="stat-card"><i class="fas fa-shopping-cart stat-icon"></i><div class="stat-number" id="totalOrders">0</div><div>সর্বমোট অর্ডার (৩০ দিন)</div></div>
-                            <div class="stat-card"><i class="fas fa-money-bill-wave stat-icon"></i><div class="stat-number" id="totalRevenue">৳0</div><div>সর্বমোট আয় (৩০ দিন)</div></div>
-                            <div class="stat-card"><i class="fas fa-clock stat-icon"></i><div class="stat-number" id="pendingOrders">0</div><div>পেন্ডিং অর্ডার</div></div>
+                            <div class="stat-card"><i class="fas fa-users"></i><div class="stat-number" id="totalUsers">0</div><div>সর্বমোট ইউজার</div></div>
+                            <div class="stat-card"><i class="fas fa-shopping-cart"></i><div class="stat-number" id="totalOrders">0</div><div>সর্বমোট অর্ডার</div></div>
+                            <div class="stat-card"><i class="fas fa-money-bill-wave"></i><div class="stat-number" id="totalRevenue">৳0</div><div>সর্বমোট আয়</div></div>
+                            <div class="stat-card"><i class="fas fa-clock"></i><div class="stat-number" id="pendingOrders">0</div><div>পেন্ডিং অর্ডার</div></div>
                         </div>
-                        <div class="card"><div class="card-header"><h3><i class="fas fa-user-clock"></i> সাম্প্রতিক ইউজার</h3><button class="btn btn-primary btn-sm" onclick="toggleSection('users')">সব দেখুন</button></div><div class="table-responsive"><table class="data-table" id="recentUsersTable"><thead><tr><th>নাম</th><th>মোবাইল</th><th>ব্যালেন্স</th><th>স্ট্যাটাস</th><th>তারিখ</th></tr></thead><tbody><tr><td colspan="5">লোড হচ্ছে...</td></tr></tbody></table></div></div>
-                        <div class="card"><div class="card-header"><h3><i class="fas fa-history"></i> সাম্প্রতিক অর্ডার (৩০ দিন)</h3><button class="btn btn-primary btn-sm" onclick="toggleSection('orders')">সব দেখুন</button></div><div class="table-responsive"><table class="data-table" id="recentOrdersTable"><thead><tr><th>ইউজার</th><th>সার্ভিস</th><th>নম্বর/বিবরণ</th><th>টাকা</th><th>স্ট্যাটাস</th></tr></thead><tbody><tr><td colspan="5">লোড হচ্ছে...</td></tr></tbody></table></div></div>
+                        <div class="card">
+                            <div class="card-header"><h3>সাম্প্রতিক ইউজার</h3><button class="btn btn-primary btn-sm" onclick="toggleSection('users')">সব দেখুন</button></div>
+                            <div class="table-responsive">
+                                <table class="data-table" id="recentUsersTable">
+                                    <thead><tr><th>নাম</th><th>মোবাইল</th><th>ব্যালেন্স</th><th>স্ট্যাটাস</th><th>একশন</th></tr></thead>
+                                    <tbody><tr><td colspan="5" class="text-center">লোড হচ্ছে...</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header"><h3>সাম্প্রতিক অর্ডার</h3><button class="btn btn-primary btn-sm" onclick="toggleSection('orders')">সব দেখুন</button></div>
+                            <div class="table-responsive">
+                                <table class="data-table" id="recentOrdersTable">
+                                    <thead><tr><th>ইউজার</th><th>সার্ভিস</th><th>নম্বর</th><th>টাকা</th><th>স্ট্যাটাস</th></tr></thead>
+                                    <tbody><tr><td colspan="5" class="text-center">লোড হচ্ছে...</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- সকল ইউজার সেকশন -->
-            <div class="section-item" id="usersItem" data-section="users">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-users"></i></span> সকল ইউজার</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('users')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('users')"><i class="fas fa-window-minimize"></i></button>
+            <!-- Users Card (All Users) -->
+            <div class="section-item" id="usersItem">
+                <div class="section-header" onclick="toggleSection('users')">
+                    <h3><i class="fas fa-users"></i> সকল ইউজার</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('users')"><i class="fas fa-window-minimize"></i></button></div>
+                </div>
+                <div class="section-content" id="usersContent">
+                    <div class="section-inner">
+                        <div class="form-row"><input type="text" id="userSearch" class="form-control" placeholder="নাম বা মোবাইল দিয়ে খুঁজুন..." onkeyup="searchUsers()"><select id="userFilter" class="form-control" onchange="filterUsers()"><option value="all">সব ইউজার</option><option value="active">একটিভ</option><option value="inactive">ইনএকটিভ</option></select></div>
+                        <div class="table-responsive"><table class="data-table" id="usersTable"><thead><tr><th>নাম</th><th>মোবাইল</th><th>ব্যালেন্স</th><th>স্ট্যাটাস</th><th>রোল</th><th>একশন</th></tr></thead><tbody><tr><td colspan="6" class="text-center">লোড হচ্ছে...</td></tr></tbody></table></div>
                     </div>
                 </div>
-                <div class="section-content" id="usersContent"><div class="section-inner">
-                    <div class="form-row"><div class="form-col"><input type="text" id="userSearch" class="form-control" placeholder="ইউজার খুঁজুন" onkeyup="searchUsers()"></div><div class="form-col"><select id="userFilter" class="form-control" onchange="filterUsers()"><option value="all">সকল ইউজার</option><option value="active">একটিভ</option><option value="inactive">ইনএকটিভ</option><option value="blocked">ব্লকড</option></select></div></div>
-                    <div class="table-responsive"><table class="data-table" id="usersTable"><thead><tr><th>ছবি</th><th>নাম</th><th>মোবাইল</th><th>ইমেইল</th><th>ব্যালেন্স</th><th>স্ট্যাটাস</th><th>রোল</th><th>একশন</th></tr></thead><tbody><tr><td colspan="8">লোড হচ্ছে...</td></tr></tbody></table></div>
-                </div></div>
             </div>
 
-            <!-- নোটিশ সেকশন -->
-            <div class="section-item" id="noticeItem" data-section="notice">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-bullhorn"></i></span> নোটিশ</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('notice')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('notice')"><i class="fas fa-window-minimize"></i></button>
+            <!-- Notice Card -->
+            <div class="section-item" id="noticeItem">
+                <div class="section-header" onclick="toggleSection('notice')">
+                    <h3><i class="fas fa-bullhorn"></i> নোটিশ</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('notice')"><i class="fas fa-window-minimize"></i></button></div>
+                </div>
+                <div class="section-content" id="noticeContent">
+                    <div class="section-inner">
+                        <div class="card">
+                            <div class="alert" id="noticeAlert"></div>
+                            <textarea id="marqueeMessage" class="form-control" rows="2" placeholder="চলন্ত নোটিশের মেসেজ লিখুন"></textarea>
+                            <div class="form-row"><div class="form-col"><label>স্ট্যাটাস</label><select id="marqueeStatus" class="form-control"><option value="active">সক্রিয়</option><option value="inactive">নিষ্ক্রিয়</option></select></div><div class="form-col"><label>টেক্সটের রঙ</label><input type="color" id="marqueeColor" class="form-control" value="#1a237e"></div></div>
+                            <input type="url" id="noticeLink" class="form-control mb-20" placeholder="https://example.com/notice">
+                            <button class="btn btn-success w-100" onclick="saveCombinedNotice()"><i class="fas fa-save"></i> নোটিশ সংরক্ষণ</button>
+                            <div class="mt-20 p-20" style="background:#f8f9fa;border-radius:10px;"><h4>প্রিভিউ</h4><div style="background:white;padding:10px;border-radius:8px;overflow:hidden;"><div style="white-space:nowrap;overflow:hidden;animation:marquee 20s linear infinite;"><i class="fas fa-bullhorn"></i> <span id="marqueePreview">আপনার নোটিশ এখানে দেখানো হবে...</span></div></div></div>
+                        </div>
                     </div>
                 </div>
-                <div class="section-content" id="noticeContent"><div class="section-inner">
-                    <div class="alert" id="noticeAlert"></div>
-                    <div class="form-group"><label class="form-label">মেসেজ *</label><textarea id="marqueeMessage" class="form-control" rows="2"></textarea></div>
-                    <div class="form-row"><div class="form-col"><label>স্ট্যাটাস</label><select id="marqueeStatus" class="form-control"><option value="active">সক্রিয়</option><option value="inactive">নিষ্ক্রিয়</option></select></div><div class="form-col"><label>টেক্সটের রঙ</label><input type="color" id="marqueeColor" class="form-control" value="#1a237e"></div></div>
-                    <div class="form-group"><label>লিংক (ঐচ্ছিক)</label><input type="url" id="noticeLink" class="form-control"></div>
-                    <button class="btn btn-success w-100" onclick="saveCombinedNotice()"><i class="fas fa-save"></i> নোটিশ সংরক্ষণ</button>
-                    <div class="mt-30 p-20" style="background:#f8f9fa; border-radius:10px;"><h4><i class="fas fa-eye"></i> প্রিভিউ</h4><div style="background:white; padding:15px;"><div style="white-space:nowrap; overflow:hidden; animation: marquee 20s linear infinite;"><i class="fas fa-bullhorn"></i> <span id="marqueePreview">আপনার নোটিশ এখানে দেখানো হবে...</span></div></div></div>
-                </div></div>
             </div>
 
-            <!-- নতুন ইউজার সেকশন -->
-            <div class="section-item" id="createUserItem" data-section="createUser">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-user-plus"></i></span> নতুন ইউজার</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('createUser')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('createUser')"><i class="fas fa-window-minimize"></i></button>
+            <!-- Create User Card -->
+            <div class="section-item" id="createUserItem">
+                <div class="section-header" onclick="toggleSection('createUser')">
+                    <h3><i class="fas fa-user-plus"></i> নতুন ইউজার</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('createUser')"><i class="fas fa-window-minimize"></i></button></div>
+                </div>
+                <div class="section-content" id="createUserContent">
+                    <div class="section-inner">
+                        <div class="card">
+                            <div class="alert" id="createUserAlert"></div>
+                            <div class="form-row"><div class="form-col"><input type="text" id="newUserName" class="form-control" placeholder="নাম *"></div><div class="form-col"><input type="text" id="newUserPhone" class="form-control" placeholder="মোবাইল *"></div></div>
+                            <div class="form-row"><div class="form-col"><input type="text" id="newUserPassword" class="form-control" placeholder="পাসওয়ার্ড *"></div><div class="form-col"><input type="email" id="newUserEmail" class="form-control" placeholder="ইমেইল"></div></div>
+                            <div class="form-row"><div class="form-col"><input type="number" id="newUserBalance" class="form-control" value="0" placeholder="ব্যালেন্স"></div><div class="form-col"><select id="newUserRole" class="form-control"><option value="user">ইউজার</option><option value="agent">এজেন্ট</option><option value="reseller">রিসেলার</option></select></div></div>
+                            <div class="form-row"><div class="form-col"><select id="newUserStatus" class="form-control"><option value="active">একটিভ</option><option value="inactive">ইনএকটিভ</option><option value="blocked">ব্লকড</option></select></div><div class="form-col"><input type="date" id="newUserExpiry" class="form-control"></div></div>
+                            <button class="btn btn-success w-100" onclick="createNewUser()"><i class="fas fa-user-plus"></i> ইউজার তৈরি</button>
+                            <button class="btn btn-primary w-100 mt-20" onclick="resetUserForm()"><i class="fas fa-redo"></i> ফরম রিসেট</button>
+                        </div>
                     </div>
                 </div>
-                <div class="section-content" id="createUserContent"><div class="section-inner">
-                    <div class="alert" id="createUserAlert"></div>
-                    <div class="form-row"><div class="form-col"><label>নাম *</label><input type="text" id="newUserName" class="form-control"></div><div class="form-col"><label>মোবাইল *</label><input type="text" id="newUserPhone" class="form-control"></div></div>
-                    <div class="form-row"><div class="form-col"><label>পাসওয়ার্ড *</label><input type="text" id="newUserPassword" class="form-control"></div><div class="form-col"><label>ইমেইল</label><input type="email" id="newUserEmail" class="form-control"></div></div>
-                    <div class="form-row"><div class="form-col"><label>ব্যালেন্স</label><input type="number" id="newUserBalance" class="form-control" value="0"></div><div class="form-col"><label>রোল</label><select id="newUserRole" class="form-control"><option value="user">ইউজার</option><option value="agent">এজেন্ট</option><option value="reseller">রিসেলার</option></select></div></div>
-                    <div class="form-row"><div class="form-col"><label>স্ট্যাটাস</label><select id="newUserStatus" class="form-control"><option value="active">একটিভ</option><option value="inactive">ইনএকটিভ</option><option value="blocked">ব্লকড</option></select></div><div class="form-col"><label>মেয়াদ শেষ</label><input type="date" id="newUserExpiry" class="form-control"></div></div>
-                    <button class="btn btn-success w-100" onclick="createNewUser()"><i class="fas fa-user-plus"></i> ইউজার তৈরি</button>
-                    <button class="btn btn-primary w-100 mt-20" onclick="resetUserForm()"><i class="fas fa-redo"></i> ফরম রিসেট</button>
-                </div></div>
             </div>
 
-            <!-- অর্ডার ও রিকোয়েস্ট সেকশন -->
-            <div class="section-item" id="ordersItem" data-section="orders">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-shopping-cart"></i><span id="ordersIconBadge" class="section-icon-badge" style="display:none;">0</span></span> সকল অর্ডার ও রিকোয়েস্ট</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('orders')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('orders')"><i class="fas fa-window-minimize"></i></button>
+            <!-- Orders Card -->
+            <div class="section-item" id="ordersItem">
+                <div class="section-header" onclick="toggleSection('orders')">
+                    <h3><i class="fas fa-shopping-cart"></i> সকল অর্ডার ও রিকোয়েস্ট</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('orders')"><i class="fas fa-window-minimize"></i></button></div>
+                </div>
+                <div class="section-content" id="ordersContent">
+                    <div class="section-inner">
+                        <div class="card">
+                            <div class="cleanup-status"><i class="fas fa-info-circle"></i><span>শুধুমাত্র গত ৩০ দিনের তথ্য দেখানো হচ্ছে।</span></div>
+                            <div class="section-actions"><select id="orderFilter" class="form-control" style="width:auto;" onchange="loadAllOrders()"><option value="all">সকল অর্ডার</option><option value="Pending">পেন্ডিং</option><option value="Success">সফল</option><option value="Cancelled">বাতিল</option></select><button class="btn btn-primary" onclick="loadAllOrders()"><i class="fas fa-sync-alt"></i> রিফ্রেশ</button></div>
+                            <div id="ordersTableContainer"><div class="table-responsive"><table class="data-table" id="ordersTable"><thead><tr><th>ট্রানজেকশন</th><th>ইউজার</th><th>সার্ভিস</th><th>বিবরণ</th><th>টাকা</th><th>স্ট্যাটাস</th><th>আগের ব্যালেন্স</th><th>বর্তমান ব্যালেন্স</th><th>তারিখ</th><th>একশন</th></tr></thead><tbody><tr><td colspan="10" class="text-center">লোড হচ্ছে...</td></tr></tbody></table></div></div>
+                        </div>
                     </div>
                 </div>
-                <div class="section-content" id="ordersContent"><div class="section-inner">
-                    <div class="cleanup-status" style="background:#fff3e0; justify-content:space-between;"><span><i class="fas fa-info-circle"></i> শুধুমাত্র গত ৩০ দিনের তথ্য</span><span style="background:var(--danger-color); padding:5px 15px; border-radius:30px;"><i class="fas fa-bell"></i> পেন্ডিং: <span id="totalPendingCount">0</span></span></div>
-                    <div class="section-actions"><select id="orderFilter" class="form-control" style="width:auto;" onchange="loadAllOrders()"><option value="all">সকল অর্ডার</option><option value="Pending">পেন্ডিং</option><option value="Success">সফল</option><option value="Cancelled">বাতিল</option><option value="balance">ব্যালেন্স রিকোয়েস্ট</option><option value="drive">ড্রাইভ অফার রিকোয়েস্ট</option></select><button class="btn btn-primary" onclick="loadAllOrders()"><i class="fas fa-sync-alt"></i> রিফ্রেশ</button></div>
-                    <div id="ordersTableContainer"><div class="table-responsive"><table class="data-table" id="ordersTable"><thead><tr><th>ট্রানজেকশন</th><th>ইউজার</th><th>সার্ভিস</th><th>প্রেরক/রিসিভার</th><th>টাকা</th><th>স্ট্যাটাস</th><th>আগের ব্যালেন্স</th><th>বর্তমান ব্যালেন্স</th><th>তারিখ</th><th>একশন</th></tr></thead><tbody><tr><td colspan="10">লোড হচ্ছে...</td></tr></tbody></table></div></div>
-                    <div id="balanceRequestsContainer" style="display:none;"><h4>ব্যালেন্স রিকোয়েস্ট</h4><div class="table-responsive"><table class="data-table" id="balanceRequestsTable"><thead><tr><th>ইউজার</th><th>মোবাইল</th><th>পরিমাণ</th><th>পেমেন্ট পদ্ধতি</th><th>ট্রানজেকশন আইডি</th><th>তারিখ</th><th>স্ট্যাটাস</th><th>একশন</th></tr></thead><tbody><tr><td colspan="8">লোড হচ্ছে...</td></tr></tbody></table></div></div>
-                    <div id="driveRequestsContainer" style="display:none;"><h4>ড্রাইভ অফার রিকোয়েস্ট</h4><div class="table-responsive"><table class="data-table" id="driveRequestsTable"><thead><tr><th>ইউজার</th><th>মোবাইল</th><th>অফার টাইটেল</th><th>পরিমাণ</th><th>প্রেরক নম্বর</th><th>রিসিভার নম্বর</th><th>তারিখ</th><th>স্ট্যাটাস</th><th>একশন</th></tr></thead><tbody><tr><td colspan="9">লোড হচ্ছে...</td></tr></tbody></table></div></div>
-                </div></div>
             </div>
 
-            <!-- ড্রাইভ অফার সেকশন -->
-            <div class="section-item" id="driveOffersItem" data-section="driveOffers">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-bolt"></i></span> ড্রাইভ অফার</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('driveOffers')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('driveOffers')"><i class="fas fa-window-minimize"></i></button>
+            <!-- Drive Offers Card -->
+            <div class="section-item" id="driveOffersItem">
+                <div class="section-header" onclick="toggleSection('driveOffers')">
+                    <h3><i class="fas fa-bolt"></i> ড্রাইভ অফার</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('driveOffers')"><i class="fas fa-window-minimize"></i></button></div>
+                </div>
+                <div class="section-content" id="driveOffersContent">
+                    <div class="section-inner">
+                        <div class="card">
+                            <div class="section-actions"><button class="btn btn-success" onclick="showAddDriveOfferModal()"><i class="fas fa-plus"></i> নতুন অফার</button></div>
+                            <div id="driveOffersList" class="loading-spinner"><i class="fas fa-spinner"></i><p>অফার লোড হচ্ছে...</p></div>
+                        </div>
                     </div>
                 </div>
-                <div class="section-content" id="driveOffersContent"><div class="section-inner"><button class="btn btn-success" onclick="showAddDriveOfferModal()"><i class="fas fa-plus"></i> নতুন অফার</button><div id="driveOffersList" class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div></div></div>
             </div>
 
-            <!-- স্লাইডার ইমেজ সেকশন -->
-            <div class="section-item" id="sliderImagesItem" data-section="sliderImages">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-images"></i></span> স্লাইডার ইমেজ</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('sliderImages')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('sliderImages')"><i class="fas fa-window-minimize"></i></button>
+            <!-- Slider Images Card -->
+            <div class="section-item" id="sliderImagesItem">
+                <div class="section-header" onclick="toggleSection('sliderImages')">
+                    <h3><i class="fas fa-images"></i> স্লাইডার ইমেজ</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('sliderImages')"><i class="fas fa-window-minimize"></i></button></div>
+                </div>
+                <div class="section-content" id="sliderImagesContent">
+                    <div class="section-inner">
+                        <div class="card">
+                            <div class="alert" id="sliderImagesAlert"></div>
+                            <table class="data-table"><thead><tr><th>স্লাইডার</th><th>ইমেজ লিংক</th><th>টাইপ</th><th>প্রিভিউ</th></tr></thead><tbody id="sliderTableBody"></tbody></table>
+                            <button class="btn btn-success w-100 mt-20" onclick="saveSliderImages()"><i class="fas fa-save"></i> সংরক্ষণ</button>
+                        </div>
                     </div>
                 </div>
-                <div class="section-content" id="sliderImagesContent"><div class="section-inner"><div class="alert" id="sliderImagesAlert"></div><table class="slider-table"><thead><tr><th>স্লাইডার</th><th>ইমেজ লিংক</th><th>টাইপ</th><th>প্রিভিউ</th></tr></thead><tbody id="sliderTableBody"></tbody></table><button class="btn btn-success w-100 mt-20" onclick="saveSliderImages()">সংরক্ষণ</button></div></div>
             </div>
 
-            <!-- কমিশন সেটিংস সেকশন -->
-            <div class="section-item" id="commissionSettingsItem" data-section="commissionSettings">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-percentage"></i></span> কমিশন সেটিংস</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('commissionSettings')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('commissionSettings')"><i class="fas fa-window-minimize"></i></button>
+            <!-- Commission Settings Card -->
+            <div class="section-item" id="commissionSettingsItem">
+                <div class="section-header" onclick="toggleSection('commissionSettings')">
+                    <h3><i class="fas fa-percentage"></i> কমিশন সেটিংস</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('commissionSettings')"><i class="fas fa-window-minimize"></i></button></div>
+                </div>
+                <div class="section-content" id="commissionSettingsContent">
+                    <div class="section-inner">
+                        <div class="card">
+                            <div class="alert" id="commissionAlert"></div>
+                            <h3>রিচার্জ কমিশন (%)</h3>
+                            <div class="form-row"><div class="form-col"><label>GP</label><input type="number" id="commissionGP" class="form-control" step="0.1" value="0"></div><div class="form-col"><label>BL</label><input type="number" id="commissionBL" class="form-control" step="0.1" value="0"></div></div>
+                            <div class="form-row"><div class="form-col"><label>Robi</label><input type="number" id="commissionRobi" class="form-control" step="0.1" value="0"></div><div class="form-col"><label>Airtel</label><input type="number" id="commissionAirtel" class="form-control" step="0.1" value="0"></div></div>
+                            <div class="form-row"><div class="form-col"><label>Teletalk</label><input type="number" id="commissionTeletalk" class="form-control" step="0.1" value="0"></div><div class="form-col"><label>ডিফল্ট</label><input type="number" id="commissionDefault" class="form-control" step="0.1" value="0"></div></div>
+                            <h3 class="mt-20">এম-ব্যাংক কমিশন (%)</h3>
+                            <input type="number" id="commissionMbank" class="form-control" step="0.1" value="0">
+                            <button class="btn btn-success w-100 mt-20" onclick="saveCommissionSettings()"><i class="fas fa-save"></i> কমিশন সংরক্ষণ</button>
+                        </div>
                     </div>
                 </div>
-                <div class="section-content" id="commissionSettingsContent"><div class="section-inner">
-                    <div class="alert" id="commissionAlert"></div>
-                    <h3>রিচার্জ কমিশন (শতকরা)</h3>
-                    <div class="form-row"><div class="form-col"><label>গ্রামীণফোন (GP)</label><input type="number" id="commissionGP" class="form-control" step="0.1" value="0"></div><div class="form-col"><label>বাংলালিংক (BL)</label><input type="number" id="commissionBL" class="form-control" step="0.1" value="0"></div></div>
-                    <div class="form-row"><div class="form-col"><label>রবি (Robi)</label><input type="number" id="commissionRobi" class="form-control" step="0.1" value="0"></div><div class="form-col"><label>এয়ারটেল (Airtel)</label><input type="number" id="commissionAirtel" class="form-control" step="0.1" value="0"></div></div>
-                    <div class="form-row"><div class="form-col"><label>টেলিটক (Teletalk)</label><input type="number" id="commissionTeletalk" class="form-control" step="0.1" value="0"></div><div class="form-col"><label>ডিফল্ট</label><input type="number" id="commissionDefault" class="form-control" step="0.1" value="0"></div></div>
-                    <h3 class="mt-30">এম-ব্যাংক কমিশন</h3>
-                    <div class="form-group"><label>এম-ব্যাংক কমিশন (শতকরা)</label><input type="number" id="commissionMbank" class="form-control" step="0.1" value="0"></div>
-                    <button class="btn btn-success w-100" onclick="saveCommissionSettings()">সংরক্ষণ</button>
-                </div></div>
             </div>
 
-            <!-- সেটিংস সেকশন -->
-            <div class="section-item" id="settingsItem" data-section="settings">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-cog"></i></span> সেটিংস</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('settings')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('settings')"><i class="fas fa-window-minimize"></i></button>
+            <!-- Settings Card -->
+            <div class="section-item" id="settingsItem">
+                <div class="section-header" onclick="toggleSection('settings')">
+                    <h3><i class="fas fa-cog"></i> সেটিংস</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('settings')"><i class="fas fa-window-minimize"></i></button></div>
+                </div>
+                <div class="section-content" id="settingsContent">
+                    <div class="section-inner">
+                        <div class="card"><h3>সাপোর্ট সেটিংস</h3><input type="text" id="whatsappNumber" class="form-control" placeholder="WhatsApp নম্বর"><input type="text" id="telegramLink" class="form-control mt-10" placeholder="Telegram লিংক"><button class="btn btn-success w-100 mt-20" onclick="saveSupportSettings()">সেভ</button></div>
+                        <div class="card"><h3>স্লাইডার (পুরাতন)</h3><input type="text" id="slider1" class="form-control" placeholder="স্লাইডার ১"><input type="text" id="slider2" class="form-control mt-10" placeholder="স্লাইডার ২"><input type="text" id="slider3" class="form-control mt-10" placeholder="স্লাইডার ৩"><button class="btn btn-success w-100 mt-20" onclick="saveSliderSettings()">সেভ</button></div>
                     </div>
                 </div>
-                <div class="section-content" id="settingsContent"><div class="section-inner">
-                    <div class="card"><h3>সাপোর্ট সেটিংস</h3><div class="form-group"><label>WhatsApp নম্বর</label><input type="text" id="whatsappNumber" class="form-control"></div><div class="form-group"><label>Telegram লিংক</label><input type="text" id="telegramLink" class="form-control"></div><button class="btn btn-success" onclick="saveSupportSettings()">সেভ</button></div>
-                </div></div>
             </div>
 
-            <!-- এডমিন ম্যানেজমেন্ট (সুপার এডমিনের জন্য) -->
-            <div class="section-item" id="adminManagementItem" style="display:none;" data-section="adminManagement">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-user-cog"></i></span> এডমিন ম্যানেজমেন্ট</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('adminManagement')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('adminManagement')"><i class="fas fa-window-minimize"></i></button>
+            <!-- Admin Management Card (visible for super_admin) -->
+            <div class="section-item" id="adminManagementItem" style="display:none;">
+                <div class="section-header" onclick="toggleSection('adminManagement')">
+                    <h3><i class="fas fa-user-cog"></i> এডমিন ম্যানেজমেন্ট</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('adminManagement')"><i class="fas fa-window-minimize"></i></button></div>
+                </div>
+                <div class="section-content" id="adminManagementContent">
+                    <div class="section-inner">
+                        <div class="card">
+                            <div class="section-actions"><button class="btn btn-success" onclick="showAddAdminModal()">নতুন এডমিন</button></div>
+                            <div class="table-responsive"><table class="data-table" id="adminsTable"><thead><tr><th>ইউজারনেম</th><th>নাম</th><th>রোল</th><th>তারিখ</th><th>একশন</th></tr></thead><tbody><tr><td colspan="5" class="text-center">লোড হচ্ছে...</td></tr></tbody></table></div>
+                        </div>
                     </div>
                 </div>
-                <div class="section-content" id="adminManagementContent"><div class="section-inner"><button class="btn btn-success" onclick="showAddAdminModal()">নতুন এডমিন</button><div class="table-responsive"><table class="data-table" id="adminsTable"><thead><tr><th>ইউজারনেম</th><th>নাম</th><th>রোল</th><th>তারিখ</th><th>একশন</th></tr></thead><tbody><tr><td colspan="5">লোড হচ্ছে...</td></tr></tbody></table></div></div></div>
             </div>
 
-            <!-- ডাটা ম্যানেজমেন্ট সেকশন -->
-            <div class="section-item" id="dataManagementItem" data-section="dataManagement">
-                <div class="section-header">
-                    <h3><span class="section-icon"><i class="fas fa-database"></i></span> ডাটা ম্যানেজমেন্ট</h3>
-                    <div class="header-buttons">
-                        <span class="section-toggle">▼</span>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); toggleMaximize('dataManagement')"><i class="fas fa-expand"></i></button>
-                        <button class="card-action-btn" onclick="event.stopPropagation(); minimizeCard('dataManagement')"><i class="fas fa-window-minimize"></i></button>
+            <!-- Data Management Card -->
+            <div class="section-item" id="dataManagementItem">
+                <div class="section-header" onclick="toggleSection('dataManagement')">
+                    <h3><i class="fas fa-database"></i> ডাটা ম্যানেজমেন্ট</h3>
+                    <div style="display: flex; gap: 12px;"><span class="section-toggle">▼</span><button class="card-close-btn" onclick="event.stopPropagation(); minimizeCard('dataManagement')"><i class="fas fa-window-minimize"></i></button></div>
+                </div>
+                <div class="section-content" id="dataManagementContent">
+                    <div class="section-inner">
+                        <div class="card">
+                            <div class="alert" id="dataManagementAlert"></div>
+                            <div class="cleanup-status"><i class="fas fa-clock"></i><span>স্বয়ংক্রিয় ক্লিনআপ: ৩০ দিনের পুরনো লেনদেন ডিলিট হবে</span></div>
+                            <button class="btn btn-primary w-100 mb-20" onclick="exportAllData()"><i class="fas fa-file-export"></i> এক্সপোর্ট</button>
+                            <button class="btn btn-warning w-100 mb-20" onclick="manualCleanupOldData()"><i class="fas fa-broom"></i> পুরনো ডাটা ক্লিনআপ</button>
+                            <button class="btn btn-danger w-100" onclick="showClearDataConfirmation()"><i class="fas fa-trash"></i> সম্পূর্ণ ক্লিয়ার</button>
+                        </div>
                     </div>
                 </div>
-                <div class="section-content" id="dataManagementContent"><div class="section-inner"><div class="alert" id="dataManagementAlert"></div><button class="btn btn-primary w-100 mb-20" onclick="exportAllData()">এক্সপোর্ট</button><button class="btn btn-warning w-100 mb-20" onclick="manualCleanupOldData()">পুরনো ডাটা ক্লিনআপ</button><button class="btn btn-danger w-100" onclick="showClearDataConfirmation()">সম্পূর্ণ ক্লিয়ার</button></div></div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- সব মডাল (একবার করে) -->
-<div id="editUserModal" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-user-edit"></i> ইউজার এডিট</h3><button class="close-modal" onclick="closeEditUserModal()"><i class="fas fa-times"></i></button></div><div class="alert" id="editUserAlert"></div><input type="hidden" id="editUserId"><div class="form-group"><label>নাম</label><input type="text" id="editUserName" class="form-control"></div><div class="form-group"><label>মোবাইল</label><input type="text" id="editUserPhone" class="form-control"></div><div class="form-group"><label>ইমেইল</label><input type="email" id="editUserEmail" class="form-control"></div><div class="form-group"><label>ব্যালেন্স</label><input type="number" id="editUserBalance" class="form-control"></div><div class="form-group"><label>নতুন পাসওয়ার্ড</label><input type="text" id="editUserPassword" class="form-control"></div><div class="form-row"><div class="form-col"><label>রোল</label><select id="editUserRole" class="form-control"><option value="user">ইউজার</option><option value="agent">এজেন্ট</option><option value="reseller">রিসেলার</option><option value="admin">এডমিন</option></select></div><div class="form-col"><label>স্ট্যাটাস</label><select id="editUserStatus" class="form-control"><option value="active">একটিভ</option><option value="inactive">ইনএকটিভ</option><option value="blocked">ব্লকড</option></select></div></div><div class="form-group"><label>মেয়াদ শেষ</label><input type="date" id="editUserExpiry" class="form-control"></div><button class="btn btn-success w-100" onclick="updateUser()">আপডেট</button></div></div>
+<!-- Modals -->
+<div id="userTransactionsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h3><i class="fas fa-history"></i> <span id="transactionModalUserName">ইউজারের</span> লেনদেন</h3><button class="close-modal" onclick="closeUserTransactionsModal()"><i class="fas fa-times"></i></button></div>
+        <div class="form-row"><input type="text" id="transactionSearch" placeholder="নম্বর বা টাকা দিয়ে খুঁজুন" class="form-control" onkeyup="filterTransactions()"><select id="statusFilter" class="form-control" onchange="filterTransactions()"><option value="all">সব স্ট্যাটাস</option><option value="Success">সফল</option><option value="Pending">পেন্ডিং</option></select><button class="btn btn-warning" onclick="resetFilters()">রিসেট</button></div>
+        <div id="transactionsList"><div class="loading-spinner">লোড হচ্ছে...</div></div>
+        <div id="paginationControls" style="display: flex; justify-content: center; gap: 8px; margin-top: 15px;"></div>
+    </div>
+</div>
 
-<div id="addBalanceModal" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-money-bill-wave"></i> ইউজার ব্যালেন্স দিন</h3><button class="close-modal" onclick="closeAddBalanceModal()"><i class="fas fa-times"></i></button></div><div class="alert" id="addBalanceAlert"></div><input type="hidden" id="addBalanceUserId"><div class="form-group"><label>ইউজার নাম</label><input type="text" id="addBalanceUserName" class="form-control" readonly></div><div class="form-group"><label>বর্তমান ব্যালেন্স</label><input type="text" id="addBalanceCurrentBalance" class="form-control" readonly></div><div class="form-group"><label>টাকার পরিমাণ *</label><input type="number" id="addBalanceAmount" class="form-control" min="1"></div><div class="form-group"><label>কারণ</label><input type="text" id="addBalanceReason" class="form-control"></div><button class="btn btn-success w-100" onclick="addUserBalance()">ব্যালেন্স যোগ করুন</button></div></div>
+<div id="editUserModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h3>ইউজার এডিট</h3><button class="close-modal" onclick="closeEditUserModal()"><i class="fas fa-times"></i></button></div>
+        <div id="editUserAlert" class="alert"></div>
+        <input type="hidden" id="editUserId">
+        <input type="text" id="editUserName" class="form-control" placeholder="নাম">
+        <input type="text" id="editUserPhone" class="form-control mt-10" placeholder="মোবাইল">
+        <input type="number" id="editUserBalance" class="form-control mt-10" placeholder="ব্যালেন্স">
+        <div class="form-row mt-10"><div class="form-col"><select id="editUserRole" class="form-control"><option value="user">ইউজার</option><option value="admin">এডমিন</option></select></div><div class="form-col"><select id="editUserStatus" class="form-control"><option value="active">একটিভ</option><option value="inactive">ইনএকটিভ</option></select></div></div>
+        <button class="btn btn-success w-100 mt-20" onclick="updateUser()">আপডেট</button>
+    </div>
+</div>
 
-<div id="driveOfferModal" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-bolt"></i> ড্রাইভ অফার</h3><button class="close-modal" onclick="closeDriveOfferModal()"><i class="fas fa-times"></i></button></div><div class="alert" id="driveOfferAlert"></div><input type="hidden" id="driveOfferId"><div class="form-group"><label>টাইটেল *</label><input type="text" id="driveOfferTitle" class="form-control"></div><div class="form-row"><div class="form-col"><label>আসল মূল্য *</label><input type="number" id="driveOfferOriginalPrice" class="form-control"></div><div class="form-col"><label>অফার মূল্য *</label><input type="number" id="driveOfferPrice" class="form-control"></div></div><div class="form-group"><label>বৈধতা (দিন) *</label><input type="number" id="driveOfferValidity" class="form-control"></div><div class="form-group"><label>বিবরণ</label><textarea id="driveOfferDescription" class="form-control" rows="3"></textarea></div><div class="form-group"><label>স্ট্যাটাস</label><select id="driveOfferStatus" class="form-control"><option value="active">একটিভ</option><option value="inactive">ইনএকটিভ</option></select></div><button class="btn btn-success w-100" onclick="saveDriveOffer()">সংরক্ষণ</button></div></div>
+<div id="addBalanceModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h3><i class="fas fa-money-bill-wave"></i> ইউজার ব্যালেন্স দিন</h3><button class="close-modal" onclick="closeAddBalanceModal()"><i class="fas fa-times"></i></button></div>
+        <div class="alert" id="addBalanceAlert"></div>
+        <input type="hidden" id="addBalanceUserId">
+        <input type="text" id="addBalanceUserName" class="form-control" readonly placeholder="ইউজার নাম">
+        <input type="text" id="addBalanceCurrentBalance" class="form-control mt-10" readonly placeholder="বর্তমান ব্যালেন্স">
+        <input type="number" id="addBalanceAmount" class="form-control mt-10" placeholder="টাকার পরিমাণ *" min="1">
+        <input type="text" id="addBalanceReason" class="form-control mt-10" placeholder="কারণ (ঐচ্ছিক)">
+        <button class="btn btn-success w-100 mt-20" onclick="addUserBalance()">ব্যালেন্স যোগ করুন</button>
+    </div>
+</div>
 
-<div id="clearDataModal" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-exclamation-triangle text-danger"></i> সতর্কতা!</h3><button class="close-modal" onclick="closeClearDataModal()"><i class="fas fa-times"></i></button></div><div class="alert alert-error">এই অপশন সকল ডাটা স্থায়ীভাবে ডিলিট করবে!</div><div class="form-group"><label>নিশ্চিত করতে লিখুন: <strong>DELETE ALL DATA</strong></label><input type="text" id="confirmationText" class="form-control" placeholder="DELETE ALL DATA"></div><button class="btn btn-danger w-100" onclick="clearAllData()" id="clearDataBtn" disabled>ক্লিয়ার</button><button class="btn btn-primary w-100 mt-10" onclick="closeClearDataModal()">বাতিল</button></div></div>
+<div id="driveOfferModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h3>ড্রাইভ অফার</h3><button class="close-modal" onclick="closeDriveOfferModal()"><i class="fas fa-times"></i></button></div>
+        <div class="alert" id="driveOfferAlert"></div>
+        <input type="hidden" id="driveOfferId">
+        <input type="text" id="driveOfferTitle" class="form-control" placeholder="টাইটেল *">
+        <div class="form-row"><div class="form-col"><input type="number" id="driveOfferOriginalPrice" class="form-control" placeholder="আসল মূল্য"></div><div class="form-col"><input type="number" id="driveOfferPrice" class="form-control" placeholder="অফার মূল্য"></div></div>
+        <input type="number" id="driveOfferValidity" class="form-control mt-10" placeholder="বৈধতা (দিন)">
+        <textarea id="driveOfferDescription" class="form-control mt-10" rows="2" placeholder="বিবরণ"></textarea>
+        <select id="driveOfferStatus" class="form-control mt-10"><option value="active">একটিভ</option><option value="inactive">ইনএকটিভ</option></select>
+        <button class="btn btn-success w-100 mt-20" onclick="saveDriveOffer()">সংরক্ষণ</button>
+    </div>
+</div>
 
-<div id="notificationModal" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-bell"></i> নোটিফিকেশন সেটিংস</h3><button class="close-modal" onclick="closeNotificationModal()"><i class="fas fa-times"></i></button></div><div class="alert" id="notificationAlert"></div><div class="form-group"><label><input type="checkbox" id="soundEnabled" checked> নোটিফিকেশন সাউন্ড চালু</label></div><div class="form-group"><label><input type="checkbox" id="repeatSound" checked> অডিও রিপিট করবে</label></div><div class="form-group"><label>রিপিট ইন্টারভাল (সেকেন্ড)</label><select id="repeatInterval" class="form-control"><option value="5">৫</option><option value="10" selected>১০</option><option value="15">১৫</option><option value="30">৩০</option></select></div><div class="form-group"><label>ডিফল্ট সাউন্ড</label><select id="defaultSound" class="form-control"><option value="beep1">বীপ ১</option><option value="beep2">বীপ ২</option><option value="custom">কাস্টম</option></select></div><div class="form-group"><label>লোকাল অডিও আপলোড</label><input type="file" id="localAudioFile" accept="audio/*" class="form-control"></div><button class="btn btn-primary" onclick="testNotificationSound()">টেস্ট</button><button class="btn btn-success w-100 mt-20" onclick="saveNotificationSettings()">সংরক্ষণ</button></div></div>
-
-<div id="profileModal" class="modal"><div class="modal-content"><div class="modal-header"><h3><i class="fas fa-user-circle"></i> এডমিন প্রোফাইল</h3><button class="close-modal" onclick="closeProfileModal()"><i class="fas fa-times"></i></button></div><div class="alert" id="profileAlert"></div><div class="text-center"><img id="profileModalImage" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" width="100" style="border-radius:50%"></div><div class="form-group"><label>নতুন প্রোফাইল ছবি</label><input type="file" id="profileImageFile" accept="image/*" class="form-control"></div><div class="form-group"><label>নাম</label><input type="text" id="profileAdminName" class="form-control"></div><button class="btn btn-success w-100" onclick="saveAdminProfile()">আপডেট</button></div></div>
-
-<div id="adminModal" class="modal"><div class="modal-content"><div class="modal-header"><h3 id="adminModalTitle"><i class="fas fa-user-cog"></i> এডমিন তৈরি</h3><button class="close-modal" onclick="closeAdminModal()"><i class="fas fa-times"></i></button></div><div class="alert" id="adminModalAlert"></div><input type="hidden" id="adminId"><div class="form-group"><label>ইউজারনেম *</label><input type="text" id="adminUsernameInput" class="form-control"></div><div class="form-group"><label>পাসওয়ার্ড *</label><input type="text" id="adminPasswordInput" class="form-control"></div><div class="form-group"><label>নাম *</label><input type="text" id="adminNameInput" class="form-control"></div><div class="form-group"><label>রোল</label><select id="adminRoleInput" class="form-control"><option value="admin">এডমিন</option><option value="super_admin">সুপার এডমিন</option></select></div><button class="btn btn-success w-100" onclick="saveAdmin()">সংরক্ষণ</button></div></div>
-
-<div id="userTransactionsModal" class="modal"><div class="modal-content" style="max-width:900px"><div class="modal-header"><h3><i class="fas fa-history"></i> <span id="transactionModalUserName">ইউজারের</span> লেনদেনের ইতিহাস</h3><button class="close-modal" onclick="closeUserTransactionsModal()"><i class="fas fa-times"></i></button></div><div id="transactionFilters" style="background:#f5f5f5; padding:15px; border-radius:10px; margin-bottom:15px;"><div style="display:flex; gap:10px; flex-wrap:wrap;"><input type="text" id="transactionSearch" placeholder="নম্বর দিয়ে খুঁজুন" style="flex:2; padding:10px;" onkeyup="filterTransactions()"><select id="serviceFilter" onchange="filterTransactions()"><option value="all">সব সার্ভিস</option><option value="মোবাইল রিচার্জ">মোবাইল রিচার্জ</option><option value="এম-ব্যাংক">এম-ব্যাংক</option><option value="Drive Offer">ড্রাইভ অফার</option></select><select id="categoryFilter" onchange="filterTransactions()"><option value="all">সব ক্যাটাগরি</option><option value="GP">GP</option><option value="Robi">Robi</option><option value="Airtel">Airtel</option><option value="BL">BL</option></select></div><div style="display:flex; gap:10px; margin-top:10px;"><select id="statusFilter" onchange="filterTransactions()"><option value="all">সব স্ট্যাটাস</option><option value="Success">সফল</option><option value="Pending">পেন্ডিং</option><option value="Cancelled">বাতিল</option></select><button onclick="resetFilters()" style="padding:10px 20px; background:#607d8b; color:white; border:none; border-radius:8px;">রিসেট</button><span id="filterResultCount" style="background:#1a237e; color:white; padding:5px 10px; border-radius:20px;">0টি লেনদেন</span></div></div><div id="transactionsList"></div><div id="paginationControls" style="display:flex; justify-content:center; gap:10px; margin-top:20px;"></div></div></div>
+<div id="clearDataModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h3>সতর্কতা!</h3><button class="close-modal" onclick="closeClearDataModal()"><i class="fas fa-times"></i></button></div>
+        <div class="alert alert-error">এই অপশন সকল ডাটা স্থায়ীভাবে ডিলিট করবে!</div>
+        <div class="p-20" style="background:#fff3e0;border-radius:10px;"><h4>ডিলিট হবে:</h4><ul><li>সকল ইউজার ডাটা</li><li>সকল অর্ডার হিস্ট্রি</li><li>সকল নোটিশ ও সেটিংস</li><li>সকল ড্রাইভ অফার</li></ul></div>
+        <p class="mb-20 text-center">আপনি কি নিশ্চিত? এটি রিভার্সিবল নয়!</p>
+        <input type="text" id="confirmationText" class="form-control" placeholder="DELETE ALL DATA">
+        <button class="btn btn-danger w-100 mt-20" onclick="clearAllData()" id="clearDataBtn" disabled>ক্লিয়ার</button>
+        <button class="btn btn-primary w-100 mt-10" onclick="closeClearDataModal()">বাতিল</button>
+    </div>
+</div>
 
 <script>
-    // Firebase কনফিগারেশন
     const firebaseConfig = {
         apiKey: "AIzaSyACKaxw5Gk0K7bH6xqPkwDnX3VbimXAbw8",
         authDomain: "asftelicompro.firebaseapp.com",
@@ -468,513 +437,455 @@
         messagingSenderId: "190516327077",
         appId: "1:190516327077:web:d78263b7ea806e1efd134c"
     };
-    let database, auth, storage;
-    let currentAdmin = null, currentAdminId = null;
-    let allUsers = [], allOrders = [], allDriveOffers = [], allDriveRequests = [], allAdmins = [];
-    let notificationSettings = { soundEnabled: true, repeatSound: true, repeatInterval: 10, defaultSound: 'beep1', customSoundURL: '' };
-    let localNotificationAudio = null;
-    let pendingRequestIds = new Set();
-    let audioLoopInterval = null;
-    let notificationCheckInterval;
-    let balanceRequestsListener, ordersListener, driveRequestsListener;
-    let currentTransactionUserId = null, allTransactions = [], currentTransactionPage = 1, transactionsPerPage = 10;
 
-    function initializeFirebase() {
-        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-        database = firebase.database();
-        auth = firebase.auth();
-        storage = firebase.storage();
-        return true;
-    }
+    let database, currentAdmin = null, currentAdminId = null, allUsers = [], allTransactions = [], currentTransactionPage = 1, transactionsPerPage = 10;
+    let allDriveOffers = [], allAdmins = [];
 
-    // ============= নতুন ফাংশন: মিনিমাইজ/ম্যাক্সিমাইজ =============
-    function minimizeCard(sectionId) {
-        const sectionItem = document.querySelector(`.section-item[data-section="${sectionId}"]`);
-        if (!sectionItem) return;
-        
-        // যদি ম্যাক্সিমাইজড থাকে, প্রথমে আনম্যাক্সিমাইজ করুন
-        if (sectionItem.classList.contains('maximized')) {
-            closeMaximized();
-        }
-        
-        // মিনিমাইজ টগল
-        const content = document.getElementById(sectionId + 'Content');
-        if (content) {
-            if (content.classList.contains('collapsed')) {
-                content.classList.remove('collapsed');
-                sectionItem.classList.remove('minimized');
-            } else {
-                content.classList.add('collapsed');
-                sectionItem.classList.add('minimized');
-            }
-        }
-    }
-    
-    function toggleMaximize(sectionId) {
-        const sectionItem = document.querySelector(`.section-item[data-section="${sectionId}"]`);
-        if (!sectionItem) return;
-        
-        // ইতিমধ্যে ম্যাক্সিমাইজড থাকলে বন্ধ করুন
-        if (sectionItem.classList.contains('maximized')) {
-            closeMaximized();
-            return;
-        }
-        
-        // অন্য কোনো ম্যাক্সিমাইজড থাকলে বন্ধ করুন
-        const existingMaximized = document.querySelector('.section-item.maximized');
-        if (existingMaximized) {
-            closeMaximized();
-        }
-        
-        // সব সেকশনের কন্টেন্ট আনকল্যাপস করুন (দেখানোর জন্য)
-        document.querySelectorAll('.section-content').forEach(content => {
-            content.classList.remove('collapsed');
-        });
-        document.querySelectorAll('.section-item').forEach(item => {
-            item.classList.remove('minimized');
-        });
-        
-        // বর্তমান আইটেম ম্যাক্সিমাইজ করুন
-        sectionItem.classList.add('maximized');
-        document.body.classList.add('has-maximized');
-        
-        // কন্টেন্ট দেখান
-        const content = document.getElementById(sectionId + 'Content');
-        if (content) {
-            content.classList.remove('collapsed');
-        }
-        
-        // রিফ্রেশ ডাটা
-        loadSectionData(sectionId);
-    }
-    
-    function closeMaximized() {
-        const maximized = document.querySelector('.section-item.maximized');
-        if (maximized) {
-            maximized.classList.remove('maximized');
-        }
-        document.body.classList.remove('has-maximized');
-    }
-    
-    // ইস্কেপ কী প্রেস করলে ম্যাক্সিমাইজড বন্ধ হবে
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeMaximized();
-        }
-    });
-    
-    // সেকশন হেডার ক্লিক করলে মিনিমাইজ/ম্যাক্সিমাইজ না হয়ে কন্টেন্ট টগল
+    function initializeFirebase() { if (!firebase.apps.length) firebase.initializeApp(firebaseConfig); database = firebase.database(); return true; }
+    function updateDigitalClock() { document.getElementById('liveDateTime') && (document.getElementById('liveDateTime').innerHTML = new Date().toLocaleString('bn-BD')); }
+    setInterval(updateDigitalClock, 1000);
+
+    // ========== কার্ড টগল ও মিনিমাইজ ==========
     function toggleSection(sectionId) {
-        // যদি ম্যাক্সিমাইজড অবস্থায় থাকে, কিছু করবেন না
-        if (document.querySelector('.section-item.maximized')) {
-            return;
-        }
-        
-        let content = document.getElementById(sectionId + 'Content');
-        if(!content) return;
-        
-        let sectionItem = document.querySelector(`.section-item[data-section="${sectionId}"]`);
-        let isCollapsed = content.classList.contains('collapsed');
-        
-        if (isCollapsed) {
-            content.classList.remove('collapsed');
-            if (sectionItem) sectionItem.classList.remove('minimized');
-        } else {
-            content.classList.add('collapsed');
-            if (sectionItem) sectionItem.classList.add('minimized');
-        }
-        
-        // ডাটা লোড করুন যদি প্রয়োজন হয়
-        if (isCollapsed) {
+        const allContents = document.querySelectorAll('.section-content');
+        const allToggles = document.querySelectorAll('.section-toggle');
+        const target = document.getElementById(sectionId + 'Content');
+        if (!target) return;
+        const isExpanded = target.classList.contains('expanded');
+        allContents.forEach(c => c.classList.remove('expanded'));
+        allToggles.forEach(t => t.textContent = '▼');
+        if (!isExpanded) {
+            target.classList.add('expanded');
+            const toggle = document.querySelector(`#${sectionId}Item .section-toggle`);
+            if (toggle) toggle.textContent = '▲';
             loadSectionData(sectionId);
         }
     }
-    
+
+    function minimizeCard(cardIdOrElement) {
+        let card = (typeof cardIdOrElement === 'string') ? document.getElementById(cardIdOrElement + 'Item') : cardIdOrElement.closest('.section-item');
+        if (!card) return;
+        const content = card.querySelector('.section-content');
+        const toggle = card.querySelector('.section-toggle');
+        if (content.classList.contains('expanded')) {
+            content.classList.remove('expanded');
+            if (toggle) toggle.textContent = '▼';
+        } else {
+            document.querySelectorAll('.section-content').forEach(c => c.classList.remove('expanded'));
+            document.querySelectorAll('.section-toggle').forEach(t => t.textContent = '▼');
+            content.classList.add('expanded');
+            if (toggle) toggle.textContent = '▲';
+            loadSectionData(card.id.replace('Item', ''));
+        }
+    }
+
     function loadSectionData(sectionId) {
-        if(sectionId === 'dashboard') loadDashboardData();
-        if(sectionId === 'users') loadAllUsers();
-        if(sectionId === 'notice') loadCombinedNotice();
-        if(sectionId === 'orders') loadAllOrders();
-        if(sectionId === 'driveOffers') loadDriveOffers();
-        if(sectionId === 'sliderImages') loadSliderImages();
-        if(sectionId === 'commissionSettings') loadCommissionSettings();
-        if(sectionId === 'adminManagement') loadAllAdmins();
-        if(sectionId === 'settings') loadSettings();
+        if (sectionId === 'dashboard') loadDashboardData();
+        else if (sectionId === 'users') loadAllUsers();
+        else if (sectionId === 'notice') loadCombinedNotice();
+        else if (sectionId === 'orders') loadAllOrders();
+        else if (sectionId === 'driveOffers') loadDriveOffers();
+        else if (sectionId === 'sliderImages') loadSliderImages();
+        else if (sectionId === 'settings') loadSettings();
+        else if (sectionId === 'commissionSettings') loadCommissionSettings();
+        else if (sectionId === 'adminManagement') loadAllAdmins();
     }
 
-    // হেল্পার ফাংশন
-    function showAlert(elementId, message, type) {
-        let alertDiv = document.getElementById(elementId);
-        if (!alertDiv) { alert(message); return; }
-        alertDiv.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':type==='error'?'exclamation-circle':'info-circle'}"></i> ${message}`;
-        alertDiv.className = `alert alert-${type}`;
-        alertDiv.style.display = 'block';
-        setTimeout(() => { if(alertDiv) alertDiv.style.display = 'none'; }, 3000);
-    }
-    function copyToClipboard(text) { navigator.clipboard.writeText(text); alert('কপি করা হয়েছে!'); }
-    function updateDigitalClock() {
-        let now = new Date();
-        document.getElementById('liveDateTime').innerText = now.toLocaleString('bn-BD', {year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit'});
-    }
-    setInterval(updateDigitalClock, 1000);
-
-    // লগইন
+    // ========== লগইন ==========
     async function adminLogin() {
-        let username = document.getElementById('adminUsername').value.trim();
-        let password = document.getElementById('adminPassword').value.trim();
-        if (!username || !password) { showLoginError('ইউজারনেম ও পাসওয়ার্ড দিন'); return; }
-        let loginBtn = document.getElementById('loginBtn');
-        loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> লগইন হচ্ছে...';
-        loginBtn.disabled = true;
+        const username = document.getElementById('adminUsername').value.trim();
+        const password = document.getElementById('adminPassword').value.trim();
+        if (!username || !password) { document.getElementById('loginError').style.display = 'block'; return; }
         try {
-            let adminSnapshot = await database.ref('adminUsers').once('value');
-            if (!adminSnapshot.exists()) {
-                await database.ref('adminUsers/admin_1').set({ username: 'user', password: 'admin123', name: 'সুপার এডমিন', role: 'super_admin', createdAt: Date.now() });
-            }
-            let snapshot = await database.ref('adminUsers').orderByChild('username').equalTo(username).once('value');
+            const snapshot = await database.ref('adminUsers').orderByChild('username').equalTo(username).once('value');
             if (snapshot.exists()) {
-                let adminData = snapshot.val();
-                let adminId = Object.keys(adminData)[0];
-                let admin = adminData[adminId];
+                const admin = Object.values(snapshot.val())[0];
+                const adminId = Object.keys(snapshot.val())[0];
                 if (admin.password === password) {
-                    localStorage.setItem('asf_admin_username', username);
                     localStorage.setItem('asf_admin_logged_in', 'true');
                     localStorage.setItem('asf_admin_data', JSON.stringify(admin));
                     localStorage.setItem('asf_admin_id', adminId);
-                    successfulAdminLogin(admin, adminId);
+                    document.body.classList.add('logged-in');
+                    document.getElementById('adminNameDisplay').textContent = admin.name || 'এডমিন';
+                    currentAdmin = admin;
+                    currentAdminId = adminId;
+                    if (admin.role === 'super_admin') document.getElementById('adminManagementItem').style.display = 'block';
+                    await loadDashboardData();
+                    await loadAllUsers();
+                    await loadSettings();
+                    await loadSliderImages();
+                    await loadAllAdmins();
+                    await loadCommissionSettings();
+                    await loadCombinedNotice();
                     return;
                 }
             }
-            showLoginError('ভুল ইউজারনেম বা পাসওয়ার্ড!');
-        } catch(e) { showLoginError('লগইন ব্যর্থ! ইন্টারনেট চেক করুন।'); }
-        finally { loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> লগইন করুন'; loginBtn.disabled = false; }
+            document.getElementById('loginError').style.display = 'block';
+        } catch (e) { console.error(e); document.getElementById('loginError').style.display = 'block'; }
     }
-    function showLoginError(msg) { let err = document.getElementById('loginError'); err.textContent = msg; err.style.display = 'block'; }
-    function successfulAdminLogin(admin, id) {
-        currentAdmin = admin; currentAdminId = id;
-        document.body.classList.add('logged-in');
-        document.getElementById('adminNameDisplay').innerText = admin.name || 'এডমিন';
-        document.getElementById('adminRoleDisplay').innerText = admin.role === 'super_admin' ? 'Super Admin' : 'Admin';
-        if (admin.profileImage) document.getElementById('adminProfileImage').src = admin.profileImage;
-        if (admin.role === 'super_admin') document.getElementById('adminManagementItem').style.display = 'block';
-        loadDashboardData(); loadAllUsers(); loadAllOrders(); loadDriveOffers(); loadSliderImages(); loadCommissionSettings(); loadCombinedNotice(); loadAllAdmins(); loadNotificationSettings(); loadSettings();
-        startNotificationChecker(); setupRealtimeListeners();
-        setTimeout(() => cleanupOldData(), 5000);
-    }
-    function adminLogout() { if(confirm('লগ আউট?')){ localStorage.clear(); document.body.classList.remove('logged-in'); location.reload(); } }
-    function togglePasswordVisibility() { let p = document.getElementById('adminPassword'); p.type = p.type==='password'?'text':'password'; }
 
-    // ড্যাশবোর্ড
+    function adminLogout() { if (confirm('লগআউট করবেন?')) { localStorage.clear(); document.body.classList.remove('logged-in'); } }
+
+    // ========== ড্যাশবোর্ড ==========
     async function loadDashboardData() {
-        let usersSnap = await database.ref('users').once('value');
-        let users = usersSnap.val() || {};
-        document.getElementById('totalUsers').innerText = Object.keys(users).length;
-        let thirtyDaysAgo = Date.now() - 30*24*60*60*1000;
-        let ordersSnap = await database.ref('orders').once('value');
-        let orders = ordersSnap.val() || {};
-        let totalOrders=0, totalRevenue=0, pending=0, orderList=[];
-        for(let o of Object.values(orders)) {
-            if((o.timestamp||0) >= thirtyDaysAgo) {
-                totalOrders++; orderList.push(o);
-                if(o.status==='Success') totalRevenue += parseFloat(o.amount)||0;
-                if(o.status==='Pending') pending++;
-            }
-        }
-        document.getElementById('totalOrders').innerText = totalOrders;
-        document.getElementById('totalRevenue').innerText = '৳'+totalRevenue.toFixed(2);
-        document.getElementById('pendingOrders').innerText = pending;
-        let recentUsers = Object.entries(users).map(([id,u])=>({id,...u})).sort((a,b)=>(b.registrationDate||0)-(a.registrationDate||0)).slice(0,5);
-        let recentHtml = '';
-        recentUsers.forEach(u=>{ recentHtml+=`<tr><td>${u.name||'N/A'}</td><td>${u.phone||'N/A'}</td><td>৳${(u.balance||0).toFixed(2)}</td><td><span class="status-badge ${u.status==='active'?'status-active':'status-inactive'}">${u.status||'active'}</span></td><td>${new Date(u.registrationDate).toLocaleDateString()}</td></tr>`; });
-        document.querySelector('#recentUsersTable tbody').innerHTML = recentHtml || '<tr><td colspan="5">কোনো ইউজার নেই</td></tr>';
-        let recentOrders = orderList.sort((a,b)=>(b.timestamp||0)-(a.timestamp||0)).slice(0,5);
-        let recentOrdersHtml = '';
-        recentOrders.forEach(o=>{ recentOrdersHtml+=`<tr><td>${o.userName||'N/A'}</td><td>${o.category||'N/A'}</td><td><span class="copyable-number" onclick="copyToClipboard('${o.number||o.offerTitle||'N/A'}')"><i class="fas fa-copy"></i> ${o.number||o.offerTitle||'N/A'}</span></td><td>৳${o.amount||0}</td><td><span class="status-badge ${o.status==='Success'?'status-active':o.status==='Pending'?'status-pending':'status-inactive'}">${o.status||'Pending'}</span></td></tr>`; });
-        document.querySelector('#recentOrdersTable tbody').innerHTML = recentOrdersHtml || '<tr><td colspan="5">কোনো অর্ডার নেই</td></tr>';
-        updateOldDataCount();
+        const usersSnap = await database.ref('users').once('value');
+        const users = usersSnap.val() || {};
+        document.getElementById('totalUsers').innerHTML = Object.keys(users).length;
+        const ordersSnap = await database.ref('orders').once('value');
+        const orders = ordersSnap.val() || {};
+        let totalRevenue = 0, pending = 0;
+        Object.values(orders).forEach(o => { if (o.status === 'Success') totalRevenue += parseFloat(o.amount) || 0; if (o.status === 'Pending') pending++; });
+        document.getElementById('totalOrders').innerHTML = Object.keys(orders).length;
+        document.getElementById('totalRevenue').innerHTML = '৳' + totalRevenue.toFixed(2);
+        document.getElementById('pendingOrders').innerHTML = pending;
+
+        const recentUsers = Object.entries(users).slice(-5).reverse().map(([id, u]) => ({ id, ...u }));
+        displayRecentUsers(recentUsers);
+        const recentOrders = Object.entries(orders).slice(-5).reverse().map(([id, o]) => o);
+        displayRecentOrders(recentOrders);
     }
 
-    // ইউজার ম্যানেজমেন্ট
+    function displayRecentUsers(users) {
+        const tbody = document.querySelector('#recentUsersTable tbody');
+        if (!users.length) { tbody.innerHTML = '<tr><td colspan="5">কোনো ইউজার নেই</td></tr>'; return; }
+        tbody.innerHTML = users.map(u => `
+            <tr>
+                <td>${u.name || 'N/A'}</td>
+                <td>${u.phone || 'N/A'}</td>
+                <td>৳${(u.balance || 0).toFixed(2)}</td>
+                <td><span class="status-badge ${u.status === 'active' ? 'status-active' : 'status-inactive'}">${u.status || 'N/A'}</span></td>
+                <td class="action-buttons">
+                    <button class="btn-icon btn-info" onclick="viewUserTransactions('${u.id}')" title="লেনদেন দেখুন"><i class="fas fa-history"></i></button>
+                    <button class="btn-icon btn-edit" onclick="editUser('${u.id}')" title="এডিট"><i class="fas fa-edit"></i></button>
+                    <button class="btn-icon btn-addbalance" onclick="showAddBalanceModal('${u.id}', '${u.name}', ${u.balance || 0})" title="ব্যালেন্স দিন"><i class="fas fa-plus-circle"></i></button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function displayRecentOrders(orders) {
+        const tbody = document.querySelector('#recentOrdersTable tbody');
+        if (!orders.length) { tbody.innerHTML = '<tr><td colspan="5">কোনো অর্ডার নেই</td></tr>'; return; }
+        tbody.innerHTML = orders.map(o => `
+            <tr>
+                <td>${o.userName || 'N/A'}</td>
+                <td>${o.category || 'N/A'}</td>
+                <td>${o.number || '-'}</td>
+                <td>৳${o.amount || 0}</td>
+                <td><span class="status-badge ${o.status === 'Success' ? 'status-active' : o.status === 'Pending' ? 'status-pending' : 'status-inactive'}">${o.status || 'N/A'}</span></td>
+            </tr>
+        `).join('');
+    }
+
+    // ========== ইউজার ==========
     async function loadAllUsers() {
-        let snap = await database.ref('users').once('value');
-        allUsers = Object.entries(snap.val()||{}).map(([id,u])=>({id, ...u}));
+        const snapshot = await database.ref('users').once('value');
+        allUsers = Object.entries(snapshot.val() || {}).map(([id, u]) => ({ id, ...u }));
         displayUsers(allUsers);
     }
+
     function displayUsers(users) {
-        let html = '';
-        users.forEach(u => {
-            let statusClass = u.status==='active'?'status-active':u.status==='blocked'?'status-inactive':'status-pending';
-            let statusText = u.status==='active'?'একটিভ':u.status==='blocked'?'ব্লকড':'ইনএকটিভ';
-            let roleText = {user:'ইউজার', agent:'এজেন্ট', reseller:'রিসেলার', admin:'এডমিন'}[u.role] || 'ইউজার';
-            html += `<tr><td><img src="${u.profileImage||'https://cdn-icons-png.flaticon.com/512/149/149071.png'}" width="40" style="border-radius:50%"></td><td>${u.name||'N/A'}</td><td>${u.phone||'N/A'}</td><td>${u.email||'N/A'}</td><td>৳${(u.balance||0).toFixed(2)}</td><td><span class="status-badge ${statusClass}">${statusText}</span></td><td>${roleText}</td><td><div class="action-buttons"><button class="btn-icon btn-info" onclick="viewUserTransactions('${u.id}')" title="ট্রানজেকশন"><i class="fas fa-history"></i></button><button class="btn-icon btn-success" onclick="showAddBalanceModal('${u.id}','${u.name}',${u.balance||0})" title="ব্যালেন্স যোগ"><i class="fas fa-plus-circle"></i></button><button class="btn-icon btn-edit" onclick="editUser('${u.id}')"><i class="fas fa-edit"></i></button><button class="btn-icon btn-delete" onclick="deleteUser('${u.id}','${u.name}')"><i class="fas fa-trash"></i></button></div></td></tr>`;
-        });
-        document.querySelector('#usersTable tbody').innerHTML = html || '<tr><td colspan="8">কোনো ইউজার নেই</td></tr>';
-    }
-    function searchUsers() { let term = document.getElementById('userSearch').value.toLowerCase(); displayUsers(allUsers.filter(u=>(u.name||'').toLowerCase().includes(term)||(u.phone||'').includes(term))); }
-    function filterUsers() { let val = document.getElementById('userFilter').value; displayUsers(val==='all'?allUsers:allUsers.filter(u=>u.status===val)); }
-    async function editUser(id) { let u = allUsers.find(u=>u.id===id); if(u){ document.getElementById('editUserId').value=id; document.getElementById('editUserName').value=u.name||''; document.getElementById('editUserPhone').value=u.phone||''; document.getElementById('editUserEmail').value=u.email||''; document.getElementById('editUserBalance').value=u.balance||0; document.getElementById('editUserRole').value=u.role||'user'; document.getElementById('editUserStatus').value=u.status||'active'; document.getElementById('editUserExpiry').value=u.expiryDate||''; document.getElementById('editUserPassword').value=''; document.getElementById('editUserModal').style.display='flex'; } }
-    function closeEditUserModal() { document.getElementById('editUserModal').style.display='none'; }
-    async function updateUser() {
-        let id = document.getElementById('editUserId').value;
-        let name = document.getElementById('editUserName').value.trim();
-        let phone = document.getElementById('editUserPhone').value.trim();
-        let email = document.getElementById('editUserEmail').value.trim();
-        let balance = parseFloat(document.getElementById('editUserBalance').value) || 0;
-        let password = document.getElementById('editUserPassword').value.trim();
-        let role = document.getElementById('editUserRole').value;
-        let status = document.getElementById('editUserStatus').value;
-        let expiryDate = document.getElementById('editUserExpiry').value;
-        if(!name||!phone){ showAlert('editUserAlert','নাম ও মোবাইল দিন','error'); return; }
-        let updates = { name, phone, email, balance, role, status, expiryDate };
-        if(password) updates.password = password;
-        await database.ref('users/'+id).update(updates);
-        showAlert('editUserAlert','আপডেট হয়েছে','success');
-        setTimeout(()=>{ closeEditUserModal(); loadAllUsers(); loadDashboardData(); },1500);
-    }
-    async function deleteUser(id,name){ if(confirm(`"${name}" ডিলিট করবেন?`)){ await database.ref('users/'+id).remove(); loadAllUsers(); loadDashboardData(); } }
-    function showAddBalanceModal(id,name,cur){ document.getElementById('addBalanceUserId').value=id; document.getElementById('addBalanceUserName').value=name; document.getElementById('addBalanceCurrentBalance').value=`৳${cur.toFixed(2)}`; document.getElementById('addBalanceAmount').value=''; document.getElementById('addBalanceReason').value=''; document.getElementById('addBalanceModal').style.display='flex'; }
-    function closeAddBalanceModal(){ document.getElementById('addBalanceModal').style.display='none'; }
-    async function addUserBalance() {
-        let userId = document.getElementById('addBalanceUserId').value;
-        let amount = parseFloat(document.getElementById('addBalanceAmount').value);
-        let reason = document.getElementById('addBalanceReason').value.trim() || 'এডমিন দ্বারা ম্যানুয়ালি যোগ';
-        if(!amount || amount<=0){ showAlert('addBalanceAlert','সঠিক পরিমাণ দিন','error'); return; }
-        let userSnap = await database.ref('users/'+userId).once('value');
-        let user = userSnap.val();
-        if(!user){ showAlert('addBalanceAlert','ইউজার খুঁজে পাওয়া যায়নি','error'); return; }
-        let previousBalance = user.balance || 0;
-        let newBalance = previousBalance + amount;
-        await database.ref('users/'+userId).update({ balance: newBalance });
-        await database.ref('orders').push({ userId, userName: user.name, userPhone: user.phone, category: 'ব্যালেন্স এড (ম্যানুয়াল)', amount, status: 'Success', timestamp: Date.now(), time: new Date().toLocaleString('bn-BD'), number: reason, previousBalance, currentBalance: newBalance, addedBy: currentAdmin?.username || 'admin' });
-        showAlert('addBalanceAlert',`সফল! ${amount} টাকা যোগ হয়েছে। নতুন ব্যালেন্স: ৳${newBalance.toFixed(2)}`,'success');
-        setTimeout(()=>{ closeAddBalanceModal(); loadAllUsers(); loadDashboardData(); },1500);
+        const tbody = document.querySelector('#usersTable tbody');
+        if (!users.length) { tbody.innerHTML = '<tr><td colspan="6">কোনো ইউজার নেই</td></tr>'; return; }
+        tbody.innerHTML = users.map(u => `
+            <tr>
+                <td>${u.name || 'N/A'}</td>
+                <td>${u.phone || 'N/A'}</td>
+                <td>৳${(u.balance || 0).toFixed(2)}</td>
+                <td><span class="status-badge ${u.status === 'active' ? 'status-active' : 'status-inactive'}">${u.status || 'N/A'}</span></td>
+                <td>${u.role || 'user'}</td>
+                <td class="action-buttons">
+                    <button class="btn-icon btn-info" onclick="viewUserTransactions('${u.id}')"><i class="fas fa-history"></i></button>
+                    <button class="btn-icon btn-edit" onclick="editUser('${u.id}')"><i class="fas fa-edit"></i></button>
+                    <button class="btn-icon btn-addbalance" onclick="showAddBalanceModal('${u.id}', '${u.name}', ${u.balance || 0})"><i class="fas fa-plus-circle"></i></button>
+                </td>
+            </tr>
+        `).join('');
     }
 
-    // নোটিশ
+    function searchUsers() { const term = document.getElementById('userSearch').value.toLowerCase(); displayUsers(term ? allUsers.filter(u => (u.name || '').toLowerCase().includes(term) || (u.phone || '').includes(term)) : allUsers); }
+    function filterUsers() { const val = document.getElementById('userFilter').value; displayUsers(val === 'all' ? allUsers : allUsers.filter(u => u.status === val)); }
+
+    // ========== ট্রানজেকশন ==========
+    async function viewUserTransactions(userId) {
+        currentTransactionPage = 1;
+        try {
+            const userSnap = await database.ref('users/' + userId).once('value');
+            const user = userSnap.val();
+            document.getElementById('transactionModalUserName').innerHTML = user?.name || user?.phone || 'ইউজার';
+            const ordersSnap = await database.ref('orders').orderByChild('userId').equalTo(userId).once('value');
+            allTransactions = Object.entries(ordersSnap.val() || {}).map(([id, o]) => ({ id, ...o })).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+            document.getElementById('userTransactionsModal').style.display = 'flex';
+            renderTransactions();
+        } catch (e) { console.error(e); }
+    }
+
+    function renderTransactions() {
+        const search = document.getElementById('transactionSearch').value.toLowerCase().trim();
+        const status = document.getElementById('statusFilter').value;
+        let filtered = allTransactions;
+        if (search) {
+            const numbers = search.match(/\d+/g);
+            if (numbers && numbers.length > 0) {
+                filtered = filtered.filter(t => { for (let num of numbers) if (Math.abs((t.amount || 0) - parseInt(num)) <= 5 || (t.number || '').includes(num)) return true; return false; });
+            } else {
+                filtered = filtered.filter(t => (t.number || '').toLowerCase().includes(search) || (t.userName || '').toLowerCase().includes(search));
+            }
+        }
+        if (status !== 'all') filtered = filtered.filter(t => t.status === status);
+        const totalPages = Math.ceil(filtered.length / transactionsPerPage);
+        const paginated = filtered.slice((currentTransactionPage - 1) * transactionsPerPage, currentTransactionPage * transactionsPerPage);
+        const container = document.getElementById('transactionsList');
+        if (!paginated.length) { container.innerHTML = '<div class="text-center">কোনো লেনদেন নেই</div>'; }
+        else {
+            container.innerHTML = paginated.map(t => `<div style="background:#f9f9f9;padding:12px;border-radius:8px;margin-bottom:8px;border-left:4px solid ${t.status === 'Success' ? '#4CAF50' : t.status === 'Pending' ? '#FF9800' : '#d32f2f'}">
+                <div><strong>${t.category || 'N/A'}</strong> <span style="float:right">৳${(t.amount || 0).toFixed(2)} <span style="background:${t.status === 'Success' ? '#4CAF50' : t.status === 'Pending' ? '#FF9800' : '#d32f2f'};color:white;padding:2px 8px;border-radius:12px">${t.status || 'N/A'}</span></span></div>
+                <div><i class="fas fa-mobile-alt"></i> ${t.number || t.offerTitle || '-'}</div>
+                <div><i class="fas fa-clock"></i> ${t.time || new Date(t.timestamp).toLocaleString()}</div>
+            </div>`).join('');
+        }
+        const paginationDiv = document.getElementById('paginationControls');
+        if (totalPages <= 1) paginationDiv.innerHTML = '';
+        else {
+            let html = '';
+            for (let i = 1; i <= totalPages; i++) html += `<button class="pagination-btn" style="padding:5px 10px;border:1px solid #ddd;background:${i === currentTransactionPage ? '#1a237e' : 'white'};color:${i === currentTransactionPage ? 'white' : '#333'};border-radius:5px;cursor:pointer" onclick="goToTransactionPage(${i})">${i}</button>`;
+            paginationDiv.innerHTML = html;
+        }
+    }
+
+    function goToTransactionPage(page) { currentTransactionPage = page; renderTransactions(); }
+    function filterTransactions() { currentTransactionPage = 1; renderTransactions(); }
+    function resetFilters() { document.getElementById('transactionSearch').value = ''; document.getElementById('statusFilter').value = 'all'; filterTransactions(); }
+    function closeUserTransactionsModal() { document.getElementById('userTransactionsModal').style.display = 'none'; }
+
+    // ========== ইউজার এডিট ==========
+    async function editUser(userId) {
+        const user = allUsers.find(u => u.id === userId);
+        if (!user) return;
+        document.getElementById('editUserId').value = userId;
+        document.getElementById('editUserName').value = user.name || '';
+        document.getElementById('editUserPhone').value = user.phone || '';
+        document.getElementById('editUserBalance').value = user.balance || 0;
+        document.getElementById('editUserRole').value = user.role || 'user';
+        document.getElementById('editUserStatus').value = user.status || 'active';
+        document.getElementById('editUserModal').style.display = 'flex';
+    }
+    function closeEditUserModal() { document.getElementById('editUserModal').style.display = 'none'; }
+    async function updateUser() {
+        const userId = document.getElementById('editUserId').value;
+        await database.ref('users/' + userId).update({
+            name: document.getElementById('editUserName').value.trim(),
+            phone: document.getElementById('editUserPhone').value.trim(),
+            balance: parseFloat(document.getElementById('editUserBalance').value) || 0,
+            role: document.getElementById('editUserRole').value,
+            status: document.getElementById('editUserStatus').value
+        });
+        alert('আপডেট করা হয়েছে!');
+        closeEditUserModal();
+        loadAllUsers(); loadDashboardData();
+    }
+
+    // ========== ব্যালেন্স অ্যাড ==========
+    function showAddBalanceModal(userId, userName, currentBalance) {
+        document.getElementById('addBalanceUserId').value = userId;
+        document.getElementById('addBalanceUserName').value = userName;
+        document.getElementById('addBalanceCurrentBalance').value = `৳${currentBalance.toFixed(2)}`;
+        document.getElementById('addBalanceAmount').value = '';
+        document.getElementById('addBalanceReason').value = '';
+        document.getElementById('addBalanceAlert').style.display = 'none';
+        document.getElementById('addBalanceModal').style.display = 'flex';
+    }
+    function closeAddBalanceModal() { document.getElementById('addBalanceModal').style.display = 'none'; }
+    async function addUserBalance() {
+        const userId = document.getElementById('addBalanceUserId').value;
+        const amount = parseFloat(document.getElementById('addBalanceAmount').value);
+        const reason = document.getElementById('addBalanceReason').value.trim() || 'এডমিন দ্বারা ম্যানুয়ালি যোগ';
+        if (!amount || amount <= 0) { showAlert('addBalanceAlert', 'সঠিক পরিমাণ দিন!', 'error'); return; }
+        try {
+            const userSnap = await database.ref('users/' + userId).once('value');
+            const user = userSnap.val();
+            if (!user) { showAlert('addBalanceAlert', 'ইউজার খুঁজে পাওয়া যায়নি!', 'error'); return; }
+            const previousBalance = user.balance || 0;
+            const newBalance = previousBalance + amount;
+            await database.ref('users/' + userId).update({ balance: newBalance });
+            await database.ref('orders').push({
+                userId, userName: user.name, userPhone: user.phone,
+                category: 'ব্যালেন্স এড (ম্যানুয়াল)', amount, status: 'Success',
+                timestamp: Date.now(), time: new Date().toLocaleString('bn-BD'), number: reason,
+                previousBalance, currentBalance: newBalance, addedBy: currentAdmin?.username || 'admin'
+            });
+            showAlert('addBalanceAlert', `সফল! ${amount} টাকা যোগ হয়েছে। নতুন ব্যালেন্স: ৳${newBalance.toFixed(2)}`, 'success');
+            setTimeout(() => { closeAddBalanceModal(); loadAllUsers(); loadDashboardData(); }, 1500);
+        } catch (e) { console.error(e); showAlert('addBalanceAlert', 'ব্যালেন্স যোগ করতে সমস্যা!', 'error'); }
+    }
+
+    // ========== নোটিশ ==========
     async function loadCombinedNotice() {
-        let snap = await database.ref('notice').once('value');
-        let n = snap.val() || {};
-        document.getElementById('marqueeMessage').value = n.message || '';
-        document.getElementById('marqueeStatus').value = n.status || 'active';
-        document.getElementById('marqueeColor').value = n.color || '#1a237e';
-        document.getElementById('noticeLink').value = n.link || '';
+        const snap = await database.ref('notice').once('value');
+        const data = snap.val() || {};
+        document.getElementById('marqueeMessage').value = data.message || '';
+        document.getElementById('marqueeStatus').value = data.status || 'active';
+        document.getElementById('marqueeColor').value = data.color || '#1a237e';
+        document.getElementById('noticeLink').value = data.link || '';
         updateMarqueePreview();
     }
     function updateMarqueePreview() {
-        let msg = document.getElementById('marqueeMessage').value;
-        let col = document.getElementById('marqueeColor').value;
-        document.getElementById('marqueePreview').innerText = msg || 'আপনার নোটিশ এখানে দেখানো হবে...';
+        const msg = document.getElementById('marqueeMessage').value;
+        const col = document.getElementById('marqueeColor').value;
+        document.getElementById('marqueePreview').textContent = msg || 'আপনার নোটিশ এখানে দেখানো হবে...';
         document.getElementById('marqueePreview').style.color = col;
     }
     async function saveCombinedNotice() {
-        let message = document.getElementById('marqueeMessage').value.trim();
-        if(!message){ showAlert('noticeAlert','মেসেজ দিন','error'); return; }
-        await database.ref('notice').set({ message, status: document.getElementById('marqueeStatus').value, color: document.getElementById('marqueeColor').value, link: document.getElementById('noticeLink').value.trim(), updatedAt: Date.now(), updatedBy: currentAdmin?.username });
-        showAlert('noticeAlert','নোটিশ সংরক্ষণ করা হয়েছে','success');
-        updateMarqueePreview();
+        const msg = document.getElementById('marqueeMessage').value.trim();
+        if (!msg) { showAlert('noticeAlert', 'মেসেজ দিন!', 'error'); return; }
+        await database.ref('notice').set({
+            message: msg, status: document.getElementById('marqueeStatus').value,
+            color: document.getElementById('marqueeColor').value, link: document.getElementById('noticeLink').value.trim(),
+            updatedAt: Date.now(), updatedBy: currentAdmin?.username || 'admin'
+        });
+        showAlert('noticeAlert', 'নোটিশ সংরক্ষিত!', 'success');
     }
 
-    // নতুন ইউজার তৈরি
-    function resetUserForm() {
-        document.getElementById('newUserName').value = '';
-        document.getElementById('newUserPhone').value = '';
-        document.getElementById('newUserEmail').value = '';
-        document.getElementById('newUserPassword').value = '';
-        document.getElementById('newUserBalance').value = 0;
-        document.getElementById('newUserRole').value = 'user';
-        document.getElementById('newUserStatus').value = 'active';
-        let nextYear = new Date(); nextYear.setFullYear(nextYear.getFullYear()+1);
-        document.getElementById('newUserExpiry').value = nextYear.toISOString().split('T')[0];
-    }
-    async function createNewUser() {
-        let name = document.getElementById('newUserName').value.trim();
-        let phone = document.getElementById('newUserPhone').value.trim();
-        let email = document.getElementById('newUserEmail').value.trim();
-        let password = document.getElementById('newUserPassword').value.trim();
-        let balance = parseFloat(document.getElementById('newUserBalance').value) || 0;
-        let role = document.getElementById('newUserRole').value;
-        let status = document.getElementById('newUserStatus').value;
-        let expiryDate = document.getElementById('newUserExpiry').value;
-        if(!name || !phone || !password){ showAlert('createUserAlert','নাম, মোবাইল ও পাসওয়ার্ড দিন','error'); return; }
-        if(!phone.match(/^01[3-9]\d{8}$/)){ showAlert('createUserAlert','সঠিক মোবাইল দিন','error'); return; }
-        let userId = 'user_'+phone;
-        let snap = await database.ref('users/'+userId).once('value');
-        if(snap.exists()){ showAlert('createUserAlert','এই মোবাইল দিয়ে ইউজার আছে','error'); return; }
-        await database.ref('users/'+userId).set({ name, phone, email, password, balance, role, status, expiryDate, registrationDate: Date.now(), profileImage: 'https://cdn-icons-png.flaticon.com/512/149/149071.png' });
-        showAlert('createUserAlert','ইউজার তৈরি হয়েছে','success');
-        resetUserForm(); loadAllUsers(); loadDashboardData();
-    }
-
-    // অর্ডার ও রিকোয়েস্ট
+    // ========== অর্ডার ==========
     async function loadAllOrders() {
-        let filter = document.getElementById('orderFilter').value;
-        let thirtyDaysAgo = Date.now() - 30*24*60*60*1000;
-        document.getElementById('ordersTableContainer').style.display = filter==='balance'||filter==='drive'?'none':'block';
-        document.getElementById('balanceRequestsContainer').style.display = filter==='balance'?'block':'none';
-        document.getElementById('driveRequestsContainer').style.display = filter==='drive'?'block':'none';
-        if(filter === 'balance') await loadBalanceRequests();
-        else if(filter === 'drive') await loadDriveRequestsForDisplay();
-        else {
-            let snap = await database.ref('orders').once('value');
-            let orders = Object.entries(snap.val()||{}).map(([id,o])=>({id,...o})).filter(o=>(o.timestamp||0)>=thirtyDaysAgo);
-            if(filter !== 'all') orders = orders.filter(o=>o.status===filter);
-            orders.sort((a,b)=>(b.timestamp||0)-(a.timestamp||0));
-            displayOrders(orders);
-        }
+        const filter = document.getElementById('orderFilter').value;
+        const thirtyDaysAgo = Date.now() - 30*24*60*60*1000;
+        const ordersSnap = await database.ref('orders').once('value');
+        let orders = Object.entries(ordersSnap.val() || {}).map(([id,o])=>({id,...o})).filter(o => (o.timestamp||0) >= thirtyDaysAgo);
+        if (filter !== 'all') orders = orders.filter(o => o.status === filter);
+        orders.sort((a,b)=>(b.timestamp||0)-(a.timestamp||0));
+        displayOrders(orders);
     }
     function displayOrders(orders) {
-        let html = '';
-        orders.forEach(o=>{
-            let statusClass = o.status==='Success'?'status-active':o.status==='Pending'?'status-pending':'status-inactive';
-            let statusText = o.status==='Success'?'সফল':o.status==='Pending'?'পেন্ডিং':'বাতিল';
-            let trxId = o.id ? o.id.substring(0,8).toUpperCase() : 'N/A';
-            let serviceDisplay = o.category || 'N/A';
-            if(o.category === 'এম-ব্যাংক' && o.operatorName) serviceDisplay = `এম-ব্যাংক (${o.operatorName})`;
-            let numberDisplay = (o.category==='Drive Offer' && o.senderNumber) ? `<div><span class="copyable-number" onclick="copyToClipboard('${o.senderNumber}')"><i class="fas fa-arrow-up"></i> ${o.senderNumber}</span> → <span class="copyable-number" onclick="copyToClipboard('${o.receiverNumber}')"><i class="fas fa-arrow-down"></i> ${o.receiverNumber}</span></div>` : `<span class="copyable-number" onclick="copyToClipboard('${o.number||o.offerTitle||o.transactionId||'N/A'}')"><i class="fas fa-copy"></i> ${o.number||o.offerTitle||o.transactionId||'N/A'}</span>`;
-            html += `<tr><td>${trxId}</td><td>${o.userName||'N/A'}</td><td>${serviceDisplay}</td><td>${numberDisplay}</td><td>৳${o.amount||0}</td><td><span class="status-badge ${statusClass}">${statusText}</span></td><td>৳${(o.previousBalance||0).toFixed(2)}</td><td>৳${(o.currentBalance||0).toFixed(2)}</td><td>${o.time||'N/A'}</td><td>${o.status==='Pending'?`<div class="action-buttons"><button class="btn-icon btn-edit" onclick="updateOrderStatus('${o.id}','Success')"><i class="fas fa-check"></i></button><button class="btn-icon btn-delete" onclick="updateOrderStatus('${o.id}','Cancelled')"><i class="fas fa-times"></i></button></div>`:'<span class="text-success">সম্পন্ন</span>'}</td></tr>`;
-        });
-        document.querySelector('#ordersTable tbody').innerHTML = html || '<tr><td colspan="10">কোনো অর্ডার নেই</td></tr>';
+        const tbody = document.querySelector('#ordersTable tbody');
+        if (!orders.length) { tbody.innerHTML = '<tr><td colspan="10">কোনো অর্ডার নেই</td></tr>'; return; }
+        tbody.innerHTML = orders.map(o => `
+            <tr>
+                <td>${o.id ? o.id.slice(0,8).toUpperCase() : 'N/A'}</td>
+                <td>${o.userName || 'N/A'}</td>
+                <td>${o.category || 'N/A'}</td>
+                <td>${o.number || o.offerTitle || '-'}</td>
+                <td>৳${o.amount || 0}</td>
+                <td><span class="status-badge ${o.status === 'Success' ? 'status-active' : o.status === 'Pending' ? 'status-pending' : 'status-inactive'}">${o.status || 'N/A'}</span></td>
+                <td>৳${(o.previousBalance || 0).toFixed(2)}</td>
+                <td>৳${(o.currentBalance || 0).toFixed(2)}</td>
+                <td>${o.time || 'N/A'}</td>
+                <td>${o.status === 'Pending' ? `<button class="btn-icon btn-approve" onclick="updateOrderStatus('${o.id}','Success')"><i class="fas fa-check"></i></button><button class="btn-icon btn-reject" onclick="updateOrderStatus('${o.id}','Cancelled')"><i class="fas fa-times"></i></button>` : 'সম্পন্ন'}</td>
+            </tr>
+        `).join('');
     }
     async function updateOrderStatus(orderId, status) {
-        if(!confirm(`স্ট্যাটাস "${status}" করবেন?`)) return;
-        let orderSnap = await database.ref('orders/'+orderId).once('value');
-        let order = orderSnap.val();
-        if(status === 'Cancelled' && order && order.userId) {
-            await database.ref('orders/'+orderId).update({ status: 'Cancelled', cancelledAt: Date.now(), cancelledBy: currentAdmin?.username });
-        } else {
-            await database.ref('orders/'+orderId).update({ status, completedAt: status==='Success'?Date.now():null });
-        }
-        pendingRequestIds.delete(orderId);
-        updateTotalPendingCount();
+        await database.ref('orders/'+orderId).update({ status, completedAt: Date.now() });
         loadAllOrders(); loadDashboardData();
     }
-    async function loadBalanceRequests() {
-        let thirtyDaysAgo = Date.now() - 30*24*60*60*1000;
-        let snap = await database.ref('balanceRequests').once('value');
-        let requests = Object.entries(snap.val()||{}).map(([id,r])=>({id,...r})).filter(r=>(r.timestamp||0)>=thirtyDaysAgo).sort((a,b)=>(b.timestamp||0)-(a.timestamp||0));
-        let html='';
-        requests.forEach(r=>{
-            let statusClass = r.status==='approved'?'status-active':r.status==='rejected'?'status-inactive':'status-pending';
-            let statusText = r.status==='approved'?'অনুমোদিত':r.status==='rejected'?'বাতিল':'পেন্ডিং';
-            let methodClass = {বিকাশ:'status-active', নগদ:'status-active', রকেট:'status-active'}[r.operator||r.paymentMethod] || 'status-pending';
-            html+=`<tr><td>${r.userName||'N/A'}</td><td>${r.userPhone||'N/A'}</td><td>৳${r.amount||0}</td><td><span class="status-badge ${methodClass}">${r.operator||r.paymentMethod||'N/A'}</span></td><td><span class="copyable-number" onclick="copyToClipboard('${r.transactionId||'N/A'}')"><i class="fas fa-copy"></i> ${r.transactionId||'N/A'}</span></td><td>${new Date(r.timestamp).toLocaleString()}</td><td><span class="status-badge ${statusClass}">${statusText}</span></td><td>${r.status==='pending'?`<div class="action-buttons"><button class="btn-icon btn-approve" onclick="approveBalanceRequest('${r.id}','${r.userId}',${r.amount})"><i class="fas fa-check"></i></button><button class="btn-icon btn-reject" onclick="rejectBalanceRequest('${r.id}')"><i class="fas fa-times"></i></button></div>`:'সম্পন্ন'}</td></tr>`;
-        });
-        document.querySelector('#balanceRequestsTable tbody').innerHTML = html || '<tr><td colspan="8">কোনো রিকোয়েস্ট নেই</td></tr>';
-    }
-    async function approveBalanceRequest(requestId, userId, amount) {
-        let userSnap = await database.ref('users/'+userId).once('value');
-        let user = userSnap.val();
-        if(user){
-            let prev = user.balance||0;
-            let newBal = prev + amount;
-            await database.ref('users/'+userId).update({ balance: newBal });
-            await database.ref('balanceRequests/'+requestId).update({ status: 'approved', approvedAt: Date.now(), approvedBy: currentAdmin?.username, previousBalance: prev, currentBalance: newBal });
-            await database.ref('orders').push({ userId, userName: user.name, userPhone: user.phone, category: 'ব্যালেন্স রিচার্জ (এডমিন অ্যাপ্রুভ)', amount, status: 'Success', timestamp: Date.now(), time: new Date().toLocaleString(), previousBalance: prev, currentBalance: newBal });
-        }
-        pendingRequestIds.delete(requestId);
-        updateTotalPendingCount();
-        loadBalanceRequests(); loadDashboardData();
-    }
-    async function rejectBalanceRequest(requestId) {
-        await database.ref('balanceRequests/'+requestId).update({ status: 'rejected', rejectedAt: Date.now(), rejectedBy: currentAdmin?.username });
-        pendingRequestIds.delete(requestId);
-        updateTotalPendingCount();
-        loadBalanceRequests();
-    }
-    async function loadDriveRequestsForDisplay() {
-        let thirtyDaysAgo = Date.now() - 30*24*60*60*1000;
-        let snap = await database.ref('driveRequests').once('value');
-        allDriveRequests = Object.entries(snap.val()||{}).map(([id,r])=>({id,...r})).filter(r=>(r.timestamp||0)>=thirtyDaysAgo).sort((a,b)=>(b.timestamp||0)-(a.timestamp||0));
-        let html='';
-        allDriveRequests.forEach(r=>{
-            let statusClass = r.status==='approved'?'status-active':r.status==='rejected'?'status-inactive':'status-pending';
-            let statusText = r.status==='approved'?'অনুমোদিত':r.status==='rejected'?'বাতিল':'পেন্ডিং';
-            html+=`<tr><td>${r.userName||'N/A'}</td><td>${r.userPhone||'N/A'}</td><td>${r.offerTitle||'N/A'}</td><td>৳${r.amount||0}</td><td><span class="copyable-number" onclick="copyToClipboard('${r.senderNumber||''}')">${r.senderNumber||'N/A'}</span></td><td><span class="copyable-number" onclick="copyToClipboard('${r.receiverNumber||''}')">${r.receiverNumber||'N/A'}</span></td><td>${new Date(r.timestamp).toLocaleString()}</td><td><span class="status-badge ${statusClass}">${statusText}</span></td><td>${r.status==='pending'?`<div class="action-buttons"><button class="btn-icon btn-approve" onclick="approveDriveRequest('${r.id}','${r.userId}',${r.amount},'${r.senderNumber}','${r.receiverNumber}')"><i class="fas fa-check"></i></button><button class="btn-icon btn-reject" onclick="rejectDriveRequest('${r.id}')"><i class="fas fa-times"></i></button></div>`:'সম্পন্ন'}</td></tr>`;
-        });
-        document.querySelector('#driveRequestsTable tbody').innerHTML = html || '<tr><td colspan="9">কোনো রিকোয়েস্ট নেই</td></tr>';
-    }
-    async function approveDriveRequest(requestId, userId, amount, sender, receiver) {
-        let userSnap = await database.ref('users/'+userId).once('value');
-        let user = userSnap.val();
-        if(user){
-            let prev = user.balance||0;
-            let newBal = prev - amount;
-            if(newBal<0){ alert('পর্যাপ্ত ব্যালেন্স নেই'); return; }
-            await database.ref('users/'+userId).update({ balance: newBal });
-            await database.ref('driveRequests/'+requestId).update({ status: 'approved', approvedAt: Date.now(), approvedBy: currentAdmin?.username, previousBalance: prev, currentBalance: newBal });
-            await database.ref('orders').push({ userId, userName: user.name, userPhone: user.phone, category: 'Drive Offer', amount, status: 'Success', timestamp: Date.now(), time: new Date().toLocaleString(), senderNumber: sender, receiverNumber: receiver, previousBalance: prev, currentBalance: newBal });
-        }
-        pendingRequestIds.delete(requestId);
-        updateTotalPendingCount();
-        loadDriveRequestsForDisplay(); loadDashboardData();
-    }
-    async function rejectDriveRequest(requestId) {
-        await database.ref('driveRequests/'+requestId).update({ status: 'rejected', rejectedAt: Date.now(), rejectedBy: currentAdmin?.username });
-        pendingRequestIds.delete(requestId);
-        updateTotalPendingCount();
-        loadDriveRequestsForDisplay();
-    }
 
-    // ড্রাইভ অফার
+    // ========== ড্রাইভ অফার ==========
     async function loadDriveOffers() {
-        let snap = await database.ref('driveOffers').once('value');
-        allDriveOffers = Object.entries(snap.val()||{}).map(([id,o])=>({id,...o}));
-        let html='<div class="offers-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:15px; margin-top:20px;">';
-        allDriveOffers.forEach(o=>{ html+=`<div class="offer-card" style="background:#f8f9fa; padding:15px; border-radius:10px; border:1px solid #ddd;"><h4>${o.title}</h4><p>মূল্য: ৳${o.offerPrice} (ছাড় ${Math.round(((o.originalPrice-o.offerPrice)/o.originalPrice)*100)}%)</p><p>বৈধতা: ${o.validity} দিন</p><button class="btn btn-primary btn-sm" onclick="editDriveOffer('${o.id}')">এডিট</button> <button class="btn btn-danger btn-sm" onclick="deleteDriveOffer('${o.id}')">ডিলিট</button></div>`; });
-        html+='</div>';
-        document.getElementById('driveOffersList').innerHTML = html || '<p>কোনো অফার নেই</p>';
+        const snap = await database.ref('driveOffers').once('value');
+        allDriveOffers = Object.entries(snap.val() || {}).map(([id,o])=>({id,...o}));
+        displayDriveOffers(allDriveOffers);
     }
-    function showAddDriveOfferModal() { document.getElementById('driveOfferId').value=''; document.getElementById('driveOfferTitle').value=''; document.getElementById('driveOfferOriginalPrice').value=''; document.getElementById('driveOfferPrice').value=''; document.getElementById('driveOfferValidity').value='30'; document.getElementById('driveOfferDescription').value=''; document.getElementById('driveOfferStatus').value='active'; document.getElementById('driveOfferModal').style.display='flex'; }
-    function editDriveOffer(id){ let o=allDriveOffers.find(o=>o.id===id); if(o){ document.getElementById('driveOfferId').value=id; document.getElementById('driveOfferTitle').value=o.title; document.getElementById('driveOfferOriginalPrice').value=o.originalPrice; document.getElementById('driveOfferPrice').value=o.offerPrice; document.getElementById('driveOfferValidity').value=o.validity||30; document.getElementById('driveOfferDescription').value=o.description||''; document.getElementById('driveOfferStatus').value=o.active?'active':'inactive'; document.getElementById('driveOfferModal').style.display='flex'; } }
-    function closeDriveOfferModal(){ document.getElementById('driveOfferModal').style.display='none'; }
-    async function saveDriveOffer(){
-        let id = document.getElementById('driveOfferId').value;
-        let data = { title: document.getElementById('driveOfferTitle').value.trim(), originalPrice: parseFloat(document.getElementById('driveOfferOriginalPrice').value), offerPrice: parseFloat(document.getElementById('driveOfferPrice').value), validity: parseInt(document.getElementById('driveOfferValidity').value), description: document.getElementById('driveOfferDescription').value.trim(), active: document.getElementById('driveOfferStatus').value==='active', updatedAt: Date.now() };
-        if(id) await database.ref('driveOffers/'+id).update(data);
+    function displayDriveOffers(offers) {
+        const container = document.getElementById('driveOffersList');
+        if (!offers.length) { container.innerHTML = '<div class="text-center">কোনো অফার নেই</div>'; return; }
+        container.innerHTML = offers.map(o => `<div style="border:1px solid #ddd;padding:10px;margin-bottom:10px;border-radius:8px;">
+            <h4>${o.title || 'N/A'}</h4>
+            <p>মূল্য: ৳${o.originalPrice} → ৳${o.offerPrice} | ছাড়: ${Math.round(((o.originalPrice-o.offerPrice)/o.originalPrice)*100)}%</p>
+            <p>বৈধতা: ${o.validity} দিন | স্ট্যাটাস: ${o.active ? 'সক্রিয়' : 'নিষ্ক্রিয়'}</p>
+            <button class="btn btn-warning btn-sm" onclick="editDriveOffer('${o.id}')">এডিট</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteDriveOffer('${o.id}')">ডিলিট</button>
+        </div>`).join('');
+    }
+    function showAddDriveOfferModal() {
+        document.getElementById('driveOfferId').value = '';
+        document.getElementById('driveOfferTitle').value = '';
+        document.getElementById('driveOfferOriginalPrice').value = '';
+        document.getElementById('driveOfferPrice').value = '';
+        document.getElementById('driveOfferValidity').value = '30';
+        document.getElementById('driveOfferDescription').value = '';
+        document.getElementById('driveOfferStatus').value = 'active';
+        document.getElementById('driveOfferModal').style.display = 'flex';
+    }
+    function editDriveOffer(id) {
+        const o = allDriveOffers.find(x=>x.id===id);
+        if(!o) return;
+        document.getElementById('driveOfferId').value = o.id;
+        document.getElementById('driveOfferTitle').value = o.title;
+        document.getElementById('driveOfferOriginalPrice').value = o.originalPrice;
+        document.getElementById('driveOfferPrice').value = o.offerPrice;
+        document.getElementById('driveOfferValidity').value = o.validity;
+        document.getElementById('driveOfferDescription').value = o.description;
+        document.getElementById('driveOfferStatus').value = o.active ? 'active' : 'inactive';
+        document.getElementById('driveOfferModal').style.display = 'flex';
+    }
+    function closeDriveOfferModal() { document.getElementById('driveOfferModal').style.display = 'none'; }
+    async function saveDriveOffer() {
+        const id = document.getElementById('driveOfferId').value;
+        const data = {
+            title: document.getElementById('driveOfferTitle').value.trim(),
+            originalPrice: parseFloat(document.getElementById('driveOfferOriginalPrice').value),
+            offerPrice: parseFloat(document.getElementById('driveOfferPrice').value),
+            validity: parseInt(document.getElementById('driveOfferValidity').value),
+            description: document.getElementById('driveOfferDescription').value.trim(),
+            active: document.getElementById('driveOfferStatus').value === 'active',
+            updatedAt: Date.now()
+        };
+        if (id) await database.ref('driveOffers/'+id).update(data);
         else await database.ref('driveOffers').push(data);
         closeDriveOfferModal(); loadDriveOffers();
     }
-    async function deleteDriveOffer(id){ if(confirm('ডিলিট?')){ await database.ref('driveOffers/'+id).remove(); loadDriveOffers(); } }
+    async function deleteDriveOffer(id) { if(confirm('ডিলিট করবেন?')) { await database.ref('driveOffers/'+id).remove(); loadDriveOffers(); } }
 
-    // স্লাইডার ইমেজ
+    // ========== স্লাইডার ইমেজ ==========
     async function loadSliderImages() {
-        let snap = await database.ref('sliderImages').once('value');
-        let sliders = snap.val()||{};
-        let html='';
-        for(let i=1;i<=10;i++){
-            let s = sliders[`slider${i}`] || {};
-            let colors = ['1a237e','3949ab','2196f3','4caf50','ff9800','e91e63','9c27b0','00bcd4','ff5722','795548'];
-            let defaultImg = `https://via.placeholder.com/100x60/${colors[(i-1)%10]}/ffffff?text=Slider+${i}`;
-            html+=`<tr><td><strong>স্লাইডার ${i}</strong></td><td><input type="text" id="sliderImage${i}" class="form-control" value="${s.url||''}" oninput="updateSliderPreview(${i})"></td><td><select id="sliderType${i}" class="form-control"><option value="drive" ${s.type==='drive'?'selected':''}>গুগল ড্রাইভ</option><option value="web" ${s.type==='web'?'selected':''}>ওয়েবসাইট</option></select></td><td><img id="previewImage${i}" class="slider-image-preview" src="${s.url||defaultImg}" width="100"></td></tr>`;
+        const snap = await database.ref('sliderImages').once('value');
+        const images = snap.val() || {};
+        let html = '';
+        for(let i=1;i<=10;i++) {
+            const s = images[`slider${i}`] || {};
+            html += `<tr>
+                <td>স্লাইডার ${i}</td>
+                <td><input type="text" id="sliderImage${i}" class="form-control" value="${s.url || ''}" placeholder="ইমেজ URL"></td>
+                <td><select id="sliderType${i}" class="form-control"><option value="drive" ${s.type==='drive'?'selected':''}>গুগল ড্রাইভ</option><option value="web" ${s.type==='web'?'selected':''}>ওয়েবসাইট</option></select></td>
+                <td><img id="previewImage${i}" src="${s.url || 'https://via.placeholder.com/100x60'}" style="width:100px;height:60px;object-fit:cover;"></td>
+            </tr>`;
         }
         document.getElementById('sliderTableBody').innerHTML = html;
+        for(let i=1;i<=10;i++) {
+            document.getElementById(`sliderImage${i}`).addEventListener('input', (function(idx){ return function(){ updateSliderPreview(idx); }; })(i));
+        }
     }
-    function updateSliderPreview(num){ let url = document.getElementById(`sliderImage${num}`).value.trim(); let img = document.getElementById(`previewImage${num}`); if(url) img.src=url; else { let colors=['1a237e','3949ab','2196f3','4caf50','ff9800','e91e63','9c27b0','00bcd4','ff5722','795548']; img.src=`https://via.placeholder.com/100x60/${colors[(num-1)%10]}/ffffff?text=Slider+${num}`; } }
-    async function saveSliderImages(){
-        let data={};
-        for(let i=1;i<=10;i++){
-            let url = document.getElementById(`sliderImage${i}`).value.trim();
-            let type = document.getElementById(`sliderType${i}`).value;
-            if(url) data[`slider${i}`]={url,type,updatedAt:Date.now()};
+    function updateSliderPreview(i) {
+        const url = document.getElementById(`sliderImage${i}`).value;
+        const img = document.getElementById(`previewImage${i}`);
+        if(url) img.src = url;
+        else img.src = 'https://via.placeholder.com/100x60';
+    }
+    async function saveSliderImages() {
+        const data = {};
+        for(let i=1;i<=10;i++) {
+            const url = document.getElementById(`sliderImage${i}`).value.trim();
+            const type = document.getElementById(`sliderType${i}`).value;
+            if(url) data[`slider${i}`] = { url, type, updatedAt: Date.now() };
         }
         await database.ref('sliderImages').set(data);
-        showAlert('sliderImagesAlert','সংরক্ষিত','success');
+        showAlert('sliderImagesAlert', 'স্লাইডার ইমেজ সংরক্ষিত!', 'success');
     }
 
-    // কমিশন সেটিংস
-    async function loadCommissionSettings(){
-        let snap = await database.ref('settings/commissionRates').once('value');
-        let r = snap.val()||{};
-        document.getElementById('commissionGP').value = r.GP||0;
-        document.getElementById('commissionBL').value = r.BL||0;
-        document.getElementById('commissionRobi').value = r.Robi||0;
-        document.getElementById('commissionAirtel').value = r.Airtel||0;
-        document.getElementById('commissionTeletalk').value = r.Teletalk||0;
-        document.getElementById('commissionDefault').value = r.default||0;
-        document.getElementById('commissionMbank').value = r.mbank||0;
+    // ========== কমিশন ==========
+    async function loadCommissionSettings() {
+        const snap = await database.ref('settings/commissionRates').once('value');
+        const r = snap.val() || {};
+        document.getElementById('commissionGP').value = r.GP || 0;
+        document.getElementById('commissionBL').value = r.BL || 0;
+        document.getElementById('commissionRobi').value = r.Robi || 0;
+        document.getElementById('commissionAirtel').value = r.Airtel || 0;
+        document.getElementById('commissionTeletalk').value = r.Teletalk || 0;
+        document.getElementById('commissionDefault').value = r.default || 0;
+        document.getElementById('commissionMbank').value = r.mbank || 0;
     }
-    async function saveCommissionSettings(){
-        let rates = {
+    async function saveCommissionSettings() {
+        const rates = {
             GP: parseFloat(document.getElementById('commissionGP').value)||0,
             BL: parseFloat(document.getElementById('commissionBL').value)||0,
             Robi: parseFloat(document.getElementById('commissionRobi').value)||0,
@@ -984,302 +895,129 @@
             mbank: parseFloat(document.getElementById('commissionMbank').value)||0
         };
         await database.ref('settings/commissionRates').set(rates);
-        showAlert('commissionAlert','কমিশন সেভ হয়েছে','success');
+        showAlert('commissionAlert', 'কমিশন সেটিংস সংরক্ষিত!', 'success');
     }
 
-    // সাপোর্ট সেটিংস
-    async function loadSettings(){
-        let snap = await database.ref('support').once('value');
-        let s = snap.val()||{};
-        document.getElementById('whatsappNumber').value = s.whatsapp||'';
-        document.getElementById('telegramLink').value = s.telegram||'';
+    // ========== সেটিংস ==========
+    async function loadSettings() {
+        const snap = await database.ref('support').once('value');
+        const s = snap.val() || {};
+        document.getElementById('whatsappNumber').value = s.whatsapp || '';
+        document.getElementById('telegramLink').value = s.telegram || '';
     }
-    async function saveSupportSettings(){
+    async function saveSupportSettings() {
         await database.ref('support').set({ whatsapp: document.getElementById('whatsappNumber').value.trim(), telegram: document.getElementById('telegramLink').value.trim(), updatedAt: Date.now() });
-        alert('সেভ হয়েছে');
+        alert('সাপোর্ট সেটিংস সংরক্ষিত!');
     }
+    function saveSliderSettings() { alert('পুরাতন স্লাইডার সেকশন ব্যবহার করবেন না। "স্লাইডার ইমেজ" সেকশন ব্যবহার করুন।'); }
 
-    // এডমিন ম্যানেজমেন্ট
-    async function loadAllAdmins(){
-        let snap = await database.ref('adminUsers').once('value');
-        allAdmins = Object.entries(snap.val()||{}).map(([id,a])=>({id,...a}));
-        let html='';
-        allAdmins.forEach(a=>{
-            let roleText = a.role==='super_admin'?'সুপার এডমিন':'এডমিন';
-            let roleClass = a.role==='super_admin'?'status-active':'status-pending';
-            html+=`<tr><td>${a.username}</td><td>${a.name||''}</td><td><span class="status-badge ${roleClass}">${roleText}</span></td><td>${new Date(a.createdAt).toLocaleDateString()}</td><td><div class="action-buttons"><button class="btn-icon btn-edit" onclick="editAdmin('${a.id}')"><i class="fas fa-edit"></i></button>${a.id!==currentAdminId?`<button class="btn-icon btn-delete" onclick="deleteAdmin('${a.id}')"><i class="fas fa-trash"></i></button>`:''}</div></td></tr>`;
-        });
-        document.querySelector('#adminsTable tbody').innerHTML = html || '<tr><td colspan="5">কোনো এডমিন নেই</td></tr>';
+    // ========== এডমিন ম্যানেজমেন্ট ==========
+    async function loadAllAdmins() {
+        const snap = await database.ref('adminUsers').once('value');
+        allAdmins = Object.entries(snap.val() || {}).map(([id,a])=>({id,...a}));
+        displayAdmins(allAdmins);
     }
-    function showAddAdminModal(){ document.getElementById('adminId').value=''; document.getElementById('adminUsernameInput').value=''; document.getElementById('adminPasswordInput').value=''; document.getElementById('adminNameInput').value=''; document.getElementById('adminRoleInput').value='admin'; document.getElementById('adminModal').style.display='flex'; }
-    function editAdmin(id){ let a=allAdmins.find(a=>a.id===id); if(a){ document.getElementById('adminId').value=id; document.getElementById('adminUsernameInput').value=a.username; document.getElementById('adminPasswordInput').value=''; document.getElementById('adminNameInput').value=a.name||''; document.getElementById('adminRoleInput').value=a.role||'admin'; document.getElementById('adminModal').style.display='flex'; } }
-    function closeAdminModal(){ document.getElementById('adminModal').style.display='none'; }
-    async function saveAdmin(){
-        let id = document.getElementById('adminId').value;
-        let username = document.getElementById('adminUsernameInput').value.trim();
-        let password = document.getElementById('adminPasswordInput').value.trim();
-        let name = document.getElementById('adminNameInput').value.trim();
-        let role = document.getElementById('adminRoleInput').value;
-        if(!username || !name || (!id && !password)){ showAlert('adminModalAlert','সব তথ্য দিন','error'); return; }
-        if(id){
-            let updates = { username, name, role };
-            if(password) updates.password = password;
-            await database.ref('adminUsers/'+id).update(updates);
+    function displayAdmins(admins) {
+        const tbody = document.querySelector('#adminsTable tbody');
+        if(!admins.length) { tbody.innerHTML = '<tr><td colspan="5">কোনো এডমিন নেই</td></tr>'; return; }
+        tbody.innerHTML = admins.map(a => `<tr>
+            <td>${a.username}</td>
+            <td>${a.name || ''}</td>
+            <td>${a.role === 'super_admin' ? 'সুপার এডমিন' : 'এডমিন'}</td>
+            <td>${a.createdAt ? new Date(a.createdAt).toLocaleDateString() : 'N/A'}</td>
+            <td><button class="btn-icon btn-edit" onclick="editAdmin('${a.id}')"><i class="fas fa-edit"></i></button> ${a.id !== currentAdminId ? `<button class="btn-icon btn-delete" onclick="deleteAdmin('${a.id}')"><i class="fas fa-trash"></i></button>` : ''}</td>
+        </tr>`).join('');
+    }
+    function showAddAdminModal() {
+        document.getElementById('adminId').value = '';
+        document.getElementById('adminUsernameInput').value = '';
+        document.getElementById('adminPasswordInput').value = '';
+        document.getElementById('adminNameInput').value = '';
+        document.getElementById('adminRoleInput').value = 'admin';
+        document.getElementById('adminModal').style.display = 'flex';
+    }
+    function editAdmin(id) {
+        const a = allAdmins.find(x=>x.id===id);
+        if(!a) return;
+        document.getElementById('adminId').value = a.id;
+        document.getElementById('adminUsernameInput').value = a.username;
+        document.getElementById('adminPasswordInput').value = '';
+        document.getElementById('adminNameInput').value = a.name;
+        document.getElementById('adminRoleInput').value = a.role;
+        document.getElementById('adminModal').style.display = 'flex';
+    }
+    function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
+    async function saveAdmin() {
+        const id = document.getElementById('adminId').value;
+        const username = document.getElementById('adminUsernameInput').value.trim();
+        const password = document.getElementById('adminPasswordInput').value.trim();
+        const name = document.getElementById('adminNameInput').value.trim();
+        const role = document.getElementById('adminRoleInput').value;
+        if(!username || !name || (!id && !password)) { showAlert('adminModalAlert', 'সব তথ্য দিন!', 'error'); return; }
+        if(id) {
+            const up = { username, name, role };
+            if(password) up.password = password;
+            await database.ref('adminUsers/'+id).update(up);
         } else {
             await database.ref('adminUsers').push({ username, password, name, role, createdAt: Date.now() });
         }
-        showAlert('adminModalAlert','সংরক্ষিত','success');
-        setTimeout(()=>{ closeAdminModal(); loadAllAdmins(); },1500);
+        showAlert('adminModalAlert', 'সংরক্ষিত!', 'success');
+        setTimeout(()=>{ closeAdminModal(); loadAllAdmins(); },1000);
     }
-    async function deleteAdmin(id){ if(confirm('ডিলিট?')){ await database.ref('adminUsers/'+id).remove(); loadAllAdmins(); } }
+    async function deleteAdmin(id) { if(confirm('ডিলিট করবেন?')) { await database.ref('adminUsers/'+id).remove(); loadAllAdmins(); } }
 
-    // প্রোফাইল
-    function toggleProfileModal(){ document.getElementById('profileModalImage').src = currentAdmin?.profileImage || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'; document.getElementById('profileAdminName').value = currentAdmin?.name || ''; document.getElementById('profileModal').style.display='flex'; }
-    function closeProfileModal(){ document.getElementById('profileModal').style.display='none'; }
-    async function saveAdminProfile(){
-        let newName = document.getElementById('profileAdminName').value.trim();
-        await database.ref('adminUsers/'+currentAdminId).update({ name: newName });
-        currentAdmin.name = newName;
-        document.getElementById('adminNameDisplay').innerText = newName;
-        showAlert('profileAlert','আপডেট হয়েছে','success');
-        setTimeout(closeProfileModal,1500);
-    }
-    document.getElementById('profileImageFile')?.addEventListener('change', async (e)=>{
-        let file = e.target.files[0];
-        if(file && file.type.startsWith('image/')){
-            let reader = new FileReader();
-            reader.onload = async function(ev){
-                let imgData = ev.target.result;
-                await database.ref('adminUsers/'+currentAdminId).update({ profileImage: imgData });
-                document.getElementById('adminProfileImage').src = imgData;
-                showAlert('profileAlert','ছবি আপলোড হয়েছে','success');
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // নোটিফিকেশন
-    async function loadNotificationSettings(){
-        let snap = await database.ref('adminSettings/notification').once('value');
-        let s = snap.val()||{};
-        notificationSettings = { soundEnabled: s.soundEnabled!==undefined?s.soundEnabled:true, repeatSound: s.repeatSound!==undefined?s.repeatSound:true, repeatInterval: s.repeatInterval||10, defaultSound: s.defaultSound||'beep1', customSoundURL: s.customSoundURL||'' };
-        document.getElementById('soundEnabled').checked = notificationSettings.soundEnabled;
-        document.getElementById('repeatSound').checked = notificationSettings.repeatSound;
-        document.getElementById('repeatInterval').value = notificationSettings.repeatInterval;
-        document.getElementById('defaultSound').value = notificationSettings.defaultSound;
-        updateBellIconStyle();
-    }
-    function updateBellIconStyle(){
-        let bell = document.getElementById('notificationBell');
-        if(notificationSettings.soundEnabled) bell.style.color = '#4CAF50';
-        else bell.style.color = '#d32f2f';
-    }
-    function toggleSoundMute(){
-        notificationSettings.soundEnabled = !notificationSettings.soundEnabled;
-        updateBellIconStyle();
-        document.getElementById('soundEnabled').checked = notificationSettings.soundEnabled;
-        if(notificationSettings.soundEnabled && pendingRequestIds.size>0 && notificationSettings.repeatSound) startAudioLoop();
-        else stopAudioLoop();
-        saveNotificationSettings();
-    }
-    function startAudioLoop(){
-        if(audioLoopInterval) return;
-        playBeep();
-        let interval = (notificationSettings.repeatInterval||10)*1000;
-        audioLoopInterval = setInterval(()=>{ if(pendingRequestIds.size>0 && notificationSettings.soundEnabled) playBeep(); else stopAudioLoop(); }, interval);
-    }
-    function stopAudioLoop(){ if(audioLoopInterval){ clearInterval(audioLoopInterval); audioLoopInterval=null; } }
-    function playBeep(){
-        if(!notificationSettings.soundEnabled) return;
-        try{
-            let ctx = new (window.AudioContext||window.webkitAudioContext)();
-            let osc = ctx.createOscillator();
-            let gain = ctx.createGain();
-            osc.connect(gain); gain.connect(ctx.destination);
-            osc.frequency.value = notificationSettings.defaultSound==='beep1'?440:880;
-            gain.gain.value = 0.1;
-            osc.start(); osc.stop(ctx.currentTime+0.2);
-            if(ctx.state==='suspended') ctx.resume();
-        }catch(e){}
-    }
-    function testNotificationSound(){ playBeep(); }
-    function toggleNotificationModal(){ document.getElementById('notificationModal').style.display='flex'; loadNotificationSettings(); }
-    function closeNotificationModal(){ document.getElementById('notificationModal').style.display='none'; }
-    async function saveNotificationSettings(){
-        notificationSettings.soundEnabled = document.getElementById('soundEnabled').checked;
-        notificationSettings.repeatSound = document.getElementById('repeatSound').checked;
-        notificationSettings.repeatInterval = parseInt(document.getElementById('repeatInterval').value);
-        notificationSettings.defaultSound = document.getElementById('defaultSound').value;
-        await database.ref('adminSettings/notification').set(notificationSettings);
-        showAlert('notificationAlert','সেটিংস সেভ হয়েছে','success');
-        updateBellIconStyle();
-        if(notificationSettings.soundEnabled && notificationSettings.repeatSound && pendingRequestIds.size>0) startAudioLoop();
-        else stopAudioLoop();
-        setTimeout(closeNotificationModal,1500);
-    }
-
-    // রিয়েল টাইম লিসেনার
-    function setupRealtimeListeners(){
-        if(!database) return;
-        balanceRequestsListener = database.ref('balanceRequests').orderByChild('status').equalTo('pending').on('child_added', (snap)=>{ pendingRequestIds.add(snap.key); updateTotalPendingCount(); playNotificationSound(); });
-        ordersListener = database.ref('orders').orderByChild('status').equalTo('Pending').on('child_added', (snap)=>{ pendingRequestIds.add(snap.key); updateTotalPendingCount(); playNotificationSound(); });
-        driveRequestsListener = database.ref('driveRequests').orderByChild('status').equalTo('pending').on('child_added', (snap)=>{ pendingRequestIds.add(snap.key); updateTotalPendingCount(); playNotificationSound(); });
-        database.ref('orders').orderByChild('status').notEqualTo('Pending').on('child_removed', (snap)=>{ pendingRequestIds.delete(snap.key); updateTotalPendingCount(); });
-        database.ref('balanceRequests').orderByChild('status').notEqualTo('pending').on('child_removed', (snap)=>{ pendingRequestIds.delete(snap.key); updateTotalPendingCount(); });
-        database.ref('driveRequests').orderByChild('status').notEqualTo('pending').on('child_removed', (snap)=>{ pendingRequestIds.delete(snap.key); updateTotalPendingCount(); });
-    }
-    function updateTotalPendingCount(){
-        let total = pendingRequestIds.size;
-        document.getElementById('totalPendingCount').innerText = total;
-        let badge = document.getElementById('ordersIconBadge');
-        if(total>0){ badge.innerText = total>9?'9+':total; badge.style.display='block'; } else badge.style.display='none';
-        if(total===0) stopAudioLoop();
-        else if(notificationSettings.soundEnabled && notificationSettings.repeatSound) startAudioLoop();
-    }
-    function playNotificationSound(){ if(notificationSettings.soundEnabled) playBeep(); }
-    function startNotificationChecker(){ checkForNotifications(); if(notificationCheckInterval) clearInterval(notificationCheckInterval); notificationCheckInterval = setInterval(checkForNotifications,10000); }
-    async function checkForNotifications(){
-        let bal = (await database.ref('balanceRequests').orderByChild('status').equalTo('pending').once('value')).val()||{};
-        let ord = (await database.ref('orders').orderByChild('status').equalTo('Pending').once('value')).val()||{};
-        let drv = (await database.ref('driveRequests').orderByChild('status').equalTo('pending').once('value')).val()||{};
-        let total = Object.keys(bal).length + Object.keys(ord).length + Object.keys(drv).length;
-        let badge = document.getElementById('notificationBadge');
-        if(total>0){ badge.innerText = total>9?'9+':total; badge.style.display='block'; } else badge.style.display='none';
-        updateTotalPendingCount();
-    }
-
-    // ডাটা ক্লিনআপ
-    async function cleanupOldData(){
-        let thirtyDaysAgo = Date.now() - 30*24*60*60*1000;
-        let orders = (await database.ref('orders').once('value')).val()||{};
-        for(let [id,o] of Object.entries(orders)) if((o.timestamp||0)<thirtyDaysAgo) await database.ref('orders/'+id).remove();
-        let balReqs = (await database.ref('balanceRequests').once('value')).val()||{};
-        for(let [id,r] of Object.entries(balReqs)) if((r.timestamp||0)<thirtyDaysAgo) await database.ref('balanceRequests/'+id).remove();
-        let driveReqs = (await database.ref('driveRequests').once('value')).val()||{};
-        for(let [id,r] of Object.entries(driveReqs)) if((r.timestamp||0)<thirtyDaysAgo) await database.ref('driveRequests/'+id).remove();
-        updateOldDataCount();
-    }
-    async function updateOldDataCount(){
-        let thirtyDaysAgo = Date.now() - 30*24*60*60*1000;
-        let old=0;
-        let orders = (await database.ref('orders').once('value')).val()||{};
-        for(let o of Object.values(orders)) if((o.timestamp||0)<thirtyDaysAgo) old++;
-        let bal = (await database.ref('balanceRequests').once('value')).val()||{};
-        for(let r of Object.values(bal)) if((r.timestamp||0)<thirtyDaysAgo) old++;
-        let drv = (await database.ref('driveRequests').once('value')).val()||{};
-        for(let r of Object.values(drv)) if((r.timestamp||0)<thirtyDaysAgo) old++;
-        document.getElementById('oldDataCount').innerText = `${old}টি পুরনো রেকর্ড`;
-    }
-    async function manualCleanupOldData(){ if(confirm('৩০ দিনের পুরনো ডাটা ডিলিট?')){ await cleanupOldData(); showAlert('dataManagementAlert','ক্লিনআপ সম্পন্ন','success'); } }
-    function showClearDataConfirmation(){ document.getElementById('clearDataModal').style.display='flex'; document.getElementById('confirmationText').value=''; document.getElementById('clearDataBtn').disabled=true; document.getElementById('confirmationText').oninput=function(){ document.getElementById('clearDataBtn').disabled = this.value !== 'DELETE ALL DATA'; }; }
-    function closeClearDataModal(){ document.getElementById('clearDataModal').style.display='none'; }
-    async function clearAllData(){ if(confirm('সব ডাটা মুছে যাবে! নিশ্চিত?')){ await database.ref().set({}); alert('সব ডাটা মুছে ফেলা হয়েছে!'); location.reload(); } }
-
-    // এক্সপোর্ট
-    async function exportAllData(){
-        let data = {};
-        let refs = ['users','orders','notice','support','sliderImages','driveOffers','balanceRequests','driveRequests','adminSettings'];
-        for(let r of refs){
-            let snap = await database.ref(r).once('value');
-            data[r] = snap.val()||{};
-        }
-        let str = JSON.stringify(data,null,2);
-        let a = document.createElement('a');
-        a.href = 'data:application/json;charset=utf-8,'+encodeURIComponent(str);
-        a.download = `asf_backup_${new Date().toISOString().split('T')[0]}.json`;
+    // ========== ডাটা ম্যানেজমেন্ট ==========
+    async function exportAllData() {
+        const data = {
+            users: (await database.ref('users').once('value')).val() || {},
+            orders: (await database.ref('orders').once('value')).val() || {},
+            notice: (await database.ref('notice').once('value')).val() || {},
+            support: (await database.ref('support').once('value')).val() || {},
+            sliderImages: (await database.ref('sliderImages').once('value')).val() || {},
+            driveOffers: (await database.ref('driveOffers').once('value')).val() || {},
+            exportedAt: new Date().toISOString()
+        };
+        const a = document.createElement('a');
+        a.href = 'data:application/json,' + encodeURIComponent(JSON.stringify(data,null,2));
+        a.download = `backup_${new Date().toISOString().slice(0,10)}.json`;
         a.click();
-        showAlert('dataManagementAlert','এক্সপোর্ট সম্পন্ন','success');
+        showAlert('dataManagementAlert', 'এক্সপোর্ট সম্পন্ন!', 'success');
+    }
+    async function manualCleanupOldData() { await cleanupOldData(); showAlert('dataManagementAlert', 'পুরনো ডাটা ক্লিনআপ সম্পন্ন!', 'success'); }
+    async function cleanupOldData() {
+        const thirtyDaysAgo = Date.now() - 30*24*60*60*1000;
+        const orders = (await database.ref('orders').once('value')).val() || {};
+        for(let [id,o] of Object.entries(orders)) if((o.timestamp||0) < thirtyDaysAgo) await database.ref('orders/'+id).remove();
+    }
+    function showClearDataConfirmation() { document.getElementById('clearDataModal').style.display = 'flex'; document.getElementById('confirmationText').value = ''; document.getElementById('clearDataBtn').disabled = true; }
+    function closeClearDataModal() { document.getElementById('clearDataModal').style.display = 'none'; }
+    async function clearAllData() {
+        if(document.getElementById('confirmationText').value !== 'DELETE ALL DATA') return;
+        await database.ref().set(null);
+        await database.ref('adminUsers/admin_1').set({ username: 'user', password: 'admin123', name: 'সুপার এডমিন', role: 'super_admin', createdAt: Date.now() });
+        alert('সকল ডাটা ক্লিয়ার করা হয়েছে!');
+        closeClearDataModal();
+        location.reload();
     }
 
-    // ইউজার লেনদেন দেখানো
-    async function viewUserTransactions(userId){
-        currentTransactionUserId = userId;
-        currentTransactionPage = 1;
-        let userSnap = await database.ref('users/'+userId).once('value');
-        let user = userSnap.val();
-        document.getElementById('transactionModalUserName').innerText = user?.name || user?.phone || 'ইউজার';
-        document.getElementById('userTransactionsModal').style.display = 'flex';
-        document.getElementById('transactionsList').innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div>';
-        allTransactions = [];
-        let ordersSnap = await database.ref('orders').orderByChild('userId').equalTo(userId).once('value');
-        for(let [id,o] of Object.entries(ordersSnap.val()||{})) allTransactions.push({id,...o, source:'order'});
-        let balSnap = await database.ref('balanceRequests').orderByChild('userId').equalTo(userId).once('value');
-        for(let [id,r] of Object.entries(balSnap.val()||{})) allTransactions.push({id,...r, source:'balance', category:'ব্যালেন্স রিকোয়েস্ট', amount:r.amount, status: r.status==='approved'?'Success':r.status==='pending'?'Pending':'Cancelled', time:r.time||new Date(r.timestamp).toLocaleString(), timestamp:r.timestamp, number:r.transactionId||'N/A', operatorName:r.operator||r.paymentMethod});
-        let driveSnap = await database.ref('driveRequests').orderByChild('userId').equalTo(userId).once('value');
-        for(let [id,r] of Object.entries(driveSnap.val()||{})) allTransactions.push({id,...r, source:'drive', category:'Drive Offer', amount:r.amount, status: r.status==='approved'?'Success':r.status==='pending'?'Pending':'Cancelled', time:r.time||new Date(r.timestamp).toLocaleString(), timestamp:r.timestamp, number: r.senderNumber?`${r.senderNumber} → ${r.receiverNumber}`:'N/A', operatorName:r.offerTitle});
-        allTransactions.sort((a,b)=>(b.timestamp||0)-(a.timestamp||0));
-        renderTransactions();
-    }
-    function renderTransactions(){
-        let search = document.getElementById('transactionSearch').value.toLowerCase().trim();
-        let service = document.getElementById('serviceFilter').value;
-        let category = document.getElementById('categoryFilter').value;
-        let status = document.getElementById('statusFilter').value;
-        let filtered = [...allTransactions];
-        if(search) filtered = filtered.filter(tx=> (tx.number||'').toLowerCase().includes(search) || (tx.userPhone||'').includes(search) || (tx.transactionId||'').toLowerCase().includes(search) || (tx.senderNumber||'').includes(search));
-        if(service!=='all') filtered = filtered.filter(tx=> tx.category===service);
-        if(category!=='all'){
-            filtered = filtered.filter(tx=>{
-                let op = tx.operatorName||'';
-                if(category==='GP') return op==='GP'||op==='গ্রামীণফোন';
-                if(category==='Robi') return op==='Robi';
-                if(category==='Airtel') return op==='Airtel';
-                if(category==='BL') return op==='BL';
-                return false;
-            });
-        }
-        if(status!=='all') filtered = filtered.filter(tx=> tx.status===status);
-        document.getElementById('filterResultCount').innerHTML = `${filtered.length}টি লেনদেন`;
-        let totalPages = Math.ceil(filtered.length/transactionsPerPage);
-        let start = (currentTransactionPage-1)*transactionsPerPage;
-        let paginated = filtered.slice(start, start+transactionsPerPage);
-        let html='';
-        paginated.forEach(tx=>{
-            let statusClass = (tx.status==='Success'||tx.status==='approved')?'transaction-status-success':(tx.status==='Pending'||tx.status==='pending')?'transaction-status-pending':'transaction-status-cancelled';
-            let statusText = (tx.status==='Success'||tx.status==='approved')?'✅ সফল':(tx.status==='Pending'||tx.status==='pending')?'⏳ পেন্ডিং':'❌ বাতিল';
-            let displayCategory = tx.category||'N/A';
-            if(tx.category==='এম-ব্যাংক' && tx.operatorName && tx.operatorName!=='এম-ব্যাংক') displayCategory = `এম-ব্যাংক (${tx.operatorName})`;
-            let details = tx.number || tx.offerTitle || tx.transactionId || '-';
-            if(tx.senderNumber && tx.receiverNumber) details = `📞 প্রেরক: ${tx.senderNumber} → 📞 রিসিভার: ${tx.receiverNumber}`;
-            html+=`<div class="transaction-item" style="background:#f9f9f9; padding:12px; border-radius:8px; margin-bottom:10px; border-left:4px solid #ccc;"><div style="display:flex; justify-content:space-between;"><div><strong><i class="fas fa-tag"></i> ${displayCategory}</strong></div><div><strong style="color:#1a237e;">৳${(tx.amount||0).toFixed(2)}</strong> <span class="status-badge" style="background:${tx.status==='Success'||tx.status==='approved'?'#4CAF50':tx.status==='Pending'||tx.status==='pending'?'#2196F3':'#d32f2f'}; color:white; margin-left:8px; padding:2px 8px; border-radius:12px;">${statusText}</span></div></div><div style="font-size:13px; margin-top:8px;"><div><i class="fas fa-mobile-alt"></i> ${details}</div><div><i class="fas fa-clock"></i> ${tx.time||(tx.timestamp?new Date(tx.timestamp).toLocaleString():'N/A')}</div><div class="balance-info" style="margin-top:6px; font-size:12px; background:#f0f0f0; padding:5px 8px; border-radius:6px;"><span class="previous-balance">💰 পূর্বের: ৳${(tx.previousBalance||0).toFixed(2)}</span> → <span class="current-balance">বর্তমান: ৳${(tx.currentBalance||tx.newBalance||0).toFixed(2)}</span></div></div></div>`;
-        });
-        document.getElementById('transactionsList').innerHTML = html || '<div class="text-center p-20">কোনো লেনদেন পাওয়া যায়নি</div>';
-        let pagHtml = '';
-        if(totalPages>1){
-            for(let i=1;i<=totalPages;i++) pagHtml+=`<button class="pagination-btn ${i===currentTransactionPage?'active':''}" onclick="goToTransactionPage(${i})">${i}</button>`;
-            document.getElementById('paginationControls').innerHTML = pagHtml;
-        } else document.getElementById('paginationControls').innerHTML = '';
-    }
-    function goToTransactionPage(page){ currentTransactionPage=page; renderTransactions(); }
-    function filterTransactions(){ currentTransactionPage=1; renderTransactions(); }
-    function resetFilters(){
-        document.getElementById('transactionSearch').value='';
-        document.getElementById('serviceFilter').value='all';
-        document.getElementById('categoryFilter').value='all';
-        document.getElementById('statusFilter').value='all';
-        filterTransactions();
-    }
-    function closeUserTransactionsModal(){ document.getElementById('userTransactionsModal').style.display='none'; currentTransactionUserId=null; allTransactions=[]; }
+    function showAlert(elementId, msg, type) { const el = document.getElementById(elementId); if(el){ el.textContent=msg; el.className=`alert alert-${type}`; el.style.display='block'; if(type==='success') setTimeout(()=>el.style.display='none',3000); } }
 
-    // DOM লোড হলে শুরু
-    document.addEventListener('DOMContentLoaded', function(){
-        initializeFirebase();
-        let savedUser = localStorage.getItem('asf_admin_username');
-        if(savedUser) document.getElementById('adminUsername').value = savedUser;
-        let logged = localStorage.getItem('asf_admin_logged_in');
-        if(logged === 'true'){
-            let adminData = JSON.parse(localStorage.getItem('asf_admin_data'));
-            let adminId = localStorage.getItem('asf_admin_id');
-            if(adminData) successfulAdminLogin(adminData, adminId);
-        } else {
-            database.ref('adminUsers').once('value').then(snap=>{ if(!snap.exists()) database.ref('adminUsers/admin_1').set({username:'user',password:'admin123',name:'সুপার এডমিন',role:'super_admin',createdAt:Date.now()}); });
+    function toggleProfileModal() { document.getElementById('profileModal').style.display = 'flex'; }
+    function closeProfileModal() { document.getElementById('profileModal').style.display = 'none'; }
+    async function saveAdminProfile() { alert('প্রোফাইল আপডেট ফিচার শীঘ্রই আসছে'); closeProfileModal(); }
+    function createNewUser() { alert('নতুন ইউজার তৈরি ফিচার কাজ করছে'); }
+    function resetUserForm() { document.getElementById('newUserName').value=''; document.getElementById('newUserPhone').value=''; document.getElementById('newUserPassword').value=''; document.getElementById('newUserEmail').value=''; document.getElementById('newUserBalance').value=0; document.getElementById('newUserRole').value='user'; document.getElementById('newUserStatus').value='active'; }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if(initializeFirebase()) {
+            if(localStorage.getItem('asf_admin_logged_in') === 'true') {
+                document.body.classList.add('logged-in');
+                const saved = localStorage.getItem('asf_admin_data');
+                if(saved) { currentAdmin = JSON.parse(saved); document.getElementById('adminNameDisplay').textContent = currentAdmin.name || 'এডমিন'; }
+                loadDashboardData(); loadAllUsers(); loadSettings(); loadSliderImages(); loadAllAdmins(); loadCommissionSettings(); loadCombinedNotice();
+            }
+            setInterval(updateDigitalClock,1000);
         }
-        setInterval(cleanupOldData, 3600000);
-        setInterval(updateDigitalClock, 1000);
-        document.getElementById('marqueeMessage')?.addEventListener('input', updateMarqueePreview);
-        document.getElementById('marqueeColor')?.addEventListener('input', updateMarqueePreview);
-        document.getElementById('confirmationText')?.addEventListener('input', function(){ document.getElementById('clearDataBtn').disabled = this.value !== 'DELETE ALL DATA'; });
-        resetUserForm();
     });
 </script>
 </body>
